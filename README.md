@@ -1,1 +1,1 @@
-# digital-store
+# Digital Store
