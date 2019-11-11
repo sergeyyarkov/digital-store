@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --mode development"
   },
   "repository": {
     "type": "git",
@@ -18,9 +18,6 @@
   "homepage": "https://github.com/sergeyyarkov/digital-store#readme",
   "dependencies": {},
   "devDependencies": {
-    "eslint": "^6.6.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   }
