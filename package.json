@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/sergeyyarkov/digital-store#readme",
   "dependencies": {
-    "@babel/polyfill": "^7.7.0"
+    "@babel/polyfill": "^7.7.0",
+    "express": "^4.17.1",
+    "pug": "^2.0.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.0",
