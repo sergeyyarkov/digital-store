@@ -1,1 +1,230 @@
-h2 Server is working
+//- Head HTML
+include ./assets/head.pug
+//- Header Template
+include ./assets/templates/header.pug
+
+main.main-section
+  include ./assets/templates/modals/cart.pug
+  include ./assets/templates/modals/pay.pug
+  .container
+    .row
+      // Information Block
+      .col.s12
+        #information.information
+          .information-content.block-content
+            .information-title
+              h2.small-title Важная информация:
+            .information-text
+              p
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita laboriosam
+                | aliquid
+                | maiores similique accusamus est tempora sunt laudantium recusandae! Voluptate
+                | repellat
+                | exercitationem impedit, distinctio maiores dolore eius dicta accusamus amet,
+                | consequatur
+                | tempora, aspernatur vel provident commodi modi id. Quidem ipsa numquam sapiente
+                | eius
+                | adipisci modi nobis! Ipsum, exercitationem. Dolor, ad sit. Dicta corporis
+                | quisquam
+                | laboriosam quo id dolor minima et nulla molestias itaque quia explicabo sint,
+                | perspiciatis
+                | fuga nostrum consequatur odit dolore voluptatem commodi cumque natus? Accusamus
+                | fuga
+                | commodi
+                | molestiae tempore atque provident animi distinctio expedita, temporibus,
+                | voluptates
+                | quisquam
+                | unde. Ipsum numquam delectus repudiandae quasi veritatis omnis, corporis esse
+                | officia
+                | nobis
+                | veniam eos culpa corrupti sit voluptas est dolorem ratione consectetur nostrum
+                | eveniet
+                | dolor
+                | facilis distinctio. Voluptate amet repellendus nesciunt quam perspiciatis a
+                | culpa
+                | aspernatur
+                | repellat quos est ex maxime sequi, delectus ea accusantium molestias, aliquid
+                | velit
+                | dolores
+                | laudantium! Voluptate id officiis porro tenetur nihil dolores ratione ad
+                | suscipit!
+                | Minima.
+            .information-close
+              button.waves-effect.btn.red Закрыть
+      // Information Block END
+
+      // Category Block
+      .col.s12
+        #category.category
+          .category-content.block-content
+            .category-title.block-title
+              i.material-icons filter_list
+              h2.small-title Выберите катерорию:
+            .category-items
+              ul
+                li
+                  a.active(href='#') Все товары:
+                li
+                  a(href='#') Steam
+                li
+                  a(href='#') VKontakte
+                li
+                  a(href='#') Origin
+                li
+                  a(href='#') Warface
+                li
+                  a(href='#') Uplay
+                li
+                  a(href='#') Fortnite
+                li
+                  a(href='#') Instagram
+      // Category Block END
+
+      // Filter Block
+      .col.s12
+        #filter.filter
+          .filter-content.block-content
+            .filter-title.block-title
+              i.material-icons sort
+              h2.small-title Фильтровать товары:
+            .filter-options
+              form(action='#')
+                label
+                  input#ascending.with-gap(type='radio' name='filter')
+                  span Подешевле
+                label
+                  input#descending.with-gap(type='radio' name='filter')
+                  span Подороже
+                label
+                  input#newer.with-gap(type='radio' name='filter')
+                  span Поновее
+                label
+                  input#older.with-gap(type='radio' name='filter')
+                  span Постарее
+      // Filter Block END
+
+      // Items Block
+      .col.s12
+        #items.items
+          .items-content.block-content
+            .items-title.block-title
+              i.material-icons list
+              h2.small-title Список товаров:
+            .items-category
+              h2.small-title Steam
+            .items-list
+              .items-list__name
+                .list-icon
+                  img(src='./img/service-icons/steam.svg' alt='#')
+                .list-title
+                  a(href='#') Cs:go(prime) + открыта тп + инв. 901руб Cs:go(prime) + открыта тп + инв. 901руб.
+              .items-list__info
+                .list-count
+                  span 1 шт.
+                .list-one
+                  span Цена за 1 шт.
+                .list-price
+                  span 145.00₽
+                .list-buttons
+                  button.btn-small.waves-effect.waves-light Купить
+                  button.btn-small.waves-effect.waves-light
+                    i.material-icons shopping_cart
+            .items-list
+              .items-list__name
+                .list-icon
+                  img(src='./img/service-icons/steam.svg' alt='#')
+                .list-title
+                  a(href='#') Cs:go(prime) + открыта тп + инв. 901руб Cs:go(prime) + открыта тп + инв. 901руб.
+              .items-list__info
+                .list-count
+                  span 1 шт.
+                .list-one
+                  span Цена за 1 шт.
+                .list-price
+                  span 145.00₽
+                .list-buttons
+                  button.btn-small.waves-effect.waves-light Купить
+                  button.btn-small.waves-effect.waves-light
+                    i.material-icons shopping_cart
+            .items-category
+              h2.small-title Origin
+            .items-list
+              .items-list__name
+                .list-icon
+                  img(src='./img/service-icons/origin.svg' alt='#')
+                .list-title
+                  a(href='#') Cs:go(prime) + открыта тп + инв. 901руб Cs:go(prime) + открыта тп + инв. 901руб.
+              .items-list__info
+                .list-count
+                  span 1 шт.
+                .list-one
+                  span Цена за 1 шт.
+                .list-price
+                  span 145.00₽
+                .list-buttons
+                  button.btn-small.waves-effect.waves-light Купить
+                  button.btn-small.waves-effect.waves-light
+                    i.material-icons shopping_cart
+            .items-list
+              .items-list__name
+                .list-icon
+                  img(src='./img/service-icons/origin.svg' alt='#')
+                .list-title
+                  a(href='#') Cs:go(prime) + открыта тп + инв. 901руб Cs:go(prime) + открыта тп + инв. 901руб.
+              .items-list__info
+                .list-count
+                  span 1 шт.
+                .list-one
+                  span Цена за 1 шт.
+                .list-price
+                  span 145.00₽
+                .list-buttons
+                  button.btn-small.waves-effect.waves-light Купить
+                  button.btn-small.waves-effect.waves-light
+                    i.material-icons shopping_cart
+            #pagination.items-pagination
+              .divider
+              ul.pagination
+                li.disabled
+                  a(href='#')
+                    i.material-icons chevron_left
+                li.active
+                  a(href='#') 1
+                li.waves-effect
+                  a(href='#') 2
+                li.waves-effect
+                  a(href='#') 3
+                li.waves-effect
+                  a(href='#') 4
+                li.waves-effect
+                  a(href='#') 5
+                li.waves-effect
+                  a(href='#')
+                    i.material-icons chevron_right
+            .items-footer
+              .divider
+              .items-footer__info
+                .items-info__title.block-title
+                  i.material-icons info
+                  h3.med-title Информация
+                p
+                  | Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque quaerat
+                  | voluptatem et dolores repudiandae nulla esse amet incidunt modi! Accusamus
+                  | enim, quia magnam assumenda necessitatibus cupiditate, error facere nulla
+                  | ipsam quos consectetur rerum unde doloremque nisi, ipsa consequuntur odit
+                  | illo facilis ab. Impedit libero architecto suscipit eligendi obcaecati quam
+                  | quis blanditiis sed, optio placeat nulla odio? Facere ipsam in, fugit
+                  | perspiciatis error quaerat pariatur excepturi et cumque tenetur accusamus
+                  | eligendi sed debitis recusandae? Ex voluptas in rerum harum? Nam possimus
+                  | optio similique excepturi, fugit odit. Error voluptatum quidem numquam
+                  | placeat voluptates voluptatem repellat enim dolor quod vitae vero, libero
+                  | perspiciatis corporis sint omnis aspernatur, doloremque rem facilis. Ratione
+                  | inventore, nostrum aliquid dolorum totam harum. Ratione, sapiente
+                  | dignissimos quas quibusdam unde temporibus laudantium nam error, excepturi
+                  | natus porro quo, deserunt aliquid eius numquam iusto a nemo nobis pariatur!
+                  | Amet a porro, sunt quod ipsum atque provident modi ut distinctio at
+                  | expedita.
+      // Items Block END
+
+//- Footer Template
+include ./assets/templates/footer.pug

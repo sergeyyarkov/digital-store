@@ -3560,7 +3560,7 @@ eval("/**\n * Copyright (c) 2014-present, Facebook, Inc.\n *\n * This source cod
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("\n\n//# sourceURL=webpack:///./src/js/index.js?");
+eval("console.log('Js working');\n\n//# sourceURL=webpack:///./src/js/index.js?");
 
 /***/ }),
 
