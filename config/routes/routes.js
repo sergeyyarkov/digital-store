@@ -1,27 +1,37 @@
 const routes = {
     // Index
     indexRoute: function(req, res) {
-        res.render('index');
+        res.render('index', {
+            pageName: 'index'
+        });
     }, 
 
     // How-to-buy
     howToBuyRoute: function(req, res) {
-        res.render('how-to-buy');
+        res.render('how-to-buy', {
+            pageName: 'how-to-buy'
+        });
     },
 
     // Contacts
     contactsRoute: function(req, res) {
-        res.render('contacts');
+        res.render('contacts', {
+            pageName: 'contacts'
+        });
     },
 
     // Comments
     commentsRoute: function(req, res) {
-        res.render('comments');
+        res.render('comments', {
+            pageName: 'comments'
+        });
     },
     
     // My-orders
     myOrdersRoute: function(req, res) {
-        res.render('my-orders');
+        res.render('my-orders', {
+            pageName: 'my-orders'
+        });
     }
 }
 

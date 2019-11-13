@@ -1,4 +1,5 @@
-header
+- var currentPage = pageName;
+header#header
   nav
     // Menu-Mobile Button 
     a.sidenav-trigger(href='#' data-target='slide-out')
@@ -7,40 +8,40 @@ header
       a.brand-logo.waves-effect.waves-light(href='/')
         i.material-icons shop_two
         span#header-title Digital Store
-      ul.right.hide-on-med-and-down
-        li.active
+      ul#desktop-nav.right.hide-on-med-and-down(data-current=currentPage)
+        li#page(data-page='index')
           a(href='/') Главная
-        li
+        li#page(data-page='how-to-buy')
           a(href='/how-to-buy') Как купить товар
-        li
+        li#page(data-page='contacts')
           a(href='/contacts') Контакты
-        li
+        li#page(data-page='comments')
           a(href='/comments') Отзывы
-        li
+        li#page(data-page='my-orders')
           a(href='/my-orders') Мои покупки
   // Menu-Mobile Content 
-  ul#slide-out.sidenav
+  ul#slide-out.sidenav.mobile-nav
     li
       a.subheader Навигация
     li
       .divider
-    li
+    li#page(data-page='index')
       a(href='/')
         i.material-icons home
         | Главная
-    li
+    li#page(data-page='how-to-buy')
       a(href='/how-to-buy')
         i.material-icons info
         | Как купить товар
-    li
+    li#page(data-page='contacts')
       a(href='/contacts')
         i.material-icons contact_support
         | Контакты
-    li
+    li#page(data-page='comments')
       a(href='/comments')
         i.material-icons comment
         | Отзывы
-    li
+    li#page(data-page='my-orders')
       a(href='/my-orders')
         i.material-icons shopping_cart
         | Мои покупки
