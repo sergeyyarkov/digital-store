@@ -19,13 +19,12 @@ h1 {
     color: #5d5d5d;
 }
 
-html {
+html,
+body {
     font-family: "Roboto", sans-serif;
     font-weight: normal;
-}
-
-body {
     background-color: #F3F3F3;
+    height: 100%;
 }
 
 a {
@@ -317,6 +316,7 @@ nav {
 /* Main */
 .main-section {
     margin-top: 6rem;
+    min-height: 100%;
 }
 
 header nav,
@@ -625,7 +625,7 @@ footer .container {
 
 /* Footer */
 footer {
-    margin-top: 5rem;
+    margin-top: 4rem;
     background-color: #25998f;
     padding-top: 10px;
     padding-bottom: 10px;

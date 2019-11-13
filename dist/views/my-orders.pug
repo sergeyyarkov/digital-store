@@ -1,0 +1,33 @@
+//- Head HTML
+include ./assets/head.pug
+//- Header Template
+include ./assets/templates/header.pug
+
+main.main-section
+  include ./assets/templates/modals/cart.pug
+  include ./assets/templates/modals/pay.pug
+  .container
+    .row
+      .col.s12
+        #orders.orders.background
+          .orders-content
+            .orders-title.block-title
+              i.material-icons shopping_cart
+              h1 Мои покупки
+            .orders-text
+              hr
+              p
+                strong Введите почту
+              p &nbsp;
+              form(action='#')
+                .email-field(style='max-width: 400px;margin-bottom: 10px;')
+                  label(for='email') Почта
+                  input#email(required='' type='text' name='email')
+                .show-orders
+                  button.waves-effect.waves-light.btn(type='submit') Узнать
+
+
+
+
+//- Footer Template
+include ./assets/templates/footer.pug
