@@ -6,11 +6,13 @@ export class InformationComponent extends Component {
     }
 
     init() {
-        if (localStorage.getItem('visited')) {
-            this.hide();
+        if (this.$el) {
+            if (localStorage.getItem('visited')) {
+                this.hide();
+            }
+            const btn = this.$el.querySelector('#information-close');
+            btn.addEventListener('click', buttonHandler.bind(this));
         }
-        const btn = this.$el.querySelector('#information-close');
-        btn.addEventListener('click', buttonHandler.bind(this));
     }
 }
 

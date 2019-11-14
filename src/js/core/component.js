@@ -7,10 +7,10 @@ export class Component {
     init() {}
 
     hide() {
-        this.$el.classList.add('hide');
+        this.$el ? this.$el.classList.add('hide') : false
     }
     
     show() {
-        this.$el.classList.remove('hide')
+        this.$el ? this.$el.classList.remove('hide') : false
     }
 }
