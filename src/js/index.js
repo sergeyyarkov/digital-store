@@ -1,6 +1,7 @@
-import { HeaderComponent } from "./components/header.component";
-import { InformationComponent } from "./components/information.component";
+import { HeaderComponent } from "./components/header.component.js";
+import { InformationComponent } from "./components/information.component.js";
+import { CartComponent } from "./components/cart.component.js";
 
-new HeaderComponent('header');
-
+const header = new HeaderComponent('header');
 const information = new InformationComponent('information');
+const cart = new CartComponent('cart');
