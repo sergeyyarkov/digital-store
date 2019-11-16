@@ -13,10 +13,9 @@ export class ItemsComponent extends Component {
         
         if (this.$el) {
             const fData = await apiService.getItems(),
-                items = fData[0].items,
-                categories = Object.keys(items);
+                categories = Object.keys(fData);
             
-            const html = renderItem(categories, items);
+            const html = renderItem(categories, fData);
             this.$el.querySelector('#roster').insertAdjacentHTML('afterbegin', html);
             this.loader.hide();
         }

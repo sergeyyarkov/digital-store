@@ -53,7 +53,7 @@ const routes = {
                     const dbo = db.db('digital_store');
                     dbo.collection('storeInfo').find().toArray((err, result) => {
                         if (err) throw err;
-                        res.send(result);
+                        res.send(result[0].items);
                         db.close();
                     })
                 });
