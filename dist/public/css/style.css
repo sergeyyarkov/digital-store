@@ -79,6 +79,9 @@ hr {
 .hide {
     display: none;
 }
+#roster {
+    min-height: 300px;
+}
 
 
 /* Cart */
@@ -432,6 +435,7 @@ footer .container {
 
 .items-list__info {
     margin-top: 5px;
+    min-width: 435px;
 }
 
 .list-icon,
@@ -455,6 +459,7 @@ footer .container {
     background: #E7E7E7;
     text-align: center;
     border-radius: 15px;
+    min-width: 79px;
 }
 
 .list-price {
