@@ -15,7 +15,7 @@ export function renderItems(categories, items) {
                                 <img src="./img/service-icons/${item.image}" alt="#">
                             </div>
                             <div class="list-title">
-                                <a href="/item/${item._id}">${item.title}</a>
+                                <a href="/product/${item._id}">${item.title}</a>
                             </div>
                         </div>
                         <div class="items-list__info">

@@ -1,0 +1,62 @@
+//- Head HTML
+include ./assets/head.pug
+//- Header Template
+include ./assets/templates/header.pug
+
+main.main-section
+  include ./assets/templates/modals/cart.pug
+  include ./assets/templates/modals/pay.pug
+  .container
+    .row
+      .col.s12
+        #product.product.background
+          .product-content
+            .product-breadcrumb
+              #breadcrumb.breadcrumb
+                ul
+                  li
+                    a(href='/') Главная
+                  li
+                    a(href='/') #{category}
+                  li #{title}
+              hr
+            .product-title.block-title
+              h1 #{title}
+            .product-info
+              .product-info__left
+                .product-left__pay
+                  img(src='../img/service-icons/'+image alt='#')
+                  button.waves-effect.waves-light.btn Купить
+                .product-info__cost
+                  .product-info__count
+                    span #{count} шт
+                  p Цена за 1шт.
+                  .product-info__price
+                    span #{price}
+              .product-info__right
+                .product-right__title
+                  span Описание:
+                  hr
+                  p #{description}
+                .product-right__content
+                  h2 Тип аккаунтов  #{category}
+                  p
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos tempora quidem
+                    | velit facilis exercitationem eveniet porro vitae quisquam officia.
+                    | Explicabo, iure quis doloribus totam nihil esse minus, vero animi ex
+                    | corrupti ea officia, dolor fuga itaque ad deserunt quo. Sint!
+                  h2 Формат аккаунтов #{category}
+                  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, magni.
+                  hr
+                  h3 Рекомендации к покупке аккаунтов.
+                  p
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. A saepe ad, atque
+                    | cum officia ullam similique repudiandae excepturi at accusamus hic deserunt
+                    | molestiae mollitia? Labore numquam officiis natus repellat fugit ipsum
+                    | nesciunt, nam officia? Sunt ut quod provident dolore architecto laborum ab
+                    | repellat ea sequi optio dolorum, tenetur quis eius rerum quibusdam nisi
+                    | minus, debitis non. Impedit molestiae beatae, fugit similique sit labore quo
+                    | incidunt id corporis quia officiis pariatur.
+
+//- Footer Template
+include ./assets/templates/footer.pug

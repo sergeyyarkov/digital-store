@@ -20,13 +20,17 @@ async function buttonHandler(e) {
     e.preventDefault();
     if (e.target.dataset.category && e.target.dataset.category != 'all') {
         this.items.onShow();
+        activeLink(e);
+
         const category = e.target.dataset.category.toLowerCase();
         const fData = await apiService.getItemsOne(category);
         const html = renderItemsOne(category, fData);
+
         this.items.onHide();
         document.querySelector('#roster').insertAdjacentHTML('afterbegin', html);
     } else if (e.target.dataset.category === 'all') {
         this.items.onShow();
+        activeLink(e);
         const fData = await apiService.getItems(),
                 categories = Object.keys(fData);
 
@@ -34,4 +38,9 @@ async function buttonHandler(e) {
         this.items.onHide();
         document.querySelector('#roster').insertAdjacentHTML('afterbegin', html);
     }
+}
+
+function activeLink(e) {
+    e.target.parentNode.parentNode.querySelectorAll('li a').forEach(li => li.classList.remove('active'));
+    e.target.classList.add('active');
 }

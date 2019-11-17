@@ -4,6 +4,7 @@ const path = require('path');
 
 // Pug config
 server.use(express.static(path.join(__dirname, '../dist/public')));
+// server.use('/css', express.static(__dirname + '../dist/public/css'));
 server.set('view engine', 'pug');
 server.set('views', path.join(__dirname, '../dist/views'));
 

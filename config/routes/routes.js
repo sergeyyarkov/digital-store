@@ -1,14 +1,15 @@
 const MongoClient = require('mongodb').MongoClient;
+const dbName = 'digital_store';
 const routes = {
     // Index
     indexRoute: function (req, res) {
-        MongoClient.connect('mongodb://localhost:27017/digital_store', {
+        MongoClient.connect(`mongodb://localhost:27017/${dbName}`, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         }, (err, db) => {
             if (err) throw err;
 
-            const dbo = db.db('digital_store');
+            const dbo = db.db(dbName);
             dbo.collection('storeInfo').find().toArray((err, result) => {
                 if (err) throw err;
                 const array = Object.keys(result[0].items)
@@ -62,13 +63,13 @@ const routes = {
 
         if (req.query.auth === queryOptions.auth) {
             if (req.query.option === queryOptions.option) {
-                MongoClient.connect('mongodb://localhost:27017/digital_store', {
+                MongoClient.connect(`mongodb://localhost:27017/${dbName}`, {
                     useNewUrlParser: true,
                     useUnifiedTopology: true
                 }, (err, db) => {
                     if (err) throw err;
 
-                    const dbo = db.db('digital_store');
+                    const dbo = db.db(dbName);
                     dbo.collection('storeInfo').find().toArray((err, result) => {
                         if (err) throw err;
                         res.send(result[0].items);
@@ -76,13 +77,13 @@ const routes = {
                     })
                 });
             } else if (!req.query.option && req.query.category) {
-                MongoClient.connect('mongodb://localhost:27017/digital_store', {
+                MongoClient.connect(`mongodb://localhost:27017/${dbName}`, {
                     useNewUrlParser: true,
                     useUnifiedTopology: true
                 }, (err, db) => {
                     if (err) throw err;
 
-                    const dbo = db.db('digital_store');
+                    const dbo = db.db(dbName);
                     dbo.collection('storeInfo').find().toArray((err, result) => {
                         if (err) throw err;
                         const query = result[0].items[req.query.category]
@@ -100,6 +101,45 @@ const routes = {
         } else {
             res.send('Неверный токен');
         }
+    },
+
+    // OnePageItem
+    onePageItem: function (req, res) {
+        const query = {
+            id: req.params.id
+        }
+        MongoClient.connect(`mongodb://localhost:27017/${dbName}`, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        }, (err, db) => {
+            if (err) throw err;
+
+            const dbo = db.db(dbName);
+            dbo.collection('storeInfo').find().toArray((err, result) => {
+                if (err) throw err;
+                const items = result[0].items;
+                const keys = Object.keys(result[0].items);
+
+                keys.forEach(key => {
+                    items[key].forEach(item => {
+                        if (item._id != undefined) {
+                            if (item._id == query.id) {
+                                res.render('product', {
+                                    title: item.title,
+                                    image: item.image,
+                                    count: item.count,
+                                    category: item.category[0].toUpperCase() + item.category.slice(1),
+                                    price: item.price,
+                                    description: item.description
+                                });
+                            } 
+                        }
+                    })
+                })        
+                db.close();
+            })
+        });
+
     }
 }
 
@@ -109,5 +149,6 @@ module.exports = function (server) {
     server.get('/contacts', routes.contactsRoute);
     server.get('/comments', routes.commentsRoute);
     server.get('/my-orders', routes.myOrdersRoute);
+    server.get('/product/:id', routes.onePageItem);
     server.get('/store-api', routes.getItemsRoute);
 }
