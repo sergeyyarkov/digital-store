@@ -6,6 +6,10 @@ export class Component {
 
     init() {}
 
+    onShow() {}
+
+    onHide() {}
+
     hide() {
         this.$el ? this.$el.classList.add('hide') : false
     }

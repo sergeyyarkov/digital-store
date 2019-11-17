@@ -1,4 +1,4 @@
-export function renderItem(categories, items) {
+export function renderItems(categories, items) {
 
     let html = '';
 
@@ -15,7 +15,7 @@ export function renderItem(categories, items) {
                                 <img src="./img/service-icons/${item.image}" alt="#">
                             </div>
                             <div class="list-title">
-                                <a href="#">${item.title}</a>
+                                <a href="/item/${item._id}">${item.title}</a>
                             </div>
                         </div>
                         <div class="items-list__info">

@@ -1,12 +1,11 @@
 import { Component } from "../core/component";
 import { apiService } from "../services/api.service";
-import { renderItem } from "../templates/item.template";
+import { renderItems } from "../templates/items.template";
 
 export class ItemsComponent extends Component {
     constructor(id, {loader}) {
         super(id);
         this.loader = loader;
-        this.loader.show();
     }
 
     async init() {
@@ -15,9 +14,22 @@ export class ItemsComponent extends Component {
             const fData = await apiService.getItems(),
                 categories = Object.keys(fData);
             
-            const html = renderItem(categories, fData);
-            this.$el.querySelector('#roster').insertAdjacentHTML('afterbegin', html);
-            this.loader.hide();
+            if (categories.length) {
+                const html = renderItems(categories, fData);
+                this.$el.querySelector('#roster').insertAdjacentHTML('afterbegin', html);  
+            } else {
+                this.$el.querySelector('#roster').innerHTML = 'Товаров на сайте пока что нету';
+            }
+            this.loader.hide(); 
         }
-    }   
+    }
+    
+    onHide() {
+        this.$el.querySelector('#roster').innerHTML = '';
+        this.loader.hide();
+    }
+    onShow() {
+        this.$el.querySelector('#roster').innerHTML = '';
+        this.loader.show();
+    }
 }

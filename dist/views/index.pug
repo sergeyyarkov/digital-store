@@ -63,21 +63,10 @@ main.main-section
             .category-items
               ul
                 li
-                  a.active(href='#') Все товары:
-                li
-                  a(href='#') Steam
-                li
-                  a(href='#') VKontakte
-                li
-                  a(href='#') Origin
-                li
-                  a(href='#') Warface
-                li
-                  a(href='#') Uplay
-                li
-                  a(href='#') Fortnite
-                li
-                  a(href='#') Instagram
+                  a.active(href='#' data-category='all') Все товары:
+                each val in categories
+                  li
+                    a(href='#' data-category=val) #{val}
       // Category Block END
 
       // Filter Block
@@ -110,9 +99,9 @@ main.main-section
             .items-title.block-title
               i.material-icons list
               h2.small-title Список товаров:
+            #loader.progress
+              .indeterminate(style="width: 40%") 
             #roster
-              #loader.progress.hide
-                .indeterminate(style="width: 40%")
             #pagination.items-pagination
               .divider
               ul.pagination
