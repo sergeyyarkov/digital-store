@@ -34,7 +34,11 @@
         width: 100%;
     }
 }
-
+@media (min-width: 768px) {
+    .items .items-list__info {
+        min-width: 435px;
+    }
+}
 @media (max-width: 768px) {
     .items .items-list {
         flex-wrap: wrap;

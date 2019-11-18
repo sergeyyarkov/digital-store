@@ -41,6 +41,6 @@ async function buttonHandler(e) {
 }
 
 function activeLink(e) {
-    e.target.parentNode.parentNode.querySelectorAll('li a').forEach(li => li.classList.remove('active'));
+    Array.from(e.target.parentNode.parentNode.querySelectorAll('li a')).forEach(li => li.classList.remove('active'));
     e.target.classList.add('active');
 }
