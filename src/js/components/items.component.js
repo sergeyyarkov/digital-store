@@ -11,17 +11,19 @@ export class ItemsComponent extends Component {
     async init() {
         
         if (this.$el) {
-            const fData = await apiService.getItems(),
+            if (!localStorage.getItem('category')) {
+               const fData = await apiService.getItems(),
                 categories = Object.keys(fData);
             
-            if (categories.length) {
-                const html = renderItems(categories, fData);
-                this.$el.querySelector('#roster').insertAdjacentHTML('afterbegin', html);  
-            } else {
-                this.$el.querySelector('#roster').innerHTML = 'Товаров на сайте пока что нету';
-            }
-            this.loader.hide(); 
-        }
+                if (categories.length) {
+                    const html = renderItems(categories, fData);
+                    this.$el.querySelector('#roster').insertAdjacentHTML('afterbegin', html);  
+                } else {
+                    this.$el.querySelector('#roster').innerHTML = 'Товаров на сайте пока что нету';
+                }
+                this.loader.hide(); 
+            } 
+        } 
     }
     
     onHide() {

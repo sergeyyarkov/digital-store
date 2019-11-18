@@ -17,7 +17,7 @@ main.main-section
                   li
                     a(href='/') Главная
                   li
-                    a(href='/') #{category}
+                    a#breadcrumbBtn(href='/' data-category=category) #{category}
                   li #{title}
               hr
             .product-title.block-title
