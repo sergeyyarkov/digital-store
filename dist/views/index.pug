@@ -63,10 +63,10 @@ main.main-section
             .category-items
               ul
                 li
-                  a.active(href='#' data-category='all') Все товары:
+                  a#catLi.active(href='#' data-category='all') Все товары:
                 each val in categories
                   li
-                    a(href='#' data-category=val) #{val}
+                    a#catLi(href='#' data-category=val) #{val}
       // Category Block END
 
       // Filter Block
@@ -78,7 +78,7 @@ main.main-section
               h2.small-title Фильтровать товары:
             .filter-options
               form(action='#')
-                label
+                label(data-sortBy='ascending')
                   input#ascending.with-gap(type='radio' name='filter')
                   span Подешевле
                 label

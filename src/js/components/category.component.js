@@ -14,14 +14,18 @@ export class CategoryComponent extends Component {
             this.$el.addEventListener('click', buttonHandler.bind(this));
 
             if (localStorage.getItem('category')) {
-                const category = localStorage.getItem('category');
-                const bounded = breadcrumbActiveLink.bind(this);
+                localStorage.removeItem('sortByAll', 'true'); // установка значения для компонента Filter
+
+                const category = localStorage.getItem('category'),
+                    bounded = breadcrumbActiveLink.bind(this);
+
                 document.querySelector('#loader').classList.add('hide');
-                bounded(category);
+                bounded(category); // <- ф-я окраски li по нажатию на breadcrumb
+
                 // отображем данные если был нажат breadcrumb
                 (async function(){
-                    const fData = await apiService.getItemsOne(category);
-                    const html = renderItemsOne(category, fData);
+                    const fData = await apiService.getItemsOne(category),
+                        html = renderItemsOne(category, fData);
                     document.querySelector('#roster').insertAdjacentHTML('afterbegin', html);  
                 }())
 
@@ -35,38 +39,41 @@ export class CategoryComponent extends Component {
 async function buttonHandler(e) {
     e.preventDefault();
     if (e.target.dataset.category && e.target.dataset.category != 'all') {
+        localStorage.removeItem('sortByAll'); // установка значения для компонента Filter
+
         this.items.onShow();
         btnActiveLink(e);
 
-        const category = e.target.dataset.category.toLowerCase();
-        const fData = await apiService.getItemsOne(category);
-        const html = renderItemsOne(category, fData);
+        const category = e.target.dataset.category.toLowerCase(),
+            fData = await apiService.getItemsOne(category),
+            html = renderItemsOne(category, fData);
 
         this.items.onHide();
         document.querySelector('#roster').insertAdjacentHTML('afterbegin', html);
     } else if (e.target.dataset.category === 'all') {
+        localStorage.setItem('sortByAll', 'true'); // установка значения для компонента Filter
+
         this.items.onShow();
         btnActiveLink(e);
+        
         const fData = await apiService.getItems(),
-                categories = Object.keys(fData);
+            categories = Object.keys(fData),
+            html = renderItems(categories, fData);
 
-        const html = renderItems(categories, fData);
         this.items.onHide();
         document.querySelector('#roster').insertAdjacentHTML('afterbegin', html);
     }
 }
 
+// Окраска li по нажатию
 function btnActiveLink(e) {
-    Array.from(e.target.parentNode.parentNode.querySelectorAll('li a')).forEach(li => li.classList.remove('active'));
+    Array.from(e.target.parentNode.parentNode.querySelectorAll('#catLi')).forEach(li => li.classList.remove('active'));
     e.target.classList.add('active');
 }
 
+// Окраска li по нажатию на breadcrumb
 function breadcrumbActiveLink(category) {
-    const links = this.$el.querySelectorAll('.category-items ul li a');
+    const links = this.$el.querySelectorAll('#catLi');
     Array.from(links).forEach(li => li.classList.remove('active'));
-    Array.from(links).forEach(li => {
-        if (li.dataset.category.toLowerCase() === category) {
-            li.classList.add('active');
-        }
-    });
+    Array.from(links).forEach(li => li.dataset.category.toLowerCase() === category ? li.classList.add('active') : false);
 }

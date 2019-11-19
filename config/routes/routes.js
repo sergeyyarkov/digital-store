@@ -45,6 +45,20 @@ function getItemsRoute(req, res, db) {
                     res.send('Товары в этой категории не найдены или такой категории нет')
                 }
             })
+        } else if (!req.query.option && req.query.sortByAll === 'ascending') {
+            dbo.collection('storeInfo').find().toArray((err, result) => {
+                if (err) throw err;
+                const items = result[0].items;
+                Object.values(items).forEach(arr => arr.sort((a, b) => a.price - b.price)) // фильтр по возрастанию
+                res.send(items);
+            });
+        } else if (!req.query.option && req.query.sortByAll === 'descending') {
+            dbo.collection('storeInfo').find().toArray((err, result) => {
+                if (err) throw err;
+                const items = result[0].items;
+                Object.values(items).forEach(arr => arr.sort((a, b) => a.price + b.price)) // фильтр по убыванию
+                res.send(items);
+            })
         } else {
             res.send('Запрос неверный');
         }
