@@ -4,9 +4,10 @@ import { renderItemsOne } from "../templates/itemsOne.template";
 import { renderItems } from "../templates/items.template";
 
 export class CategoryComponent extends Component {
-    constructor(id, {items}) {
+    constructor(id, {items}, {filter}) {
         super(id);
         this.items = items;
+        this.filter = filter;
     }
 
     init() {
@@ -41,6 +42,7 @@ async function buttonHandler(e) {
     if (e.target.dataset.category && e.target.dataset.category != 'all') {
         localStorage.removeItem('sortByAll'); // установка значения для компонента Filter
 
+        this.filter.clearChecked();
         this.items.onShow();
         btnActiveLink(e);
 
@@ -53,6 +55,7 @@ async function buttonHandler(e) {
     } else if (e.target.dataset.category === 'all') {
         localStorage.setItem('sortByAll', 'true'); // установка значения для компонента Filter
 
+        this.filter.clearChecked();
         this.items.onShow();
         btnActiveLink(e);
         
@@ -69,6 +72,7 @@ async function buttonHandler(e) {
 function btnActiveLink(e) {
     Array.from(e.target.parentNode.parentNode.querySelectorAll('#catLi')).forEach(li => li.classList.remove('active'));
     e.target.classList.add('active');
+    localStorage.setItem('currentCategory', e.target.dataset.category.toLowerCase());
 }
 
 // Окраска li по нажатию на breadcrumb
@@ -76,4 +80,5 @@ function breadcrumbActiveLink(category) {
     const links = this.$el.querySelectorAll('#catLi');
     Array.from(links).forEach(li => li.classList.remove('active'));
     Array.from(links).forEach(li => li.dataset.category.toLowerCase() === category ? li.classList.add('active') : false);
+    Array.from(links).forEach(li => li.dataset.category.toLowerCase() === category ? localStorage.setItem('currentCategory', li.dataset.category.toLowerCase()) : false);
 }

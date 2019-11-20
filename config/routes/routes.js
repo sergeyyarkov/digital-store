@@ -20,21 +20,30 @@ function indexRoute(req, res, db) {
 function getItemsRoute(req, res, db) {
     const dbo = db.db(dbName);
 
-    const queryOptions = {
-        auth: 'yYNfW8ynVO18L1TW5qIkILM1WtWgrVZz',
-        option: 'all'
-    }
-
     // установка кэша при отдачи json данных
     //res.setHeader("Cache-Control", "public, max-age=20");
 
-    if (req.query.auth === queryOptions.auth) {
-        if (req.query.option === queryOptions.option) {
+    if (req.query.auth === 'yYNfW8ynVO18L1TW5qIkILM1WtWgrVZz') {
+        if (req.query.option === 'all' && !req.query.sorting) {
             dbo.collection('storeInfo').find().toArray((err, result) => {
                 if (err) throw err;
                 res.send(result[0].items);
             })
 
+        } else if (!req.query.option && req.query.category && req.query.sorting === 'ascending') {
+            dbo.collection('storeInfo').find().toArray((err, result) => {
+                if (err) throw err;
+                const items = result[0].items[req.query.category];
+                items.sort((a, b) => a.price - b.price) // фильтр по возрастанию по цене
+                res.send(items);
+            });
+        } else if (!req.query.option && req.query.category && req.query.sorting === 'descending') {
+            dbo.collection('storeInfo').find().toArray((err, result) => {
+                if (err) throw err;
+                const items = result[0].items[req.query.category];
+                items.sort((a, b) => b.price - a.price) // фильтр по убыванию по цене
+                res.send(items);
+            });
         } else if (!req.query.option && req.query.category) {
             dbo.collection('storeInfo').find().toArray((err, result) => {
                 if (err) throw err;
@@ -45,18 +54,18 @@ function getItemsRoute(req, res, db) {
                     res.send('Товары в этой категории не найдены или такой категории нет')
                 }
             })
-        } else if (!req.query.option && req.query.sortByAll === 'ascending') {
+        } else if (req.query.option && req.query.sorting === 'ascending') {
             dbo.collection('storeInfo').find().toArray((err, result) => {
                 if (err) throw err;
                 const items = result[0].items;
-                Object.values(items).forEach(arr => arr.sort((a, b) => a.price - b.price)) // фильтр по возрастанию
+                Object.values(items).forEach(arr => arr.sort((a, b) => a.price - b.price)) // фильтр по возрастанию по цене
                 res.send(items);
             });
-        } else if (!req.query.option && req.query.sortByAll === 'descending') {
+        } else if (req.query.option && req.query.sorting === 'descending') {
             dbo.collection('storeInfo').find().toArray((err, result) => {
                 if (err) throw err;
                 const items = result[0].items;
-                Object.values(items).forEach(arr => arr.sort((a, b) => a.price + b.price)) // фильтр по убыванию
+                Object.values(items).forEach(arr => arr.sort((a, b) => b.price - a.price)) // фильтр по убыванию по цене
                 res.send(items);
             })
         } else {

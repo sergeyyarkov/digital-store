@@ -6,19 +6,30 @@ class ApiService {
         this.url = baseUrl;
     }
 
-    async getItems() {
+    async getItems(sorting) {
         try {
-            const request = `${this.url}store-api?auth=${API_TOKEN}&option=all`;
-            return useRequest(request);
+            if (sorting) {
+                const request = `${this.url}store-api?auth=${API_TOKEN}&option=all&sorting=${sorting}`;
+                return useRequest(request); 
+            } else {
+                const request = `${this.url}store-api?auth=${API_TOKEN}&option=all`;
+                return useRequest(request); 
+            }
+            
         } catch (err) {
             console.error(err);
         }
     }
 
-    async getItemsOne(category) {
+    async getItemsOne(category, sorting) {
         try {
-            const request = `${this.url}store-api?auth=${API_TOKEN}&category=${category}`;
-            return useRequest(request);
+            if (sorting) {
+                const request = `${this.url}store-api?auth=${API_TOKEN}&category=${category}&sorting=${sorting}`;
+                return useRequest(request);
+            } else {
+                const request = `${this.url}store-api?auth=${API_TOKEN}&category=${category}`;
+                return useRequest(request);
+            }
         } catch (err) {
             console.error(err);
         }
