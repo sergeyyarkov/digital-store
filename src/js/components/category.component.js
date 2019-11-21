@@ -23,7 +23,7 @@ export class CategoryComponent extends Component {
                 document.querySelector('#loader').classList.add('hide');
                 bounded(category); // <- ф-я окраски li по нажатию на breadcrumb
 
-                // отображем данные если был нажат breadcrumb
+                // отображем айтемсы если был нажат breadcrumb
                 (async function(){
                     const fData = await apiService.getItemsOne(category),
                         html = renderItemsOne(category, fData);

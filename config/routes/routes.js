@@ -44,6 +44,20 @@ function getItemsRoute(req, res, db) {
                 items.sort((a, b) => b.price - a.price) // фильтр по убыванию по цене
                 res.send(items);
             });
+        } else if (!req.query.option && req.query.category && req.query.sorting === 'older') {
+            dbo.collection('storeInfo').find().toArray((err, result) => {
+                if (err) throw err;
+                const items = result[0].items[req.query.category];
+                items.sort((a, b) => new Date(a.date) - new Date(b.date)); // фильтр по возрастанию пр дате
+                res.send(items);
+            });
+        } else if (!req.query.option && req.query.category && req.query.sorting === 'newer') {
+            dbo.collection('storeInfo').find().toArray((err, result) => {
+                if (err) throw err;
+                const items = result[0].items[req.query.category];
+                items.sort((a, b) => new Date(b.date) - new Date(a.date)) // фильтр по возрастанию пр дате
+                res.send(items);
+            });
         } else if (!req.query.option && req.query.category) {
             dbo.collection('storeInfo').find().toArray((err, result) => {
                 if (err) throw err;
@@ -68,6 +82,20 @@ function getItemsRoute(req, res, db) {
                 Object.values(items).forEach(arr => arr.sort((a, b) => b.price - a.price)) // фильтр по убыванию по цене
                 res.send(items);
             })
+        } else if (req.query.option && req.query.sorting === 'older') {
+            dbo.collection('storeInfo').find().toArray((err, result) => {
+                if (err) throw err;
+                const items = result[0].items;
+                Object.values(items).forEach(arr => arr.sort((a, b) => new Date(a.date) - new Date(b.date))) // фильтр по возрастанию пр дате
+                res.send(items);
+            });
+        } else if (req.query.option && req.query.sorting === 'newer') {
+            dbo.collection('storeInfo').find().toArray((err, result) => {
+                if (err) throw err;
+                const items = result[0].items;
+                Object.values(items).forEach(arr => arr.sort((a, b) => new Date(b.date) - new Date(a.date))) // фильтр по возрастанию пр дате
+                res.send(items);
+            });
         } else {
             res.send('Запрос неверный');
         }
@@ -95,7 +123,8 @@ function onePageItemRoute(req, res, db) {
                             count: item.count,
                             category: item.category[0].toUpperCase() + item.category.slice(1),
                             price: item.price,
-                            description: item.description
+                            description: item.description,
+                            date: item.date
                         });
                     }
                 }

@@ -19,6 +19,9 @@ export function renderItems(categories, items) {
                             </div>
                         </div>
                         <div class="items-list__info">
+                            <div class="list-date">
+                                    <small>${item.date}</small>
+                                </div>
                             <div class="list-count">
                                 <span>${item.count} шт.</span>
                             </div>
