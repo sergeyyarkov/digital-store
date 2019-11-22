@@ -17,29 +17,26 @@ export class CategoryComponent extends Component {
             if (localStorage.getItem('category')) {
                 localStorage.removeItem('sortByAll', 'true'); // установка значения для компонента Filter
 
-                const category = localStorage.getItem('category'),
-                    bounded = breadcrumbActiveLink.bind(this);
-
-                document.querySelector('#loader').classList.add('hide');
-                bounded(category); // <- ф-я окраски li по нажатию на breadcrumb
-
-                // отображем айтемсы если был нажат breadcrumb
-                (async function(){
-                    const fData = await apiService.getItemsOne(category),
-                        html = renderItemsOne(category, fData);
-                    document.querySelector('#roster').insertAdjacentHTML('afterbegin', html);  
-                }())
-
-                // очищаем ключ category чтобы данные не показывались всегда
-                localStorage.removeItem('category');
+                const category = localStorage.getItem('category');
+                breadcrumbActiveLink.call(this, category); // окрашиваем категорию по нажатию на breadcrumb
+                showItems.call(this, category); // отображем айтемсы если был нажат breadcrumb
+                localStorage.removeItem('category'); // очищаем ключ category чтобы данные не показывались всегда
             }
         }
     }
 }
 
+async function showItems(category) {
+    const fData = await apiService.getItemsOne(category),
+        html = renderItemsOne(category, fData);
+
+    this.items.onHide(); 
+    this.items.insertItems(html);   
+}
+
 async function buttonHandler(e) {
     e.preventDefault();
-    if (e.target.dataset.category && e.target.dataset.category != 'all') {
+    if (e.target.dataset.category && e.target.dataset.category != 'all') { // Выполняем логику если нажали на кнопки кроме "Все товары"
         localStorage.removeItem('sortByAll'); // установка значения для компонента Filter
 
         this.filter.clearChecked();
@@ -51,8 +48,8 @@ async function buttonHandler(e) {
             html = renderItemsOne(category, fData);
 
         this.items.onHide();
-        document.querySelector('#roster').insertAdjacentHTML('afterbegin', html);
-    } else if (e.target.dataset.category === 'all') {
+        this.items.insertItems(html);
+    } else if (e.target.dataset.category === 'all') { // Выполняем логику если нажали на кнопку "Все товары"
         localStorage.setItem('sortByAll', 'true'); // установка значения для компонента Filter
 
         this.filter.clearChecked();
@@ -64,7 +61,7 @@ async function buttonHandler(e) {
             html = renderItems(categories, fData);
 
         this.items.onHide();
-        document.querySelector('#roster').insertAdjacentHTML('afterbegin', html);
+        this.items.insertItems(html);
     }
 }
 

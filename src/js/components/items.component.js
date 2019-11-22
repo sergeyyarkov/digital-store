@@ -6,26 +6,23 @@ export class ItemsComponent extends Component {
     constructor(id, {loader}) {
         super(id);
         this.loader = loader;
+        this.$el ? this.roster = this.$el.querySelector('#roster') : false;
     }
 
     async init() {
         if (this.$el) {
             localStorage.setItem('sortByAll', 'true'); // установка значения для компонента Filter
-            if (!localStorage.getItem('category')) {
-            const roster = this.$el.querySelector('#roster');  // Список с товарами
-            
-            // Получаем все товары и вывоим их если нету ключа category в ls
+            if (!localStorage.getItem('category')) { // Получаем все товары и выводим их если нету ключа category в ls
                const fData = await apiService.getItems(),
                 categories = Object.keys(fData);
             
                 if (categories.length) {
                     const html = renderItems(categories, fData);
-                    roster.insertAdjacentHTML('afterbegin', html);  
+                    this.insertItems(html);
                 } else {
-                    roster.innerHTML = 'Товаров на сайте пока что нету';
+                    this.roster.innerHTML = 'Товаров на сайте пока что нету';
                 }
-
-                // Убираем крутящийся лоадер
+                
                 this.loader.hide(); 
             } 
         } 
@@ -38,5 +35,9 @@ export class ItemsComponent extends Component {
     onShow() {
         this.$el.querySelector('#roster').innerHTML = '';
         this.loader.show();
+    }
+
+    insertItems(html) {
+        this.roster.insertAdjacentHTML('afterbegin', html);
     }
 }

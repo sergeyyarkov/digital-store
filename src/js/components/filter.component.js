@@ -30,13 +30,12 @@ async function sortByAllHandler(e) {
             const sorting = e.target.id;
             
             this.items.onShow();
-        
             const fData = await apiService.getItems(sorting),
                 categories = Object.keys(fData),
                 html = renderItems(categories, fData);
 
             this.items.onHide();
-            document.querySelector('#roster').insertAdjacentHTML('afterbegin', html);
+            this.items.insertItems(html);
         }
     }
 }
@@ -47,13 +46,12 @@ async function sortByOneHandler(e) {
             const sorting = e.target.id;
 
             this.items.onShow();
-
             const category = localStorage.getItem('currentCategory'),
                 fData = await apiService.getItemsOne(category, sorting),
                 html = renderItemsOne(category, fData);
 
             this.items.onHide();
-            document.querySelector('#roster').insertAdjacentHTML('afterbegin', html);
+            this.items.insertItems(html);
         }
     }
 }
