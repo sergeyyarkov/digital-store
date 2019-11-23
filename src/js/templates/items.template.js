@@ -33,7 +33,7 @@ export function renderItems(categories, items) {
                             </div>
                             <div class="list-buttons">
                                 <button class="btn-small waves-effect waves-light">Купить</button>
-                                <button class="btn-small waves-effect waves-light"><i
+                                <button data-id="${item._id}" data-title="${item.title}" data-date="${item.date}" data-count="${item.count}" data-price="${item.price}" id="addItem" class="btn-small waves-effect waves-light"><i
                                         class="material-icons">shopping_cart</i></button>
                             </div>
                         </div>

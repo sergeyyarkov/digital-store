@@ -4,4 +4,8 @@ export class CartModal extends Modal {
     constructor(id, open, close) {
         super(id, open, close);
     }
+
+    init () {
+        
+    }
 }

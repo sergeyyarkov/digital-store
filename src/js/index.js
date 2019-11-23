@@ -7,6 +7,7 @@ import { BreadcrumbComponent } from "./components/breadcrumb.component.js";
 import { FilterComponent } from "./components/filter.component.js";
 import { CartModal } from "./modals/cart.modal.js";
 
+
 const header = new HeaderComponent('header');
 const loader = new LoaderComponent('loader');
 const information = new InformationComponent('information');
