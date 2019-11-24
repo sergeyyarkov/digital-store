@@ -226,7 +226,7 @@ hr {
 
 .modal-content__right {
     align-self: center;
-    width: 145px;
+    /* width: 145px; */
 }
 
 .modal-content__right span {

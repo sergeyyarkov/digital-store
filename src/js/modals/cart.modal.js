@@ -13,10 +13,12 @@ export class CartModal extends Modal {
 
     closeHandler() {
         this.removeItem = null;
+        this.makePay = null;
     }
 
     openHandler() {
         this.removeItem != null ? this.list.addEventListener('click', this.removeItem.bind(this)) : false
+        this.makePay != null ? this.$el.querySelector('#makePay').addEventListener('click', this.makePay.bind(this)) : false;
         this.list.innerHTML = ''; 
         this.insertItems(this.list);
     }
@@ -32,7 +34,7 @@ export class CartModal extends Modal {
                 this.$el.querySelector('#makePay').classList.remove('hide');
             }
         
-            items.forEach(item => this.list.innerHTML += `<div data-id="${item.id}" class="modal-content__item"><div class="modal-content__title"><a href="#"><b>${item.title}</b></a><br><span class="in-stock">В наличии: ${item.count} (шт)</span></div><div class="modal-content__right"><button>-</button><input type="number" value="1" min="1" max="${item.count}"><button>+</button><span>${parseFloat(item.price).toFixed(2)}₽</span></div><div class="modal-content__remove"><span><i data-id="${item.id}" class="material-icons" id="removeItem">close</i></span></div></div>`);
+            items.forEach(item => this.list.innerHTML += `<div data-id="${item.id}" data-title="${item.title}" data-price="${item.price}" data-count="1" class="modal-content__item"><div class="modal-content__title"><a href="/product/${item.id}"><b>${item.title}</b></a><br><span class="in-stock">В наличии: ${item.count} (шт)</span></div><div class="modal-content__right"><span id="price">${parseFloat(item.price).toFixed(2)}₽</span></div><div class="modal-content__remove"><span><i data-id="${item.id}" class="material-icons" id="removeItem">close</i></span></div></div>`);
             insertCount('modalCounter', this.items.cart);
             insertCount('counter', this.items.cart);
             this.insertTotalPrice('totalPrice', this.items.cart);
@@ -58,5 +60,20 @@ export class CartModal extends Modal {
         let totalPrice = 0;
         array.forEach(item => totalPrice += parseFloat(item.price));
         this.$el.querySelector(`#${id}`).innerHTML = `${totalPrice.toFixed(2)}₽`;
+    }
+
+    makePay() {
+        const payInfo = {items: this.items.cart.map(item => {
+            return {
+                    id: item.id, 
+                    title: item.title, 
+                    price: parseFloat(item.price)
+                } 
+        })};
+        let totalPrice = 0;
+        payInfo.items.forEach(item => totalPrice += parseFloat(item.price));
+        payInfo.totalPrice = Math.round(totalPrice * 100) / 100;
+
+        console.log('Pay info:', payInfo);
     }
 }
