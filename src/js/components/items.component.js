@@ -57,7 +57,6 @@ export class ItemsComponent extends Component {
                 }
             });
         }
-        
     }
 
     insertItems(html) {
@@ -70,10 +69,22 @@ function addItem(e) {
 
     if (e.target.localName === 'button' && e.target.id === 'addItem') {
         const target = e.target;
-        renderObj(e.target.dataset, this, target);
+        const item = {
+            id: e.target.dataset.id,
+            title: e.target.dataset.title,
+            count: e.target.dataset.count,
+            price: e.target.dataset.price
+        }
+        renderObj(item, this, target);
     } else if (e.target.localName === 'i') {
         const target = e.target.parentNode;
-        renderObj(e.target.parentNode.dataset, this, target);
+        const item = {
+            id: e.target.parentNode.dataset.id,
+            title: e.target.parentNode.dataset.title,
+            count: e.target.parentNode.dataset.count,
+            price: e.target.parentNode.dataset.price
+        }
+        renderObj(item, this, target);
     }
 
     function renderObj(obj, context, target) {

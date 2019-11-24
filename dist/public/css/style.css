@@ -141,7 +141,7 @@ hr {
     margin-top: 7rem;
     padding: 25px;
     width: 460px;
-    min-height: 350px;
+    min-height: 230px;
 }
 
 .modal-content__header .small-title {
@@ -192,9 +192,12 @@ hr {
     font-size: 16px;
 }
 
-#item-remove i {
+#removeItem {
     font-size: 20px;
     cursor: pointer;
+}
+#totalPrice {
+    font-size: 15px;
 }
 
 .modal-content__items {
@@ -223,6 +226,7 @@ hr {
 
 .modal-content__right {
     align-self: center;
+    width: 145px;
 }
 
 .modal-content__right span {

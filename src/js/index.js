@@ -15,4 +15,4 @@ const items = new ItemsComponent('items', {loader});
 const filter = new FilterComponent('filter', {items});
 const category = new CategoryComponent('category', {items}, {filter});
 const breadcumb = new BreadcrumbComponent('breadcrumb');
-const cart = new CartModal('cart', 'cartOpen', 'cartClose');
+const cart = new CartModal('cart', 'cartOpen', 'cartClose', {items});

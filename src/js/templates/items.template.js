@@ -29,7 +29,7 @@ export function renderItems(categories, items) {
                                 <span>Цена за 1 шт.</span>
                             </div>
                             <div class="list-price">
-                                <span>${item.price}₽</span>
+                                <span>${item.price.toFixed(2)}₽</span>
                             </div>
                             <div class="list-buttons">
                                 <button class="btn-small waves-effect waves-light">Купить</button>
