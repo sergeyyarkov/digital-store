@@ -1,9 +1,4 @@
-const db = require('../database');
-const dbName = db.name;
-
-function indexRoute(req, res, db) {
-    const dbo = db.db(dbName);
-    
+function indexRoute(req, res, dbo) {
     dbo.collection('storeInfo').find().toArray((err, result) => {
         if (err) throw err;
         const array = Object.keys(result[0].items)
@@ -17,12 +12,7 @@ function indexRoute(req, res, db) {
     })
 }
 
-function getItemsRoute(req, res, db) {
-    const dbo = db.db(dbName);
-
-    // установка кэша при отдачи json данных
-    //res.setHeader("Cache-Control", "public, max-age=20");
-
+function getItemsRoute(req, res, dbo) {
     if (req.query.auth === 'yYNfW8ynVO18L1TW5qIkILM1WtWgrVZz') {
         if (req.query.option === 'all' && !req.query.sorting) {
             dbo.collection('storeInfo').find().toArray((err, result) => {
@@ -48,14 +38,14 @@ function getItemsRoute(req, res, db) {
             dbo.collection('storeInfo').find().toArray((err, result) => {
                 if (err) throw err;
                 const items = result[0].items[req.query.category];
-                items.sort((a, b) => new Date(a.date) - new Date(b.date)); // фильтр по возрастанию пр дате
+                items.sort((a, b) => new Date(a.date) - new Date(b.date)); // фильтр по возрастанию по дате
                 res.send(items);
             });
         } else if (!req.query.option && req.query.category && req.query.sorting === 'newer') {
             dbo.collection('storeInfo').find().toArray((err, result) => {
                 if (err) throw err;
                 const items = result[0].items[req.query.category];
-                items.sort((a, b) => new Date(b.date) - new Date(a.date)) // фильтр по возрастанию пр дате
+                items.sort((a, b) => new Date(b.date) - new Date(a.date)) // фильтр по убыванию по дате
                 res.send(items);
             });
         } else if (!req.query.option && req.query.category) {
@@ -104,9 +94,7 @@ function getItemsRoute(req, res, db) {
     }
 }
 
-function onePageItemRoute(req, res, db) {
-    const dbo = db.db(dbName);
-
+function onePageItemRoute(req, res, dbo) {
     dbo.collection('storeInfo').find().toArray((err, result) => {
         if (err) throw err;
         const items = result[0].items;
@@ -134,25 +122,25 @@ function onePageItemRoute(req, res, db) {
     })
 }
 
-function howToBuyRoute(req, res, db) {
+function howToBuyRoute(req, res) {
     res.render('how-to-buy', {
         pageName: 'how-to-buy'
     });
 }
 
-function contactsRoute(req, res, db) {
+function contactsRoute(req, res) {
     res.render('contacts', {
         pageName: 'contacts'
     });
 }
 
-function commentsRoute(req, res, db) {
+function commentsRoute(req, res) {
     res.render('comments', {
         pageName: 'comments'
     });
 }
 
-function myOrdersRoute(req, res, db) {
+function myOrdersRoute(req, res) {
     res.render('my-orders', {
         pageName: 'my-orders'
     });
@@ -161,10 +149,10 @@ function myOrdersRoute(req, res, db) {
 
 module.exports = function (server, db) {
     server.get('/', (req, res) => indexRoute(req, res, db));
+    server.get('/store-api', (req, res) => getItemsRoute(req, res, db));
     server.get('/how-to-buy', (req, res) => howToBuyRoute(req, res, db));
     server.get('/contacts', (req, res) => contactsRoute(req, res, db));
     server.get('/comments', (req, res) => commentsRoute(req, res, db));
     server.get('/my-orders', (req, res) => myOrdersRoute(req, res, db));
     server.get('/product/:id', (req, res) => onePageItemRoute(req, res, db));
-    server.get('/store-api', (req, res) => getItemsRoute(req, res, db));
 }

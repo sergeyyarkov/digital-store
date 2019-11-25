@@ -6,7 +6,7 @@ export function renderItemsOne(category, items) {
                 </div>`;
 
     items.forEach(item => {
-        if (item) {
+        if (item && item._id != undefined) {
             html += `
                             <div class="items-list">
                             <div class="items-list__name">

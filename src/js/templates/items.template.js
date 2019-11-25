@@ -7,7 +7,7 @@ export function renderItems(categories, items) {
                     <h2 class="small-title">${category}</h2>
                 </div>`;
             items[category].forEach(item => {
-                if (item) {
+                if (item && item._id != undefined) {
                     html += `
                         <div class="items-list">
                         <div class="items-list__name">
