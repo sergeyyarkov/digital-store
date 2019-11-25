@@ -9,8 +9,8 @@ export function renderItems(categories, items) {
             items[category].forEach(item => {
                 if (item && item._id != undefined) {
                     html += `
-                        <div class="items-list">
-                        <div class="items-list__name">
+                        <div data-id="${item._id}" data-title="${item.title}" data-price="${item.price}" class="items-list">
+                        <div  class="items-list__name">
                             <div class="list-icon">
                                 <img src="./img/service-icons/${item.image}" alt="#">
                             </div>

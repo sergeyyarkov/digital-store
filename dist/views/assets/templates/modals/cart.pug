@@ -14,12 +14,23 @@
               .modal-content__counter
                 span Всего товаров в корзине
                 span
-                  b#modalCounter 1
+                  b#modalCounter 0
               .modal-content__pay
                 span
                   b Сумма к оплате
                 span
-                  b#totalPrice 139.89 ₽
-            .modal-content__purchase
-              button#makePay.purchase-btn.waves-effect.btn Перейти к оплате
+                  b#totalPrice 0 ₽
+            form#purchaseInfo.modal-content__purchase.hide
+              span Информация необходимая для оплаты
+              .email-field
+                label(for='email') Ваш E-mail
+                input#email(required='' type='text' name='email')
+              .phone-field
+                label(for="phone") Номер QIWI
+                input#phone(required='' type='text' name='phone')
+              .payment-field
+                label(for='payment') Способ оплаты
+                select#payment(name='payment')
+                  option(value='qiwi' data-icon='../img/payments-icons/qiwi.svg') QIWI
+                button.purchase-btn.waves-effect.btn Перейти к оплате
 // Cart Modal END
