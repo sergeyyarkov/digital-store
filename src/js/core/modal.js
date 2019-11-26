@@ -24,8 +24,9 @@ export class Modal {
     }
 }
 
-function openHandler() {
+function openHandler(e) {
     this.show();
+    this.onShow(e);
 }
 
 function closeHandler() {

@@ -32,7 +32,7 @@ export function renderItems(categories, items) {
                                 <span>${item.price.toFixed(2)}₽</span>
                             </div>
                             <div class="list-buttons">
-                                <button class="btn-small waves-effect waves-light">Купить</button>
+                                <button data-id="${item._id}" data-title="${item.title}" data-date="${item.date}" data-count="${item.count}" data-price="${item.price}" id="payOpen" class="btn-small waves-effect waves-light">Купить</button>
                                 <button data-id="${item._id}" data-title="${item.title}" data-date="${item.date}" data-count="${item.count}" data-price="${item.price}" id="addItem" class="btn-small waves-effect waves-light"><i
                                         class="material-icons">shopping_cart</i></button>
                             </div>

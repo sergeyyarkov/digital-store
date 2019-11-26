@@ -1,6 +1,5 @@
 import { Modal } from "../core/modal";
 import { insertCount } from "../other/counter";
-import { defaultBtnColor } from "../other/defaultColorBtn";
 
 export class CartModal extends Modal {
     constructor(id, open, close, {items}) {
@@ -54,7 +53,7 @@ export class CartModal extends Modal {
 
             this.list.innerHTML = '';
             this.insertItems(this.list);
-            defaultBtnColor(id, this.items.$el);
+            this.defaultBtnColor(id);
         }
     }
 
@@ -76,10 +75,17 @@ export class CartModal extends Modal {
         let totalPrice = 0;
         payInfo.items.forEach(item => totalPrice += parseFloat(item.price));
         payInfo.totalPrice = Math.round(totalPrice * 100) / 100;
-        payInfo.payMethod = this.$el.querySelector('.payment-field select').value;
-        payInfo.phone = this.$el.querySelector('.phone-field input').value;
-        payInfo.email = this.$el.querySelector('.email-field input').value;
+        payInfo.payMethod = this.$el.querySelector('.payment-field #payment').value;
+        payInfo.phone = this.$el.querySelector('.phone-field #phone').value;
+        payInfo.email = this.$el.querySelector('.email-field #email').value;
 
         console.log('Pay info:', payInfo);
+    }
+
+    defaultBtnColor(id) {
+        if (this.items.roster.querySelector(`#addItem[data-id="${id}"]`)) {
+            this.items.roster.querySelector(`#addItem[data-id="${id}"]`).classList.remove('orange');
+            this.items.roster.querySelector(`#addItem[data-id="${id}"] i`).innerHTML = 'shopping_cart'; 
+        }
     }
 }

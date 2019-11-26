@@ -9,12 +9,11 @@
               h4.small-title Оплатить товар
               span#payClose.cart-close
                 i.material-icons close
-            form(action='#')
+            form#purchaseInfo(action='#')
               .modal-content__fields
                 .title-field
                   label(for='title') Наименование
-                  select#title(name='title')
-                    option(value='js_title') Cs:go(prime) + открыта тп + инв. 901руб
+                  input#title(name='title' readonly)
                 .email-field
                   label(for='email') Ваш E-mail
                   input#email(required='' type='text' name='email')

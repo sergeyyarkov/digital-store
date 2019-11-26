@@ -26,9 +26,9 @@ main.main-section
                 small(style="font-size: 12px") Дата добавления: #{date}
             .product-info
               .product-info__left
-                .product-left__pay
+                #pay-js.product-left__pay
                   img(src='../img/service-icons/'+image alt='#')
-                  button.waves-effect.waves-light.btn Купить
+                  button#payOpen.waves-effect.waves-light.btn(data-id=id data-title=title data-date=date data-count=count data-price=price) Купить
                 .product-info__cost
                   .product-info__count
                     span #{count} шт
