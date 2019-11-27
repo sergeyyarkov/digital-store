@@ -1,6 +1,6 @@
 import { Component } from "../core/component";
 import { apiService } from "../services/api.service";
-import { renderItemsOne } from "../templates/itemsOne.template";
+import { renderItemsOne } from "../templates/itemsCategory.template";
 import { renderItems } from "../templates/items.template";
 
 export class CategoryComponent extends Component {

@@ -1,7 +1,7 @@
 import { Component } from "../core/component";
 import { apiService } from "../services/api.service";
 import { renderItems } from "../templates/items.template";
-import { renderItemsOne } from "../templates/itemsOne.template";
+import { renderItemsOne } from "../templates/itemsCategory.template";
 
 export class FilterComponent extends Component {
     constructor(id, {items}) {

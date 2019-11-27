@@ -6,8 +6,6 @@ export class Modal {
         this.init();
     }
 
-    onShow() {}
-
     init() {
         this.open.addEventListener('click', openHandler.bind(this));
         this.close.addEventListener('click', closeHandler.bind(this));
@@ -26,7 +24,6 @@ export class Modal {
 
 function openHandler(e) {
     this.show();
-    this.onShow(e);
 }
 
 function closeHandler() {

@@ -86,37 +86,37 @@ function addItem(e) {
         }
         renderObj(item, this, target);
     }
-
-    function renderObj(obj, context, target) {
-        if (context.cart.length > 0) {
-            let insterted = false;
-            let index;
-            // Проверка на существующий айтем в корзине
-            context.cart.forEach((item, i) => {
-                if (item.id === obj.id) {
-                    insterted = true;
-                    index = i;  
-                } 
-            });
-            if (insterted === false) {
-                context.cart.push(obj)
-                localStorage.setItem('cart', JSON.stringify(context.cart));
-                target.classList.add('orange');
-                target.querySelector('i').innerHTML = 'close';
-                insertCount('counter', context.cart)     
-            } else {
-                context.cart.splice(index, 1);
-                localStorage.setItem('cart', JSON.stringify(context.cart)); 
-                target.classList.remove('orange');
-                target.querySelector('i').innerHTML = 'shopping_cart';
-                insertCount('counter', context.cart)      
-            }
-        } else {
-          context.cart.push(obj);
-          localStorage.setItem('cart', JSON.stringify(context.cart));
-          target.classList.add('orange');
-          target.querySelector('i').innerHTML = 'close';
-          insertCount('counter', context.cart)  
-        }
-    };
 }
+
+function renderObj(obj, context, target) {
+    if (context.cart.length > 0) {
+        let insterted = false;
+        let index;
+        // Проверка на существующий айтем в корзине
+        context.cart.forEach((item, i) => {
+            if (item.id === obj.id) {
+                insterted = true;
+                index = i;  
+            } 
+        });
+        if (insterted === false) {
+            context.cart.push(obj)
+            localStorage.setItem('cart', JSON.stringify(context.cart));
+            target.classList.add('orange');
+            target.querySelector('i').innerHTML = 'close';
+            insertCount('counter', context.cart)     
+        } else {
+            context.cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(context.cart)); 
+            target.classList.remove('orange');
+            target.querySelector('i').innerHTML = 'shopping_cart';
+            insertCount('counter', context.cart)      
+        }
+    } else {
+      context.cart.push(obj);
+      localStorage.setItem('cart', JSON.stringify(context.cart));
+      target.classList.add('orange');
+      target.querySelector('i').innerHTML = 'close';
+      insertCount('counter', context.cart)  
+    }
+};
