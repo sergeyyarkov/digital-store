@@ -1,7 +1,6 @@
 import { Component } from "../core/component";
 import { apiService } from "../services/api.service";
-import { renderItemsOne } from "../templates/itemsCategory.template";
-import { renderItems } from "../templates/items.template";
+import { renderItemsRefactor } from "../templates/itemsRefactor.template";
 
 export class CategoryComponent extends Component {
     constructor(id, {items}, {filter}) {
@@ -27,8 +26,9 @@ export class CategoryComponent extends Component {
 }
 
 async function showItems(category) {
-    const fData = await apiService.getItemsOne(category),
-        html = renderItemsOne(category, fData);
+    const targetCategory = await apiService.getCategory(category);
+    const fData = await apiService.getItemsOneRefactor(category),
+        html = renderItemsRefactor(targetCategory, fData);
 
     this.items.onHide(); 
     this.items.insertItems(html);   
@@ -43,9 +43,9 @@ async function buttonHandler(e) {
         this.items.onShow();
         btnActiveLink(e);
 
-        const category = e.target.dataset.category.toLowerCase(),
-            fData = await apiService.getItemsOne(category),
-            html = renderItemsOne(category, fData);
+        const category = await apiService.getCategory(e.target.dataset.category),
+            fData = await apiService.getItemsOneRefactor(e.target.dataset.category),
+            html = renderItemsRefactor(category, fData);
 
         this.items.onHide();
         this.items.insertItems(html);
@@ -56,9 +56,9 @@ async function buttonHandler(e) {
         this.items.onShow();
         btnActiveLink(e);
         
-        const fData = await apiService.getItems(),
-            categories = Object.keys(fData),
-            html = renderItems(categories, fData);
+        const fData = await apiService.getItemsRefactor();
+        const categories = await apiService.getCategories();
+        const html = renderItemsRefactor(categories, fData);
 
         this.items.onHide();
         this.items.insertItems(html);
@@ -69,13 +69,13 @@ async function buttonHandler(e) {
 function btnActiveLink(e) {
     Array.from(e.target.parentNode.parentNode.querySelectorAll('#catLi')).forEach(li => li.classList.remove('active'));
     e.target.classList.add('active');
-    localStorage.setItem('currentCategory', e.target.dataset.category.toLowerCase());
+    localStorage.setItem('currentCategory', e.target.dataset.category);
 }
 
 // Окраска li по нажатию на breadcrumb
 function breadcrumbActiveLink(category) {
     const links = this.$el.querySelectorAll('#catLi');
     Array.from(links).forEach(li => li.classList.remove('active'));
-    Array.from(links).forEach(li => li.dataset.category.toLowerCase() === category ? li.classList.add('active') : false);
-    Array.from(links).forEach(li => li.dataset.category.toLowerCase() === category ? localStorage.setItem('currentCategory', li.dataset.category.toLowerCase()) : false);
+    Array.from(links).forEach(li => li.dataset.category === category ? li.classList.add('active') : false);
+    Array.from(links).forEach(li => li.dataset.category === category ? localStorage.setItem('currentCategory', li.dataset.category) : false);
 }

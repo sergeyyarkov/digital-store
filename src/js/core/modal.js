@@ -7,8 +7,10 @@ export class Modal {
     }
 
     init() {
-        this.open.addEventListener('click', openHandler.bind(this));
-        this.close.addEventListener('click', closeHandler.bind(this));
+        if (this.open != null) {
+            this.open.addEventListener('click', openHandler.bind(this));
+            this.close.addEventListener('click', closeHandler.bind(this));
+        }
     }
 
     show() {

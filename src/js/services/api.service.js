@@ -6,13 +6,31 @@ class ApiService {
         this.url = baseUrl;
     }
 
-    async getItems(sorting) {
+    async getCategory(category) {
+        try {
+            const request = `${this.url}api?token=${API_TOKEN}&category=${encodeURIComponent(category)}`;
+            return useRequest(request); 
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async getCategories() {
+        try {
+            const request = `${this.url}api?token=${API_TOKEN}&categories=all`;
+            return useRequest(request); 
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async getItemsRefactor(sorting) {
         try {
             if (sorting) {
-                const request = `${this.url}store-api?auth=${API_TOKEN}&option=all&sorting=${sorting}`;
+                const request = `${this.url}api?token=${API_TOKEN}&items=all&sorting=${sorting}`;
                 return useRequest(request); 
             } else {
-                const request = `${this.url}store-api?auth=${API_TOKEN}&option=all`;
+                const request = `${this.url}api?token=${API_TOKEN}&items=all`;
                 return useRequest(request); 
             }
             
@@ -21,13 +39,13 @@ class ApiService {
         }
     }
 
-    async getItemsOne(category, sorting) {
+    async getItemsOneRefactor(category, sorting) {
         try {
             if (sorting) {
-                const request = `${this.url}store-api?auth=${API_TOKEN}&category=${category}&sorting=${sorting}`;
+                const request = `${this.url}api?token=${API_TOKEN}&items=all&category=${encodeURIComponent(category.toLowerCase())}&sorting=${sorting}`;
                 return useRequest(request);
             } else {
-                const request = `${this.url}store-api?auth=${API_TOKEN}&category=${category}`;
+                const request = `${this.url}api?token=${API_TOKEN}&items=all&category=${encodeURIComponent(category.toLowerCase())}`;
                 return useRequest(request);
             }
         } catch (err) {

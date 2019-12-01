@@ -1,18 +1,20 @@
-export function renderItems(categories, items) {
+export function renderItemsRefactor(categories, items) {
+    const arrayCategories = categories;
+    const arrayItems = items;
 
     let html = '';
 
-    categories.forEach(category => {
+    arrayCategories.forEach(category => {
         html += `<div class="items-category">
-                    <h2 class="small-title">${category}</h2>
+                    <h2 class="small-title">${category.title}</h2>
                 </div>`;
-            items[category].forEach(item => {
-                if (item && item._id != undefined) {
-                    html += `
-                        <div data-id="${item._id}" data-title="${item.title}" data-price="${item.price}" class="items-list">
+        arrayItems.forEach(item => {
+            if (item.category.toLowerCase() === category.title.toLowerCase()) {
+                html += `
+                <div data-id="${item._id}" data-title="${item.title}" data-price="${item.price}" class="items-list">
                         <div  class="items-list__name">
                             <div class="list-icon">
-                                <img src="./img/service-icons/${item.image}" alt="#">
+                                <img src="./img/service-icons/${category.img}" alt="#">
                             </div>
                             <div class="list-title">
                                 <a href="/product/${item._id}">${item.title}</a>
@@ -20,7 +22,7 @@ export function renderItems(categories, items) {
                         </div>
                         <div class="items-list__info">
                             <div class="list-date">
-                                    <small>${item.date}</small>
+                                    <small>${item.date.split('T')[0]}</small>
                                 </div>
                             <div class="list-count">
                                 <span>${item.count} шт.</span>
@@ -37,20 +39,10 @@ export function renderItems(categories, items) {
                                         class="material-icons">shopping_cart</i></button>
                             </div>
                         </div>
-                    </div>
-                `
-                } else {
-                    html += `
-                        <div class="items-list">
-                        <div class="items-list__name">
-                            <div class="list-title">
-                                <span>В этой категории пока что нету товаров</span>
-                            </div>
-                        </div>
-                    </div>
-                `
-                }
-            });
+                    </div>`;
+            }
+        })
+
     });
 
     return html;

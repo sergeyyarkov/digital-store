@@ -1,7 +1,6 @@
 import { Component } from "../core/component";
 import { apiService } from "../services/api.service";
-import { renderItems } from "../templates/items.template";
-import { renderItemsOne } from "../templates/itemsCategory.template";
+import { renderItemsRefactor } from "../templates/itemsRefactor.template";
 
 export class FilterComponent extends Component {
     constructor(id, {items}) {
@@ -30,9 +29,9 @@ async function sortByAllHandler(e) {
             const sorting = e.target.id;
             
             this.items.onShow();
-            const fData = await apiService.getItems(sorting),
-                categories = Object.keys(fData),
-                html = renderItems(categories, fData);
+            const fData = await apiService.getItemsRefactor(sorting);
+            const categories = await apiService.getCategories();
+            const html = renderItemsRefactor(categories, fData);
 
             this.items.onHide();
             this.items.insertItems(html);
@@ -44,11 +43,11 @@ async function sortByOneHandler(e) {
     if (!localStorage.getItem('sortByAll')) {
         if (e.target.id) {
             const sorting = e.target.id;
-
             this.items.onShow();
-            const category = localStorage.getItem('currentCategory'),
-                fData = await apiService.getItemsOne(category, sorting),
-                html = renderItemsOne(category, fData);
+
+        const category = await apiService.getCategory(localStorage.getItem('currentCategory')),
+            fData = await apiService.getItemsOneRefactor(localStorage.getItem('currentCategory'), sorting),
+            html = renderItemsRefactor(category, fData);
 
             this.items.onHide();
             this.items.insertItems(html);

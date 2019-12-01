@@ -3,8 +3,10 @@ import { Modal } from "../core/modal";
 export class PayModal extends Modal {
     constructor (id, open, close) {
         super(id, open, close);
-        this.open.addEventListener('click', this.openHandler.bind(this));
-        this.close.addEventListener('click', this.closeHandler.bind(this));
+        if (this.open != null) {
+            this.open.addEventListener('click', this.openHandler.bind(this));
+            this.close.addEventListener('click', this.closeHandler.bind(this));
+        }
     }
 
     closeHandler() {

@@ -1,124 +1,100 @@
+const ObjectID = require('mongodb').ObjectID;
+
 function indexRoute(req, res, dbo) {
-    dbo.collection('storeInfo').find().toArray((err, result) => {
-        if (err) throw err;
-        const array = Object.keys(result[0].items)
-        const categories = array.map(cat => {
-            return cat[0].toUpperCase() + cat.slice(1);
-        });
+    dbo.collection('categories').find().toArray((err, result) => {
+        const categories = result.map(category => category.title[0].toUpperCase() + category.title.slice(1));
         res.render('index', {
             pageName: 'index',
             categories
         });
-    })
+    });
 }
 
+// API
 function getItemsRoute(req, res, dbo) {
-    if (req.query.auth === 'yYNfW8ynVO18L1TW5qIkILM1WtWgrVZz') {
-        if (req.query.option === 'all' && !req.query.sorting) {
-            dbo.collection('storeInfo').find().toArray((err, result) => {
-                if (err) throw err;
-                res.send(result[0].items);
-            })
-
-        } else if (!req.query.option && req.query.category && req.query.sorting === 'ascending') {
-            dbo.collection('storeInfo').find().toArray((err, result) => {
-                if (err) throw err;
-                const items = result[0].items[req.query.category];
-                items.sort((a, b) => a.price - b.price) // фильтр по возрастанию по цене
-                res.send(items);
+    if (req.query.token === 'yYNfW8ynVO18L1TW5qIkILM1WtWgrVZz') {
+        if (req.query.items === 'all' && !req.query.category && !req.query.sorting) {
+            dbo.collection('items').find().toArray((err, result) => {
+                res.send(result);
             });
-        } else if (!req.query.option && req.query.category && req.query.sorting === 'descending') {
-            dbo.collection('storeInfo').find().toArray((err, result) => {
-                if (err) throw err;
-                const items = result[0].items[req.query.category];
-                items.sort((a, b) => b.price - a.price) // фильтр по убыванию по цене
-                res.send(items);
+        } else if (req.query.items === 'all' && req.query.sorting && !req.query.category) {
+            if (req.query.sorting === 'ascending') {
+                dbo.collection('items').find().sort({price: 1}).toArray((err, result) => {
+                    res.send(result);
+                });
+            } else if (req.query.sorting === 'descending') {
+                dbo.collection('items').find().sort({price: -1}).toArray((err, result) => {
+                    res.send(result);
+                });
+            } else if (req.query.sorting === 'newer') {
+                dbo.collection('items').find().sort({date: -1}).toArray((err, result) => {
+                    res.send(result);
+                });
+            } else if (req.query.sorting === 'older') {
+                dbo.collection('items').find().sort({date: 1}).toArray((err, result) => {
+                    res.send(result);
+                });
+            } else {
+                res.send('Введите параметр по убыванию или возрастанию.');
+            }
+        } else if (req.query.items === 'all' && req.query.category && !req.query.sorting) {
+            dbo.collection('items').find({category: req.query.category}).toArray((err, result) => {
+                result.length > 0
+                    ? res.send(result)
+                    : res.send('Такой категории не существует или там нет товаров.');
             });
-        } else if (!req.query.option && req.query.category && req.query.sorting === 'older') {
-            dbo.collection('storeInfo').find().toArray((err, result) => {
-                if (err) throw err;
-                const items = result[0].items[req.query.category];
-                items.sort((a, b) => new Date(a.date) - new Date(b.date)); // фильтр по возрастанию по дате
-                res.send(items);
+        } else if (req.query.items === 'all' && req.query.category && req.query.sorting) {
+            if (req.query.sorting === 'ascending') {
+                dbo.collection('items').find({category: req.query.category}).sort({price: 1}).toArray((err, result) => {
+                    res.send(result);
+                });
+            } else if (req.query.sorting === 'descending') {
+                dbo.collection('items').find({category: req.query.category}).sort({price: -1}).toArray((err, result) => {
+                    res.send(result);
+                });
+            } else if (req.query.sorting === 'newer') {
+                dbo.collection('items').find({category: req.query.category}).sort({date: -1}).toArray((err, result) => {
+                    res.send(result);
+                });
+            } else if (req.query.sorting === 'older') {
+                dbo.collection('items').find({category: req.query.category}).sort({date: 1}).toArray((err, result) => {
+                    res.send(result);
+                });
+            } else {
+                res.send('Введите параметр по убыванию или возрастанию.');
+            }
+        } else if (req.query.categories === 'all') {
+            dbo.collection('categories').find().toArray((err, result) => {
+                res.send(result);
             });
-        } else if (!req.query.option && req.query.category && req.query.sorting === 'newer') {
-            dbo.collection('storeInfo').find().toArray((err, result) => {
-                if (err) throw err;
-                const items = result[0].items[req.query.category];
-                items.sort((a, b) => new Date(b.date) - new Date(a.date)) // фильтр по убыванию по дате
-                res.send(items);
-            });
-        } else if (!req.query.option && req.query.category) {
-            dbo.collection('storeInfo').find().toArray((err, result) => {
-                if (err) throw err;
-                const query = result[0].items[req.query.category]
-                if (query != undefined) {
-                    res.send(query);
-                } else {
-                    res.send('Товары в этой категории не найдены или такой категории нет')
-                }
-            })
-        } else if (req.query.option && req.query.sorting === 'ascending') {
-            dbo.collection('storeInfo').find().toArray((err, result) => {
-                if (err) throw err;
-                const items = result[0].items;
-                Object.values(items).forEach(arr => arr.sort((a, b) => a.price - b.price)) // фильтр по возрастанию по цене
-                res.send(items);
-            });
-        } else if (req.query.option && req.query.sorting === 'descending') {
-            dbo.collection('storeInfo').find().toArray((err, result) => {
-                if (err) throw err;
-                const items = result[0].items;
-                Object.values(items).forEach(arr => arr.sort((a, b) => b.price - a.price)) // фильтр по убыванию по цене
-                res.send(items);
-            })
-        } else if (req.query.option && req.query.sorting === 'older') {
-            dbo.collection('storeInfo').find().toArray((err, result) => {
-                if (err) throw err;
-                const items = result[0].items;
-                Object.values(items).forEach(arr => arr.sort((a, b) => new Date(a.date) - new Date(b.date))) // фильтр по возрастанию пр дате
-                res.send(items);
-            });
-        } else if (req.query.option && req.query.sorting === 'newer') {
-            dbo.collection('storeInfo').find().toArray((err, result) => {
-                if (err) throw err;
-                const items = result[0].items;
-                Object.values(items).forEach(arr => arr.sort((a, b) => new Date(b.date) - new Date(a.date))) // фильтр по возрастанию пр дате
-                res.send(items);
+        } else if (req.query.category) {
+            dbo.collection('categories').find({title: req.query.category}).toArray((err, result) => {
+                res.send(result);
             });
         } else {
-            res.send('Запрос неверный');
+            res.send('Запрос неверный.');
         }
     } else {
-        res.send('Неверный токен');
+        res.send('Неверный токен.');
     }
 }
 
 function onePageItemRoute(req, res, dbo) {
-    dbo.collection('storeInfo').find().toArray((err, result) => {
-        if (err) throw err;
-        const items = result[0].items;
-        const keys = Object.keys(result[0].items);
-        let itemFind = false;
-        keys.forEach(key => {
-            items[key].forEach(item => {
-                if (item._id != undefined) {
-                    if (item._id == req.params.id) {
-                        itemFind = true;
-                        res.render('product', {
-                            title: item.title,
-                            image: item.image,
-                            count: item.count,
-                            category: item.category[0].toUpperCase() + item.category.slice(1),
-                            price: item.price,
-                            description: item.description,
-                            date: item.date
-                        });
-                    }
-                }
+    dbo.collection('items').find({_id: new ObjectID(req.params.id)}).toArray((err, result) => {
+        const item = result[0];
+        dbo.collection('categories').find({title: item.category}).toArray((err, result) => {
+            const category = result[0];
+            res.render('product', {
+                title: item.title,
+                image: category.img,
+                count: item.count,
+                category: item.category[0].toUpperCase() + item.category.slice(1),
+                price: item.price,
+                description: item.description,
+                date: item.date,
+                id: item._id
             })
         });
-        if (!itemFind) res.send('Error 404');
     })
 }
 
@@ -146,10 +122,9 @@ function myOrdersRoute(req, res) {
     });
 }
 
-
 module.exports = function (server, db) {
     server.get('/', (req, res) => indexRoute(req, res, db));
-    server.get('/store-api', (req, res) => getItemsRoute(req, res, db));
+    server.get('/api', (req, res) => getItemsRoute(req, res, db));
     server.get('/how-to-buy', (req, res) => howToBuyRoute(req, res, db));
     server.get('/contacts', (req, res) => contactsRoute(req, res, db));
     server.get('/comments', (req, res) => commentsRoute(req, res, db));
