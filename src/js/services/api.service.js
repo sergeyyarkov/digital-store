@@ -24,7 +24,7 @@ class ApiService {
         }
     }
 
-    async getItemsRefactor(sorting) {
+    async getItems(sorting) {
         try {
             if (sorting) {
                 const request = `${this.url}api?token=${API_TOKEN}&items=all&sorting=${sorting}`;
@@ -39,7 +39,7 @@ class ApiService {
         }
     }
 
-    async getItemsOneRefactor(category, sorting) {
+    async getItemsOne(category, sorting) {
         try {
             if (sorting) {
                 const request = `${this.url}api?token=${API_TOKEN}&items=all&category=${encodeURIComponent(category.toLowerCase())}&sorting=${sorting}`;

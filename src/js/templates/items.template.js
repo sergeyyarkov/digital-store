@@ -1,4 +1,4 @@
-export function renderItemsRefactor(categories, items) {
+export function renderItems(categories, items) {
     const arrayCategories = categories;
     const arrayItems = items;
 

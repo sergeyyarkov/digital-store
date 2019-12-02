@@ -1,6 +1,6 @@
 import { Component } from "../core/component";
 import { apiService } from "../services/api.service";
-import { renderItemsRefactor } from "../templates/itemsRefactor.template";
+import { renderItems } from "../templates/items.template";
 
 export class FilterComponent extends Component {
     constructor(id, {items}) {
@@ -29,9 +29,9 @@ async function sortByAllHandler(e) {
             const sorting = e.target.id;
             
             this.items.onShow();
-            const fData = await apiService.getItemsRefactor(sorting);
+            const fData = await apiService.getItems(sorting);
             const categories = await apiService.getCategories();
-            const html = renderItemsRefactor(categories, fData);
+            const html = renderItems(categories, fData);
 
             this.items.onHide();
             this.items.insertItems(html);
@@ -46,8 +46,8 @@ async function sortByOneHandler(e) {
             this.items.onShow();
 
         const category = await apiService.getCategory(localStorage.getItem('currentCategory')),
-            fData = await apiService.getItemsOneRefactor(localStorage.getItem('currentCategory'), sorting),
-            html = renderItemsRefactor(category, fData);
+            fData = await apiService.getItemsOne(localStorage.getItem('currentCategory'), sorting),
+            html = renderItems(category, fData);
 
             this.items.onHide();
             this.items.insertItems(html);

@@ -1,7 +1,7 @@
 import { Component } from "../core/component";
 import { apiService } from "../services/api.service";
 import { insertCount } from "../other/counter";
-import { renderItemsRefactor } from "../templates/itemsRefactor.template";
+import { renderItems } from "../templates/items.template";
 
 export class ItemsComponent extends Component {
     constructor(id, {loader}) {
@@ -20,9 +20,9 @@ export class ItemsComponent extends Component {
             localStorage.setItem('sortByAll', 'true'); // установка значения для компонента Filter
             this.$el.addEventListener('click', addItem.bind(this));
             if (!localStorage.getItem('category')) { // Получаем все товары и выводим их если нету ключа category в ls
-                const fData = await apiService.getItemsRefactor();
+                const fData = await apiService.getItems();
                 const categories = await apiService.getCategories();
-                const html = renderItemsRefactor(categories, fData);
+                const html = renderItems(categories, fData);
                 this.insertItems(html);
                 this.btnColor();
 

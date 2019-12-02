@@ -1,6 +1,6 @@
 import { Component } from "../core/component";
 import { apiService } from "../services/api.service";
-import { renderItemsRefactor } from "../templates/itemsRefactor.template";
+import { renderItems } from "../templates/items.template";
 
 export class CategoryComponent extends Component {
     constructor(id, {items}, {filter}) {
@@ -27,8 +27,8 @@ export class CategoryComponent extends Component {
 
 async function showItems(category) {
     const targetCategory = await apiService.getCategory(category);
-    const fData = await apiService.getItemsOneRefactor(category),
-        html = renderItemsRefactor(targetCategory, fData);
+    const fData = await apiService.getItemsOne(category),
+        html = renderItems(targetCategory, fData);
 
     this.items.onHide(); 
     this.items.insertItems(html);   
@@ -44,8 +44,8 @@ async function buttonHandler(e) {
         btnActiveLink(e);
 
         const category = await apiService.getCategory(e.target.dataset.category),
-            fData = await apiService.getItemsOneRefactor(e.target.dataset.category),
-            html = renderItemsRefactor(category, fData);
+            fData = await apiService.getItemsOne(e.target.dataset.category),
+            html = renderItems(category, fData);
 
         this.items.onHide();
         this.items.insertItems(html);
@@ -56,9 +56,9 @@ async function buttonHandler(e) {
         this.items.onShow();
         btnActiveLink(e);
         
-        const fData = await apiService.getItemsRefactor();
+        const fData = await apiService.getItems();
         const categories = await apiService.getCategories();
-        const html = renderItemsRefactor(categories, fData);
+        const html = renderItems(categories, fData);
 
         this.items.onHide();
         this.items.insertItems(html);
