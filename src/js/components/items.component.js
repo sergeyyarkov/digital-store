@@ -46,9 +46,9 @@ export class ItemsComponent extends Component {
             const obj = JSON.parse(localStorage.getItem('cart'));
     
             obj.forEach(item => {
-                if (this.$el.querySelector(`#addItem[data-id="${item.id}"]`)) {
-                    this.$el.querySelector(`#addItem[data-id="${item.id}"]`).classList.add('orange');
-                    this.$el.querySelector(`#addItem[data-id="${item.id}"] i`).innerHTML = 'close';
+                if (this.$el.querySelector(`#rosterButtons[data-id="${item.id}"] #addItem`)) {
+                    this.$el.querySelector(`#rosterButtons[data-id="${item.id}"] #addItem`).classList.add('orange');
+                    this.$el.querySelector(`#rosterButtons[data-id="${item.id}"] #addItem i`).innerHTML = 'close';
                 }
             });
         }
@@ -65,19 +65,19 @@ function addItem(e) {
     if (e.target.localName === 'button' && e.target.id === 'addItem') {
         const target = e.target;
         const item = {
-            id: e.target.dataset.id,
-            title: e.target.dataset.title,
-            count: e.target.dataset.count,
-            price: e.target.dataset.price
+            id: e.target.parentNode.dataset.id,
+            title: e.target.parentNode.dataset.title,
+            count: e.target.parentNode.dataset.count,
+            price: e.target.parentNode.dataset.price
         }
         renderObj(item, this, target);
     } else if (e.target.localName === 'i') {
         const target = e.target.parentNode;
         const item = {
-            id: e.target.parentNode.dataset.id,
-            title: e.target.parentNode.dataset.title,
-            count: e.target.parentNode.dataset.count,
-            price: e.target.parentNode.dataset.price
+            id: e.target.parentNode.parentNode.dataset.id,
+            title: e.target.parentNode.parentNode.dataset.title,
+            count: e.target.parentNode.parentNode.dataset.count,
+            price: e.target.parentNode.parentNode.dataset.price
         }
         renderObj(item, this, target);
     }

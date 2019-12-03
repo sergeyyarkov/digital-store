@@ -15,7 +15,7 @@ export class PayModal extends Modal {
 
     openHandler(e) {
         if (e.target.id === 'payOpen') {
-            const targetInfo = e.target.dataset;
+            const targetInfo = e.target.parentNode.dataset;
             this.$el.querySelector('.title-field #title').value = targetInfo.title;
            
             this.show();
@@ -31,7 +31,7 @@ export class PayModal extends Modal {
         e.preventDefault();
         
         const payInfo = {
-            item: [{
+            items: [{
                 id: info.id,
                 title: info.title
             }],

@@ -84,9 +84,9 @@ export class CartModal extends Modal {
 
     defaultBtnColor(id) {
         if (this.items.roster) {
-            if (this.items.roster.querySelector(`#addItem[data-id="${id}"]`)) {
-                this.items.roster.querySelector(`#addItem[data-id="${id}"]`).classList.remove('orange');
-                this.items.roster.querySelector(`#addItem[data-id="${id}"] i`).innerHTML = 'shopping_cart';
+            if (this.items.roster.querySelector(`#rosterButtons[data-id="${id}"] #addItem`)) {
+                this.items.roster.querySelector(`#rosterButtons[data-id="${id}"] #addItem`).classList.remove('orange');
+                this.items.roster.querySelector(`#rosterButtons[data-id="${id}"] #addItem i`).innerHTML = 'shopping_cart';
             }
         }
     }

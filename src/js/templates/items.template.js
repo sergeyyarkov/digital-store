@@ -11,7 +11,7 @@ export function renderItems(categories, items) {
         arrayItems.forEach(item => {
             if (item.category.toLowerCase() === category.title.toLowerCase()) {
                 html += `
-                <div data-id="${item._id}" data-title="${item.title}" data-price="${item.price}" class="items-list">
+                <div class="items-list">
                         <div  class="items-list__name">
                             <div class="list-icon">
                                 <img src="./img/service-icons/${category.img}" alt="#">
@@ -33,9 +33,9 @@ export function renderItems(categories, items) {
                             <div class="list-price">
                                 <span>${item.price.toFixed(2)}₽</span>
                             </div>
-                            <div class="list-buttons">
-                                <button data-id="${item._id}" data-title="${item.title}" data-date="${item.date}" data-count="${item.count}" data-price="${item.price}" id="payOpen" class="btn-small waves-effect waves-light">Купить</button>
-                                <button data-id="${item._id}" data-title="${item.title}" data-date="${item.date}" data-count="${item.count}" data-price="${item.price}" id="addItem" class="btn-small waves-effect waves-light"><i
+                            <div id="rosterButtons" data-id="${item._id}" data-title="${item.title}" data-count="${item.count}" data-price="${item.price} class="list-buttons">
+                                <button id="payOpen" class="btn-small waves-effect waves-light">Купить</button>
+                                <button id="addItem" class="btn-small waves-effect waves-light"><i
                                         class="material-icons">shopping_cart</i></button>
                             </div>
                         </div>
