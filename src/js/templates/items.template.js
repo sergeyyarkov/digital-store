@@ -22,7 +22,7 @@ export function renderItems(categories, items) {
                         </div>
                         <div class="items-list__info">
                             <div class="list-date">
-                                    <small>${item.date.split('T')[0]}</small>
+                                    <small>${diffDates(new Date(), new Date(item.date))}</small>
                                 </div>
                             <div class="list-count">
                                 <span>${item.count} шт.</span>
@@ -42,8 +42,14 @@ export function renderItems(categories, items) {
                     </div>`;
             }
         })
-
     });
-
     return html;
+}
+
+function diffDates(firstDate, secondDate) {
+    let diff = Math.floor((firstDate - secondDate) / (60 * 60 * 24 * 1000));
+    if (diff <= 0) {
+        return 'добавлено сегодня';
+    }
+    return diff + ' дней назад';
 }

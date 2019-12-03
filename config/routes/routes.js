@@ -80,22 +80,28 @@ function getItemsRoute(req, res, dbo) {
 }
 
 function onePageItemRoute(req, res, dbo) {
-    dbo.collection('items').find({_id: new ObjectID(req.params.id)}).toArray((err, result) => {
-        const item = result[0];
-        dbo.collection('categories').find({title: item.category}).toArray((err, result) => {
-            const category = result[0];
-            res.render('product', {
-                title: item.title,
-                image: category.img,
-                count: item.count,
-                category: item.category[0].toUpperCase() + item.category.slice(1),
-                price: item.price,
-                description: item.description,
-                date: item.date,
-                id: item._id
-            })
-        });
-    })
+    try {
+        dbo.collection('items').find({_id: ObjectID(req.params.id)}).toArray((err, result) => {
+            const item = result[0];
+            dbo.collection('categories').find({title: item.category}).toArray((err, result) => {
+                const category = result[0];
+                res.render('product', {
+                    title: item.title,
+                    image: category.img,
+                    count: item.count,
+                    category: item.category[0].toUpperCase() + item.category.slice(1),
+                    price: item.price,
+                    description: item.description,
+                    date: item.date,
+                    id: item._id,
+                    type: category.type,
+                    format: category.format
+                })
+            });
+        })
+    } catch (error) {
+        res.send('Error 404');
+    }
 }
 
 function howToBuyRoute(req, res) {

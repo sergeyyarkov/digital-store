@@ -23,7 +23,7 @@ main.main-section
             .product-title.block-title
               h1 #{title}
                 br
-                small(style="font-size: 12px") Дата добавления: #{date}
+                small(style="font-size: 12px") Дата добавления: #{date.toLocaleDateString()}
             .product-info
               .product-info__left
                 #pay-js.product-left__pay
@@ -42,13 +42,9 @@ main.main-section
                   p #{description}
                 .product-right__content
                   h2 Тип аккаунтов  #{category}
-                  p
-                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos tempora quidem
-                    | velit facilis exercitationem eveniet porro vitae quisquam officia.
-                    | Explicabo, iure quis doloribus totam nihil esse minus, vero animi ex
-                    | corrupti ea officia, dolor fuga itaque ad deserunt quo. Sint!
+                  p #{type}
                   h2 Формат аккаунтов #{category}
-                  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, magni.
+                  p #{format}
                   hr
                   h3 Рекомендации к покупке аккаунтов.
                   p
