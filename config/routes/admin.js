@@ -37,7 +37,7 @@ module.exports = function (server, db) {
         failureRedirect: '/admin',
         failureFlash: true
     }))
-    // Регистрация админа через форму POST
+    // Регистрация админа через форму POST 
     // server.post('/register', checkNotAuthenticated, async (req, res) => {
     //     try {
     //         const hashedPassword = await bcrypt.hash(req.body.password, 10);
