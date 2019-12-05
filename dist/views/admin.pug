@@ -1,0 +1,12 @@
+if messages.error
+    h3 #{messages.error}
+h1 Login Page
+form(action="/admin" method="POST")
+    div
+        label(for="email") Email
+        input(type="email" id="email" name="email" required)
+    div
+        label(for="password") Password
+        input(type="password" id="password" name="password" required)
+    button(type="submit") Login
+a(href="/register") Register

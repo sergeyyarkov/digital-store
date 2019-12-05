@@ -1,5 +1,13 @@
 const ObjectID = require('mongodb').ObjectID;
 
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+
+    res.redirect('/admin');
+}
+
 function indexRoute(req, res, dbo) {
     dbo.collection('categories').find().toArray((err, result) => {
         const categories = result.map(category => category.title[0].toUpperCase() + category.title.slice(1));
@@ -99,8 +107,8 @@ function onePageItemRoute(req, res, dbo) {
                 })
             });
         })
-    } catch (error) {
-        res.send('Error 404');
+    } catch {
+        res.render('404');
     }
 }
 
@@ -128,6 +136,10 @@ function myOrdersRoute(req, res) {
     });
 }
 
+function controlPanelRoute(req, res) {
+    res.render('control-panel', {name: req.user.name});
+}
+
 module.exports = function (server, db) {
     server.get('/', (req, res) => indexRoute(req, res, db));
     server.get('/api', (req, res) => getItemsRoute(req, res, db));
@@ -136,4 +148,5 @@ module.exports = function (server, db) {
     server.get('/comments', (req, res) => commentsRoute(req, res, db));
     server.get('/my-orders', (req, res) => myOrdersRoute(req, res, db));
     server.get('/product/:id', (req, res) => onePageItemRoute(req, res, db));
+    server.get('/control-panel', checkAuthenticated, (req, res) => controlPanelRoute(req, res));
 }
