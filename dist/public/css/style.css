@@ -49,7 +49,7 @@ hr {
     width: 300px;
     position: fixed;
     right: 30px;
-    z-index: 1;
+    z-index: 2;
 }
 
 .block-title {
@@ -654,4 +654,20 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* Control Panel login */
+.login-form {
+    margin-top: 7rem;
+}
+.login-form__title h1 {
+    text-align: center;
+    font-weight: 400;
+    font-size: 18px;
+}
+.login-form__content {
+    margin-top: 2rem;
+}
+.login-form__content button {
+    width: 100%;
 }

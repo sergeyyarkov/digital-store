@@ -11,8 +11,9 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 function loginRoute(req, res) {
-    res.render('admin')
-    
+    res.render('admin/admin', {
+        title: 'Digital-Store | Вход в панель управления сайтом'
+    })
 }
 
 // function registerRoute(req, res) {

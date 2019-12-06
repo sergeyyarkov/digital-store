@@ -1,0 +1,25 @@
+include ../assets/head.pug
+main
+    if messages.error
+        #notification
+            .card-panel(style="background-color: #f34d53;")
+                span.white-text #{messages.error}
+    .container
+        .row
+            .col.m6.offset-m3.s12
+                .login-form            
+                    .login-form__content
+                        .login-form__title
+                            h1 Вход в панель управления
+                        .login-form__content
+                            form(action="/admin" method="POST")
+                                div.input-field
+                                    i.material-icons.prefix email
+                                    label(for="email") Почта
+                                    input(type="email" id="email" name="email" required)
+                                div.input-field
+                                    i.material-icons.prefix lock
+                                    label(for="password") Пароль
+                                    input(type="password" id="password" name="password" required)
+                                button(class="waves-light btn-large" type="submit") Вход
+include ../assets/scripts.pug

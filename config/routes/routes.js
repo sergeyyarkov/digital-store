@@ -13,6 +13,7 @@ function indexRoute(req, res, dbo) {
         const categories = result.map(category => category.title[0].toUpperCase() + category.title.slice(1));
         res.render('index', {
             pageName: 'index',
+            title: 'Digital-Store | Главная',
             categories
         });
     });
@@ -134,30 +135,37 @@ function onePageItemRoute(req, res, dbo) {
 
 function howToBuyRoute(req, res) {
     res.render('how-to-buy', {
-        pageName: 'how-to-buy'
+        pageName: 'how-to-buy',
+        title: 'Digital-Store | Как купить товар'
     });
 }
 
 function contactsRoute(req, res) {
     res.render('contacts', {
-        pageName: 'contacts'
+        pageName: 'contacts',
+        title: 'Digital-Store | Контакты'
     });
 }
 
 function commentsRoute(req, res) {
     res.render('comments', {
-        pageName: 'comments'
+        pageName: 'comments',
+        title: 'Digital-Store | Отзывы'
     });
 }
 
 function myOrdersRoute(req, res) {
     res.render('my-orders', {
-        pageName: 'my-orders'
+        pageName: 'my-orders',
+        title: 'Digital-Store | Мои покупки'
     });
 }
 
 function controlPanelRoute(req, res) {
-    res.render('control-panel', {name: req.user.name});
+    res.render('admin/control-panel', {
+        name: req.user.name,
+        title: 'Digital-Store | Панель управления сайтом'
+    });
 }
 
 module.exports = function (server, db) {

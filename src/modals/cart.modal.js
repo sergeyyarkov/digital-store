@@ -5,9 +5,11 @@ export class CartModal extends Modal {
     constructor(id, open, close, {items}) {
         super(id, open, close);
         this.items = items;
-        this.open.addEventListener('click', this.openHandler.bind(this));
-        this.close.addEventListener('click', this.closeHandler.bind(this));
-        this.list = this.$el.querySelector('#modalList');
+        if (this.$el) {
+            this.open.addEventListener('click', this.openHandler.bind(this));
+            this.close.addEventListener('click', this.closeHandler.bind(this));
+            this.list = this.$el.querySelector('#modalList');   
+        }
     }
 
     closeHandler() {

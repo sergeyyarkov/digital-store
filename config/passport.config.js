@@ -5,14 +5,14 @@ function initialize(passport, getUserByEmail, getUserById) {
     const authenticateUser = async (email, password, done) => {
         const user = getUserByEmail(email);
         if (user == null) {
-            return done(null, false, { message: 'Пользователь с такой почтой не найден' });
+            return done(null, false, { message: 'Администратор с такой почтой не найден!' });
         }
 
         try {
             if (await bcrypt.compare(password, user.password)) {
                 return done(null, user);
             } else {
-                return done(null, false, { message: 'Неверный пароль' });
+                return done(null, false, { message: 'Неверный пароль!' });
             }
         } catch (error) {
             return done(error);
