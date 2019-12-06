@@ -7,8 +7,8 @@ export class InformationComponent extends Component {
 
     init() {
         if (this.$el) {
-            if (localStorage.getItem('visited')) {
-                this.hide();
+            if (!localStorage.getItem('visited')) {
+                this.show();
             }
             const btn = this.$el.querySelector('#information-close');
             btn.addEventListener('click', buttonHandler.bind(this));

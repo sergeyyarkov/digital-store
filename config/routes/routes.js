@@ -23,24 +23,34 @@ function getItemsRoute(req, res, dbo) {
     if (req.query.token === 'yYNfW8ynVO18L1TW5qIkILM1WtWgrVZz') {
         if (req.query.items === 'all' && !req.query.category && !req.query.sorting) {
             dbo.collection('items').find().toArray((err, result) => {
-                res.send(result);
+                result.length > 0
+                    ? res.send(result)
+                    : res.send({error: 'Товаров в магазине пока что нет.'});
             });
         } else if (req.query.items === 'all' && req.query.sorting && !req.query.category) {
             if (req.query.sorting === 'ascending') {
                 dbo.collection('items').find().sort({price: 1}).toArray((err, result) => {
-                    res.send(result);
+                    result.length > 0
+                    ? res.send(result)
+                    : res.send({error: 'Такой категории не существует или там нет товаров.'});
                 });
             } else if (req.query.sorting === 'descending') {
                 dbo.collection('items').find().sort({price: -1}).toArray((err, result) => {
-                    res.send(result);
+                    result.length > 0
+                    ? res.send(result)
+                    : res.send({error: 'Такой категории не существует или там нет товаров.'});
                 });
             } else if (req.query.sorting === 'newer') {
                 dbo.collection('items').find().sort({date: -1}).toArray((err, result) => {
-                    res.send(result);
+                    result.length > 0
+                    ? res.send(result)
+                    : res.send({error: 'Такой категории не существует или там нет товаров.'});
                 });
             } else if (req.query.sorting === 'older') {
                 dbo.collection('items').find().sort({date: 1}).toArray((err, result) => {
-                    res.send(result);
+                    result.length > 0
+                    ? res.send(result)
+                    : res.send({error: 'Такой категории не существует или там нет товаров.'});
                 });
             } else {
                 res.send('Введите параметр по убыванию или возрастанию.');
@@ -49,31 +59,41 @@ function getItemsRoute(req, res, dbo) {
             dbo.collection('items').find({category: req.query.category}).toArray((err, result) => {
                 result.length > 0
                     ? res.send(result)
-                    : res.send('Такой категории не существует или там нет товаров.');
+                    : res.send({error: 'Такой категории не существует или там нет товаров.'});
             });
         } else if (req.query.items === 'all' && req.query.category && req.query.sorting) {
             if (req.query.sorting === 'ascending') {
                 dbo.collection('items').find({category: req.query.category}).sort({price: 1}).toArray((err, result) => {
-                    res.send(result);
+                    result.length > 0
+                    ? res.send(result)
+                    : res.send({error: 'Такой категории не существует или там нет товаров.'});
                 });
             } else if (req.query.sorting === 'descending') {
                 dbo.collection('items').find({category: req.query.category}).sort({price: -1}).toArray((err, result) => {
-                    res.send(result);
+                    result.length > 0
+                    ? res.send(result)
+                    : res.send({error: 'Такой категории не существует или там нет товаров.'});
                 });
             } else if (req.query.sorting === 'newer') {
                 dbo.collection('items').find({category: req.query.category}).sort({date: -1}).toArray((err, result) => {
-                    res.send(result);
+                    result.length > 0
+                    ? res.send(result)
+                    : res.send({error: 'Такой категории не существует или там нет товаров.'});
                 });
             } else if (req.query.sorting === 'older') {
                 dbo.collection('items').find({category: req.query.category}).sort({date: 1}).toArray((err, result) => {
-                    res.send(result);
+                    result.length > 0
+                    ? res.send(result)
+                    : res.send({error: 'Такой категории не существует или там нет товаров.'});
                 });
             } else {
                 res.send('Введите параметр по убыванию или возрастанию.');
             }
         } else if (req.query.categories === 'all') {
             dbo.collection('categories').find().toArray((err, result) => {
-                res.send(result);
+                result.length > 0
+                    ? res.send(result)
+                    : res.send({error: 'На сайте нету категорий'});
             });
         } else if (req.query.category) {
             dbo.collection('categories').find({title: req.query.category}).toArray((err, result) => {
