@@ -4,9 +4,10 @@ import { insertCount } from "../other/counter";
 import { renderItems } from "../templates/items.template";
 
 export class ItemsComponent extends Component {
-    constructor(id, {loader}) {
+    constructor(id, {loader}, {notification}) {
         super(id);
         this.loader = loader;
+        this.notification = notification;
         this.$el ? this.roster = this.$el.querySelector('#roster') : false;
         if (localStorage.getItem('cart')) {
             this.cart = JSON.parse(localStorage.getItem('cart'));
@@ -99,19 +100,21 @@ function renderObj(obj, context, target) {
             localStorage.setItem('cart', JSON.stringify(context.cart));
             target.classList.add('orange');
             target.querySelector('i').innerHTML = 'close';
-            insertCount('counter', context.cart)     
+            insertCount('counter', context.cart);
+            context.notification.notificate('Товар был успешно добавлен в корзину.', '#26A69A');     
         } else {
             context.cart.splice(index, 1);
             localStorage.setItem('cart', JSON.stringify(context.cart)); 
             target.classList.remove('orange');
             target.querySelector('i').innerHTML = 'shopping_cart';
-            insertCount('counter', context.cart)      
+            insertCount('counter', context.cart);
         }
     } else {
       context.cart.push(obj);
       localStorage.setItem('cart', JSON.stringify(context.cart));
       target.classList.add('orange');
       target.querySelector('i').innerHTML = 'close';
-      insertCount('counter', context.cart)  
+      insertCount('counter', context.cart);
+      context.notification.notificate('Товар был успешно добавлен в корзину.', '#26A69A');   
     }
 };

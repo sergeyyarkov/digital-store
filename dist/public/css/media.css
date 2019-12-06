@@ -97,6 +97,9 @@
     nav .nav-wrapper .brand-logo {
         font-size: 17px;
     }
+    #notification {
+        right: 10px;
+    }
 }
 
 @media (max-width: 380px) {

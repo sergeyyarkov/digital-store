@@ -7,12 +7,14 @@ import { BreadcrumbComponent } from "./components/breadcrumb.component.js";
 import { FilterComponent } from "./components/filter.component.js";
 import { CartModal } from "./modals/cart.modal.js";
 import { PayModal } from "./modals/pay.modal.js";
+import { NotificationComponent } from "./components/notification.component.js";
 
 
 const header = new HeaderComponent('header');
 const loader = new LoaderComponent('loader');
 const information = new InformationComponent('information');
-const items = new ItemsComponent('items', {loader});
+const notification = new NotificationComponent('notification');
+const items = new ItemsComponent('items', {loader}, {notification});
 const filter = new FilterComponent('filter', {items});
 const category = new CategoryComponent('category', {items}, {filter});
 const breadcumb = new BreadcrumbComponent('breadcrumb');

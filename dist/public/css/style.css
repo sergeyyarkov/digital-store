@@ -45,6 +45,13 @@ hr {
 
 /* Custom Styles */
 
+#notification {
+    width: 300px;
+    position: fixed;
+    right: 30px;
+    z-index: 1;
+}
+
 .block-title {
     display: flex;
     align-items: center;
