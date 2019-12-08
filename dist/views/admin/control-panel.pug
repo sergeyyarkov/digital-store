@@ -1,5 +1,92 @@
 include ../assets/head.pug
-h1 Control-Panel
-h3 Привет #{name}
-form(action="/logout?_method=DELETE" method="POST")
-    button(type="submit") Выйти
+body.has-fixed-sidenav
+    include ./assets/templates/header.pug
+    main.admin-main
+        .container
+            .row
+                .col.s12
+                    h2 Статистика
+                .col.l4.m6.s12
+                    .card
+                        .card-content
+                            span.card-title Сумма проданных товаров
+                            .divider
+                            h3 0 ₽
+                .col.l4.m6.s12
+                    .card
+                        .card-content
+                            span.card-title Кол-во проданных товаров
+                            .divider
+                            h3 0
+                .col.l4.s12
+                    .card
+                        .card-content
+                            span.card-title Общее кол-во товаров на сайте
+                            .divider
+                            h3 0
+                .col.s12
+                    .card
+                        .card-content
+                            span.card-title Список покупателей
+                            .buyers
+                                table.striped
+                                    thead
+                                        tr
+                                            th Почта
+                                            th Способ оплаты
+                                            th Дата оплаты
+                                            th Сумма
+                                    .divider
+                                    tbody
+                                        tr
+                                            td test@gmail.com
+                                            td Qiwi
+                                            td 2019-12-05
+                                            td 145 ₽
+                                        tr
+                                            td test@gmail.com
+                                            td Qiwi
+                                            td 2019-12-05
+                                            td 145 ₽
+                                        tr
+                                            td test@gmail.com
+                                            td Qiwi
+                                            td 2019-12-05
+                                            td 145 ₽
+                                        tr
+                                            td test@gmail.com
+                                            td Qiwi
+                                            td 2019-12-05
+                                            td 145 ₽
+                                        tr
+                                            td test@gmail.com
+                                            td Qiwi
+                                            td 2019-12-05
+                                            td 145 ₽
+                                        tr
+                                            td test@gmail.com
+                                            td Qiwi
+                                            td 2019-12-05
+                                            td 145 ₽
+                                        tr
+                                            td test@gmail.com
+                                            td Qiwi
+                                            td 2019-12-05
+                                            td 145 ₽
+                                        tr
+                                            td test@gmail.com
+                                            td Qiwi
+                                            td 2019-12-05
+                                            td 145 ₽
+                                        tr
+                                            td test@gmail.com
+                                            td Qiwi
+                                            td 2019-12-05
+                                            td 145 ₽
+                                        tr
+                                            td test@gmail.com
+                                            td Qiwi
+                                            td 2019-12-05
+                                            td 145 ₽                    
+    include ./assets/templates/footer.pug
+    include ./assets/scripts.pug

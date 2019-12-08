@@ -164,6 +164,7 @@ function myOrdersRoute(req, res) {
 function controlPanelRoute(req, res) {
     res.render('admin/control-panel', {
         name: req.user.name,
+        email: req.user.email,
         title: 'Digital-Store | Панель управления сайтом'
     });
 }

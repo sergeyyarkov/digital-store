@@ -305,7 +305,7 @@ hr {
 }
 
 /* Header */
-header {
+header.main-header {
     position: fixed;
     right: 0;
     left: 0;
@@ -316,7 +316,6 @@ header {
 nav {
     background-color: #26A69A;
     font-weight: 300;
-    box-shadow: none;
 }
 
 .nav-wrapper .brand-logo {
@@ -335,8 +334,8 @@ nav {
 }
 
 header nav,
-main,
-footer .container {
+main.main-section,
+footer.main-footer .container {
     padding-left: 90px;
     padding-right: 90px;
 }
@@ -346,7 +345,7 @@ footer .container {
 .category,
 .filter,
 .purchase,
-.background {
+.main-section .background {
     background-color: #fff;
     border-radius: 4px;
     margin-bottom: 1rem;
@@ -504,7 +503,7 @@ footer .container {
 }
 
 
-.background {
+.main-section .background {
     background-color: #fff;
     padding: 40px;
     margin: 40px 0;
@@ -643,7 +642,7 @@ footer .container {
 }
 
 /* Footer */
-footer {
+footer.main-footer {
     margin-top: 4rem;
     background-color: #25998f;
     padding-top: 10px;
@@ -670,4 +669,68 @@ footer {
 }
 .login-form__content button {
     width: 100%;
+}
+.sidenav .collapsible-header, .sidenav.fixed .collapsible-header, .sidenav li>a {
+    padding: 0 20px;
+}
+.nav-wrapper .brand-logo {
+    padding: 0 5px 0px 15px;
+}
+.sidenav .user-view {
+    padding: 10px 32px 0px;
+}
+.admin-main {
+    margin-top: 20px;
+}
+.admin-main h2 {
+    margin: 23px 0px 20px 0px;
+}
+.admin-header nav.navbar {
+    padding-left: 10px;
+}
+.card .card-content .card-title {
+    font-size: 16px;
+}
+.card .card-content h3 {
+    margin-top: 8px;
+}
+.buyers {
+    max-height: 365px;
+    overflow-y: scroll;
+}
+footer.admin-footer{
+    background-color: #fff;
+    border-top: 1px solid #e0e0e0;
+    color: #444;
+    padding: 70px 0 10px;
+    margin: 0;
+}
+.admin-footer ul li a {
+    color: #999;
+    font-size: .9rem;
+    font-weight: 300;
+    margin: 5px 0;
+}
+.admin-footer h5 {
+    font-size: 1.64rem;
+    line-height: 110%;
+    margin: 1.0933333333rem 0 .656rem 0;
+}
+.admin-footer ul li {
+    margin-bottom: 5px;
+}
+.admin-footer ul li.github-icons {
+    margin-top: 10px;
+}
+.admin-footer ul li.github-icons span:nth-child(1) {
+    margin-left: 0;
+}
+.admin-footer ul li.github-icons span {
+    margin-left: 5px;
+}
+.modal .modal-content p {
+    margin-top: 10px;
+}
+.modal .modal-content h4 {
+    margin-bottom: 10px;
 }

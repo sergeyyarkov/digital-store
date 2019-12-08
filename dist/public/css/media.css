@@ -34,6 +34,20 @@
         width: 100%;
     }
 }
+
+@media (min-width: 993px) {
+    header .navbar-fixed nav.navbar {
+        width: calc(100% - 300px);
+        left: 300px;
+    }
+    body.has-fixed-sidenav {
+        padding-left: 300px;
+    }
+    main.admin-main .container, footer.admin-footer .container {
+        width: 90%;
+    }
+}
+
 @media (min-width: 768px) {
     .items .items-list__info {
         min-width: 435px;
