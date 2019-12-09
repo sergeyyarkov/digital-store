@@ -347,7 +347,7 @@ footer.main-footer .container {
 .purchase,
 .main-section .background {
     background-color: #fff;
-    border-radius: 4px;
+    border-radius: 0 0 2px 2px;
     margin-bottom: 1rem;
 }
 
@@ -694,7 +694,7 @@ footer.main-footer {
 .card .card-content h3 {
     margin-top: 8px;
 }
-.buyers {
+.table-buyers, .table-items {
     max-height: 365px;
     overflow-y: scroll;
 }
@@ -733,4 +733,19 @@ footer.admin-footer{
 }
 .modal .modal-content h4 {
     margin-bottom: 10px;
+}
+div.table-items td, div.table-items th {
+    text-align: center;
+}
+div.table-items > table > tbody > tr > td:nth-child(1) > img{
+    height: 20px;
+}
+div.table-items > table > tbody > tr > td:nth-child(7) > button.btn.orange {
+    margin-left: 5px;
+}
+.sidenav .collapsible-body>ul:not(.collapsible)>li.active, .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active {
+    background-color: #e6e6e6;
+}
+.sidenav .collapsible-body>ul:not(.collapsible)>li.active a, .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active a {
+    color: rgba(0,0,0,0.87);
 }

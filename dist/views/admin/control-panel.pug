@@ -28,8 +28,15 @@ body.has-fixed-sidenav
                     .card
                         .card-content
                             span.card-title Список покупателей
-                            .buyers
-                                table.striped
+                            .search-field
+                                .nav-wrapper
+                                    .input-field
+                                        input#search(type="search" required placeholder="Введите почту покупателя")
+                                        label.label-icon(for="search")
+                                            i.material-icons search
+                                        i.material-icons close
+                            .table-buyers
+                                table.highlight
                                     thead
                                         tr
                                             th Почта

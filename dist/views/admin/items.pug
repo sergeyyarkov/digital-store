@@ -1,0 +1,105 @@
+include ../assets/head.pug
+body.has-fixed-sidenav
+    include ./assets/templates/header.pug
+    main.admin-main
+        .container
+            .row
+                .col.s12
+                    h2 Редактирование товаров
+                .col.s12
+                    .card
+                        .card-content
+                            span.card-title Список товаров
+                            .search-field
+                                .nav-wrapper
+                                    .input-field
+                                        input#search(type="search" required placeholder="Введите название товара")
+                                        label.label-icon(for="search")
+                                            i.material-icons search
+                                        i.material-icons close
+                            .table-items
+                                table.highlight
+                                    thead
+                                        tr
+                                            th Иконка
+                                            th Наименование
+                                            th Категория
+                                            th Дата добавления
+                                            th Количество
+                                            th Цена
+                                            th Редактирование
+                                            
+                                    .divider
+                                    tbody
+                                        tr
+                                            td
+                                                img(src="../img/service-icons/origin.svg", alt="alt")
+                                            td Тестовый товар №6
+                                            td Origin
+                                            td 2019-12-05
+                                            td 18
+                                            td 145 ₽
+                                            td
+                                                button.btn.red Удалить
+                                                button.btn.orange Изменить
+                                        tr
+                                            td
+                                                img(src="../img/service-icons/origin.svg", alt="alt")
+                                            td Тестовый товар №6
+                                            td Origin
+                                            td 2019-12-05
+                                            td 18
+                                            td 145 ₽
+                                            td
+                                                button.btn.red Удалить
+                                                button.btn.orange Изменить
+                                        tr
+                                            td
+                                                img(src="../img/service-icons/origin.svg", alt="alt")
+                                            td Тестовый товар №6
+                                            td Origin
+                                            td 2019-12-05
+                                            td 18
+                                            td 145 ₽
+                                            td
+                                                button.btn.red Удалить
+                                                button.btn.orange Изменить
+                                        tr
+                                            td
+                                                img(src="../img/service-icons/origin.svg", alt="alt")
+                                            td Тестовый товар №6
+                                            td Origin
+                                            td 2019-12-05
+                                            td 18
+                                            td 145 ₽
+                                            td
+                                                button.btn.red Удалить
+                                                button.btn.orange Изменить
+                                        tr
+                                            td
+                                                img(src="../img/service-icons/origin.svg", alt="alt")
+                                            td Тестовый товар №6
+                                            td Origin
+                                            td 2019-12-05
+                                            td 18
+                                            td 145 ₽
+                                            td
+                                                button.btn.red Удалить
+                                                button.btn.orange Изменить
+                                        tr
+                                            td
+                                                img(src="../img/service-icons/origin.svg", alt="alt")
+                                            td Тестовый товар №6
+                                            td Origin
+                                            td 2019-12-05
+                                            td 18
+                                            td 145 ₽
+                                            td
+                                                button.btn.red Удалить
+                                                button.btn.orange Изменить
+                                        
+                                            
+                                                
+                                   
+    include ./assets/templates/footer.pug
+    include ./assets/scripts.pug

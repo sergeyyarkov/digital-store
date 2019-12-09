@@ -5,15 +5,15 @@ header.admin-header
                 .nav-wrapper
                     a(href="#" data-target="slide-out" class="sidenav-trigger" style="color: #000;")
                         i.material-icons menu
-                    a(href="#" class="brand-logo grey-text text-darken-4") Главная
+                    a(href="#" class="brand-logo grey-text text-darken-4") #{pageName[0]}
         ul#slide-out.sidenav.sidenav-fixed.control-panel
             li
             .user-view
                 .background
-                    img(src="./img/admin/background-user.jpg", alt="#")
+                    img(src="../img/admin/background-user.jpg", alt="#")
                 span(style="padding-top: 5px;padding-bottom:10px;display:block;").white-text Control Panel v1.0.0
                 a(href="#")
-                    img(class="circle" src="./img/admin/avatar-user.jpg", alt="alt")
+                    img(class="circle" src="../img/admin/avatar-user.jpg", alt="alt")
                 a(href="#")
                     span.white-text.name #{name}
                 a(href="#")
@@ -28,26 +28,30 @@ header.admin-header
             li
                 a(href="#" class="subheader") Управление сайтом
             li.no-padding
-                ul.collapsible
+            li
+                a(href="/control-panel" class="collapsible-header waves-effect")
+                    i.material-icons dashboard
+                    | Статистика
+                ul#editCollapse.collapsible
                     li
                         a(href="#" class="collapsible-header waves-effect")
                             i.material-icons edit
                             | Редактирование
                         .collapsible-body
-                            ul
-                                li
-                                    a(href="#items")
+                            ul(data-current=pageName[1])
+                                li(data-page="items")
+                                    a(href='http://'+host+'/control-panel/items')
                                         i.material-icons list
                                         | Товары
-                                li
-                                    a(href="#categories")
+                                li(data-page="categories")
+                                    a(href='http://'+host+'/control-panel/categories')
                                         i.material-icons category
                                         | Категории
-                                li
-                                    a(href="#categories")
+                                li(data-page="content")
+                                    a(href="#content")
                                         i.material-icons visibility
                                         | Контент на сайте
-                                li
+                                li(data-page="administrators")
                                     a(href="#administrators")
                                         i.material-icons supervisor_account
                                         | Администраторы

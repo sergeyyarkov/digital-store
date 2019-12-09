@@ -165,7 +165,29 @@ function controlPanelRoute(req, res) {
     res.render('admin/control-panel', {
         name: req.user.name,
         email: req.user.email,
-        title: 'Digital-Store | Панель управления сайтом'
+        title: 'Digital-Store | Панель управления сайтом',
+        host: req.headers.host,
+        pageName: ['Главная', 'main'],
+    });
+}
+
+function controlPanelItemsRoute(req, res) {
+    res.render('admin/items', {
+        name: req.user.name,
+        email: req.user.email,
+        title: 'Digital-Store | Товары',
+        host: req.headers.host,
+        pageName: ['Товары', 'items'],
+    });
+}
+
+function controlPanelCategoriesRoute(req, res) {
+    res.render('admin/categories', {
+        name: req.user.name,
+        email: req.user.email,
+        title: 'Digital-Store | Категории',
+        host: req.headers.host,
+        pageName: ['Категории', 'categories'],
     });
 }
 
@@ -178,4 +200,6 @@ module.exports = function (server, db) {
     server.get('/my-orders', (req, res) => myOrdersRoute(req, res, db));
     server.get('/product/:id', (req, res) => onePageItemRoute(req, res, db));
     server.get('/control-panel', checkAuthenticated, (req, res) => controlPanelRoute(req, res));
+    server.get('/control-panel/items', checkAuthenticated, (req, res) => controlPanelItemsRoute(req, res));
+    server.get('/control-panel/categories', checkAuthenticated, (req, res) => controlPanelCategoriesRoute(req, res));
 }
