@@ -191,6 +191,36 @@ function controlPanelCategoriesRoute(req, res) {
     });
 }
 
+function controlPanelContentRoute(req, res) {
+    res.render('admin/content', {
+        name: req.user.name,
+        email: req.user.email,
+        title: 'Digital-Store | Контент',
+        host: req.headers.host,
+        pageName: ['Контент', 'content'],
+    });
+}
+
+function controlPanelAdministratorsRoute(req, res) {
+    res.render('admin/administrators', {
+        name: req.user.name,
+        email: req.user.email,
+        title: 'Digital-Store | Администраторы',
+        host: req.headers.host,
+        pageName: ['Администраторы', 'administrators'],
+    });
+}
+
+function controlPanelDatabaseRoute(req, res) {
+    res.render('admin/database', {
+        name: req.user.name,
+        email: req.user.email,
+        title: 'Digital-Store | Настройка Базы Данных',
+        host: req.headers.host,
+        pageName: ['База данных', 'database'],
+    });
+}
+
 module.exports = function (server, db) {
     server.get('/', (req, res) => indexRoute(req, res, db));
     server.get('/api', (req, res) => getItemsRoute(req, res, db));
@@ -202,4 +232,7 @@ module.exports = function (server, db) {
     server.get('/control-panel', checkAuthenticated, (req, res) => controlPanelRoute(req, res));
     server.get('/control-panel/items', checkAuthenticated, (req, res) => controlPanelItemsRoute(req, res));
     server.get('/control-panel/categories', checkAuthenticated, (req, res) => controlPanelCategoriesRoute(req, res));
+    server.get('/control-panel/content', checkAuthenticated, (req, res) => controlPanelContentRoute(req, res));
+    server.get('/control-panel/administrators', checkAuthenticated, (req, res) => controlPanelAdministratorsRoute(req, res));
+    server.get('/control-panel/database', checkAuthenticated, (req, res) => controlPanelDatabaseRoute(req, res));
 }

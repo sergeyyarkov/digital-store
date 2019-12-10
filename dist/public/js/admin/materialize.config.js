@@ -1,16 +1,43 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Closest полифилл для ie11
+    (function() {
+        if (!Element.prototype.closest) {
+          Element.prototype.closest = function(css) {
+            var node = this;
+      
+            while (node) {
+              if (node.matches(css)) return node;
+              else node = node.parentElement;
+            }
+            return null;
+          };
+        }
+    })();
+    // Matches полифилл для ie11
+    (function() {
+        if (!Element.prototype.matches) {
+          Element.prototype.matches = Element.prototype.matchesSelector ||
+            Element.prototype.webkitMatchesSelector ||
+            Element.prototype.mozMatchesSelector ||
+            Element.prototype.msMatchesSelector;
+        }
+      })()
+    
     M.Sidenav.init(document.querySelectorAll('.sidenav'));
     M.Collapsible.init(document.querySelectorAll('.collapsible'));
     M.Modal.init(document.querySelectorAll('.modal'));
 
     //- active временно!!!!!
-    const currentPage = document.querySelector('#editCollapse .collapsible-body ul').dataset.current;
-    const pages = document.querySelectorAll('#editCollapse .collapsible-body ul li');
-    pages.forEach(page => {
-        if (currentPage === page.dataset.page) {
-            page.classList.add('active');
-            const list = M.Collapsible.getInstance(document.querySelector('#editCollapse'));
-            list.open();
+    const currentPage = document.querySelector('#currentPage').dataset.current;
+    const pages = Array.from(document.querySelectorAll('.collapsible li'));
+    pages.forEach(function (page) {
+        if (page.dataset.page) {
+            if (currentPage === page.dataset.page) {
+                document.querySelector('#dashboard').classList.remove('active');
+                page.classList.add('active');
+                const collapse = M.Collapsible.getInstance(page.closest('.collapsible'));
+                collapse.open();
+            }
         }
-    })
+    });
 });

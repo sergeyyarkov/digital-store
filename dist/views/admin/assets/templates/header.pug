@@ -25,36 +25,36 @@ header.admin-header
                     i.material-icons exit_to_app
             li
                 .divider
-            li
+            li#currentPage(data-current=pageName[1])
                 a(href="#" class="subheader") Управление сайтом
             li.no-padding
-            li
-                a(href="/control-panel" class="collapsible-header waves-effect")
+            li#dashboard.active
+                a(href="/control-panel" class="collapsible-header waves-effect active")
                     i.material-icons dashboard
                     | Статистика
-                ul#editCollapse.collapsible
-                    li
-                        a(href="#" class="collapsible-header waves-effect")
-                            i.material-icons edit
-                            | Редактирование
-                        .collapsible-body
-                            ul(data-current=pageName[1])
-                                li(data-page="items")
-                                    a(href='http://'+host+'/control-panel/items')
-                                        i.material-icons list
-                                        | Товары
-                                li(data-page="categories")
-                                    a(href='http://'+host+'/control-panel/categories')
-                                        i.material-icons category
-                                        | Категории
-                                li(data-page="content")
-                                    a(href="#content")
-                                        i.material-icons visibility
-                                        | Контент на сайте
-                                li(data-page="administrators")
-                                    a(href="#administrators")
-                                        i.material-icons supervisor_account
-                                        | Администраторы
+            ul.collapsible
+                li
+                    a(href="#" class="collapsible-header waves-effect")
+                        i.material-icons edit
+                        | Редактирование
+                    .collapsible-body
+                        ul
+                            li(data-page="items")
+                                a(href='http://'+host+'/control-panel/items')
+                                    i.material-icons list
+                                    | Товары
+                            li(data-page="categories")
+                                a(href='http://'+host+'/control-panel/categories')
+                                    i.material-icons category
+                                    | Категории
+                            li(data-page="content")
+                                a(href='http://'+host+'/control-panel/content')
+                                    i.material-icons visibility
+                                    | Контент на сайте
+                            li(data-page="administrators")
+                                a(href='http://'+host+'/control-panel/administrators')
+                                    i.material-icons supervisor_account
+                                    | Администраторы
             ul.collapsible
                     li
                         a(href="#" class="collapsible-header waves-effect")
@@ -62,8 +62,8 @@ header.admin-header
                             | Настройки
                         .collapsible-body
                             ul
-                                li
-                                    a(href="#items")
+                                li(data-page="database")
+                                    a(href='http://'+host+'/control-panel/database')
                                         i.material-icons storage
                                         | База данных
 //- Модальные окна

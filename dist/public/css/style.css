@@ -744,8 +744,8 @@ div.table-items > table > tbody > tr > td:nth-child(7) > button.btn.orange {
     margin-left: 5px;
 }
 .sidenav .collapsible-body>ul:not(.collapsible)>li.active, .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active {
-    background-color: #e6e6e6;
+    background-color: #4E978C;
 }
-.sidenav .collapsible-body>ul:not(.collapsible)>li.active a, .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active a {
-    color: rgba(0,0,0,0.87);
+.sidenav .collapsible-body>ul:not(.collapsible)>li.active a, .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active a, .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active i {
+    color: #f6f6f6;
 }
