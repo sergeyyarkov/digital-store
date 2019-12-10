@@ -1,19 +1,5 @@
 script(async defer src="https://buttons.github.io/buttons.js")                   
 // Maretialize JS
 script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js')                
-script.
-    document.addEventListener('DOMContentLoaded', function () {
-        M.Sidenav.init(document.querySelectorAll('.sidenav'));
-        M.Collapsible.init(document.querySelectorAll('.collapsible'));
-        M.Modal.init(document.querySelectorAll('.modal'));
-        //- active временно!!!!!
-        const currentPage = document.querySelector('#editCollapse .collapsible-body ul').dataset.current;
-        const pages = document.querySelectorAll('#editCollapse .collapsible-body ul li');
-        pages.forEach(page => {
-            if (currentPage === page.dataset.page) {
-                page.classList.add('active');
-                const list = M.Collapsible.getInstance(document.querySelector('#editCollapse'));
-                list.open();
-            }
-        })
-    });
+script(src='../js/admin/admin.js')
+script(src='../js/admin/materialize.config.js')

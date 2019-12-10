@@ -23,7 +23,7 @@
 @media (max-width: 1199px) {
 
     header nav,
-    main,
+    main.main-section,
     footer .container {
         padding: 0;
     }
