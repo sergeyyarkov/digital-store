@@ -20,17 +20,17 @@
                   b Сумма к оплате
                 span
                   b#totalPrice 0 ₽
-            form#purchaseInfo.modal-content__purchase.hide
+            form.modal-content__purchase.hide
               span Информация необходимая для оплаты
               .email-field
                 label(for='email') Ваш E-mail
-                input#email(required='' type='text' name='email')
+                input(required='' type='text' name='email')
               .phone-field
                 label(for="phone") Номер QIWI
-                input#phone(required='' type='text' name='phone')
+                input(required='' type='text' name='phone')
               .payment-field
                 label(for='payment') Способ оплаты
-                select#payment(name='payment')
+                select(name='payment')
                   option(value='qiwi' data-icon='../img/payments-icons/qiwi.svg') QIWI
                 button.purchase-btn.waves-effect.btn Перейти к оплате
 // Cart Modal END

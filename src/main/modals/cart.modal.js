@@ -19,7 +19,7 @@ export class CartModal extends Modal {
 
     openHandler() {
         this.removeItem != null ? this.list.addEventListener('click', this.removeItem.bind(this)) : false
-        this.makePay != null ? this.$el.querySelector('#purchaseInfo').addEventListener('submit', this.makePay.bind(this)) : false;
+        this.makePay != null ? this.$el.querySelector('form').addEventListener('submit', this.makePay.bind(this)) : false;
         this.list.innerHTML = ''; 
         this.insertItems(this.list);
     }
@@ -30,9 +30,9 @@ export class CartModal extends Modal {
 
             if (items.length == 0) {
                 list.innerHTML = '<p style="text-align:center;padding:15px;">Вы не добавили ни один товар</p>';
-                this.$el.querySelector('#purchaseInfo').classList.add('hide');
+                this.$el.querySelector('form').classList.add('hide');
             } else {
-                this.$el.querySelector('#purchaseInfo').classList.remove('hide');
+                this.$el.querySelector('form').classList.remove('hide');
             }
         
             items.forEach(item => this.list.innerHTML += `<div data-id="${item.id}" data-title="${item.title}" data-price="${item.price}" data-count="1" class="modal-content__item"><div class="modal-content__title"><a href="/product/${item.id}"><b>${item.title}</b></a><br><span class="in-stock">В наличии: ${item.count} (шт)</span></div><div class="modal-content__right"><span id="price">${parseFloat(item.price).toFixed(2)}₽</span></div><div class="modal-content__remove"><span><i data-id="${item.id}" class="material-icons" id="removeItem">close</i></span></div></div>`);
@@ -77,9 +77,9 @@ export class CartModal extends Modal {
         let totalPrice = 0;
         payInfo.items.forEach(item => totalPrice += parseFloat(item.price));
         payInfo.totalPrice = Math.round(totalPrice * 100) / 100;
-        payInfo.payMethod = this.$el.querySelector('.payment-field #payment').value;
-        payInfo.phone = this.$el.querySelector('.phone-field #phone').value;
-        payInfo.email = this.$el.querySelector('.email-field #email').value;
+        payInfo.payMethod = this.$el.querySelector('.payment-field input').value;
+        payInfo.phone = this.$el.querySelector('.phone-field input').value;
+        payInfo.email = this.$el.querySelector('.email-field input').value;
 
         console.log('Pay info:', payInfo);
     }

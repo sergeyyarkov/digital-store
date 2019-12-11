@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
     M.Collapsible.init(document.querySelectorAll('.collapsible'));
     M.Modal.init(document.querySelectorAll('.modal'));
 
-    //- active временно!!!!!
     const currentPage = document.querySelector('#currentPage').dataset.current;
     const pages = Array.from(document.querySelectorAll('.collapsible li'));
     pages.forEach(function (page) {

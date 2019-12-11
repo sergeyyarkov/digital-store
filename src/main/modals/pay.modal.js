@@ -10,16 +10,16 @@ export class PayModal extends Modal {
     }
 
     closeHandler() {
-        this.$el.querySelector('#purchaseInfo').onsubmit = null;
+        this.$el.querySelector('form').onsubmit = null;
     }
 
     openHandler(e) {
         if (e.target.id === 'payOpen') {
             const targetInfo = e.target.parentNode.dataset;
-            this.$el.querySelector('.title-field #title').value = targetInfo.title;
+            this.$el.querySelector('.title-field input').value = targetInfo.title;
            
             this.show();
-            this.$el.querySelector('#purchaseInfo').onsubmit = (e) => {
+            this.$el.querySelector('form').onsubmit = (e) => {
                 this.makePay(e, targetInfo);
             }          
         } else {
@@ -37,9 +37,9 @@ export class PayModal extends Modal {
             }],
             totalPrice: parseFloat(info.price)
         }
-        payInfo.payMethod = this.$el.querySelector('.payment-field #payment').value;
-        payInfo.phone = this.$el.querySelector('.phone-field #phone').value;
-        payInfo.email = this.$el.querySelector('.email-field #email').value;
+        payInfo.payMethod = this.$el.querySelector('.payment-field input').value;
+        payInfo.phone = this.$el.querySelector('.phone-field input').value;
+        payInfo.email = this.$el.querySelector('.email-field input').value;
 
         console.log('Pay info: ', payInfo);
     }
