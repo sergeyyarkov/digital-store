@@ -20,3 +20,4 @@ const category = new CategoryComponent('category', {items}, {filter});
 const breadcumb = new BreadcrumbComponent('breadcrumb');
 const cart = new CartModal('cart', 'cartOpen', 'cartClose', {items});
 const pay = new PayModal('pay', 'pay-js', 'payClose');
+console.log('Main Page');

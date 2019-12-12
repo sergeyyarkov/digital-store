@@ -1,1 +1,1 @@
-console.log('Control Panel');
+console.log('Control-Panel v1.0.0');

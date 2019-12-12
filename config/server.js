@@ -6,6 +6,7 @@ const MongoClient = require('mongodb').MongoClient;
 const db_config = require('./database');
 const express = require('express');
 const server = express();
+const cors = require('cors');
 const path = require('path');
 const passport = require('passport');
 const flash = require('express-flash');
@@ -17,6 +18,7 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
     const db = client.db(db_config.name);
 
     // Config
+    server.use(cors())
     server.use(express.static(path.join(__dirname, '../dist/public')));
     server.use(express.urlencoded({ extended: false }));
     server.use(flash());

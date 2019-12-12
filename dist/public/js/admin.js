@@ -3560,7 +3560,7 @@ eval("/**\n * Copyright (c) 2014-present, Facebook, Inc.\n *\n * This source cod
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("console.log('Control Panel');\n\n//# sourceURL=webpack:///./src/admin/index.js?");
+eval("console.log('Control-Panel v1.0.0 local');\n\n//# sourceURL=webpack:///./src/admin/index.js?");
 
 /***/ }),
 

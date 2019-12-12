@@ -1,32 +1,26 @@
-var config = {
-  // TODO: Add common Configuration
+const path = require('path');
+
+module.exports = {
+  entry: {
+    admin: ['@babel/polyfill', './src/admin/index.js'],
+    main: ['@babel/polyfill', './src/main/index.js']
+  },
+  output: {
+    filename: '[name].js',
+    path: path.join(__dirname, '/dist/public/js/')
+  },
+  resolve: {
+    extensions: ['.js']
+  },
   module: {
     rules: [
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
     ]
   },
-};
-
-var mainApp = Object.assign({}, config, {
-  entry: ['@babel/polyfill', './src/main/index.js'],
-  output: {
-    path: `${__dirname}/dist/public/js/main`,
-    filename: 'main.js',
-  },
-  resolve: {
-    extensions: ['.js']
-  },
-});
-
-var adminApp = Object.assign({}, config,{
-  entry: ['@babel/polyfill', './src/admin/index.js'],
-  output: {
-    path: `${__dirname}/dist/public/js/admin`,
-    filename: 'admin.js',
-  },
-  resolve: {
-    extensions: ['.js']
-  },
-});
-
-module.exports = [mainApp, adminApp];
+  devServer: {
+    contentBase: './dist/public/js',
+    proxy: {
+      "/": 'http://localhost:3000'
+    },
+  }
+}

@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
     M.Collapsible.init(document.querySelectorAll('.collapsible'));
     M.Modal.init(document.querySelectorAll('.modal'));
 
+    // Окраска li по нажатию
     const currentPage = document.querySelector('#currentPage').dataset.current;
     const pages = Array.from(document.querySelectorAll('.collapsible li'));
     pages.forEach(function (page) {
