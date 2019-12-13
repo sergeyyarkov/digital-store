@@ -26,18 +26,21 @@ document.addEventListener('DOMContentLoaded', function () {
     M.Sidenav.init(document.querySelectorAll('.sidenav'));
     M.Collapsible.init(document.querySelectorAll('.collapsible'));
     M.Modal.init(document.querySelectorAll('.modal'));
+    M.updateTextFields();
 
     // Окраска li по нажатию
-    const currentPage = document.querySelector('#currentPage').dataset.current;
-    const pages = Array.from(document.querySelectorAll('.collapsible li'));
-    pages.forEach(function (page) {
-        if (page.dataset.page) {
-            if (currentPage === page.dataset.page) {
-                document.querySelector('#dashboard').classList.remove('active');
-                page.classList.add('active');
-                const collapse = M.Collapsible.getInstance(page.closest('.collapsible'));
-                collapse.open();
-            }
-        }
-    });
+    if (document.querySelector('#currentPage')) {
+      const currentPage = document.querySelector('#currentPage').dataset.current;
+      const pages = Array.from(document.querySelectorAll('.collapsible li'));
+      pages.forEach(function (page) {
+          if (page.dataset.page) {
+              if (currentPage === page.dataset.page) {
+                  document.querySelector('#dashboard').classList.remove('active');
+                  page.classList.add('active');
+                  const collapse = M.Collapsible.getInstance(page.closest('.collapsible'));
+                  collapse.open();
+              }
+          }
+      });
+    }
 });

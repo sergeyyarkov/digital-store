@@ -1,4 +1,4 @@
-include ../assets/head.pug
+include ./assets/head.pug
 main
     if messages.error
         #notification
@@ -22,4 +22,4 @@ main
                                     label(for="password") Пароль
                                     input(type="password" id="password" name="password" required)
                                 button(class="waves-light btn-large" type="submit") Вход
-include ../assets/scripts.pug
+include ./assets/scripts.pug
