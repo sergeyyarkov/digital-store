@@ -11,7 +11,7 @@ function checkAuthenticated(req, res, next) {
 function indexRoute(req, res, dbo) {
     dbo.collection('categories').find().toArray((err, result) => {
         const categories = result.map(category => category.title[0].toUpperCase() + category.title.slice(1));
-        res.render('index', {
+        res.render('main/index', {
             pageName: 'index',
             title: 'Digital-Store | Главная',
             categories
@@ -114,7 +114,7 @@ function onePageItemRoute(req, res, dbo) {
             const item = result[0];
             dbo.collection('categories').find({title: item.category}).toArray((err, result) => {
                 const category = result[0];
-                res.render('product', {
+                res.render('main/product', {
                     title: item.title,
                     image: category.img,
                     count: item.count,
@@ -129,33 +129,33 @@ function onePageItemRoute(req, res, dbo) {
             });
         })
     } catch {
-        res.render('404');
+        res.render('main/404');
     }
 }
 
 function howToBuyRoute(req, res) {
-    res.render('how-to-buy', {
+    res.render('main/how-to-buy', {
         pageName: 'how-to-buy',
         title: 'Digital-Store | Как купить товар'
     });
 }
 
 function contactsRoute(req, res) {
-    res.render('contacts', {
+    res.render('main/contacts', {
         pageName: 'contacts',
         title: 'Digital-Store | Контакты'
     });
 }
 
 function commentsRoute(req, res) {
-    res.render('comments', {
+    res.render('main/comments', {
         pageName: 'comments',
         title: 'Digital-Store | Отзывы'
     });
 }
 
 function myOrdersRoute(req, res) {
-    res.render('my-orders', {
+    res.render('main/my-orders', {
         pageName: 'my-orders',
         title: 'Digital-Store | Мои покупки'
     });
