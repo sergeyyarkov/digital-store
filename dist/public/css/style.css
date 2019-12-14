@@ -753,3 +753,9 @@ div.table > table > tbody > tr > td:nth-child(7) > button.btn.orange {
     margin-top: 2rem;
     margin-bottom: 1rem;
 }
+.select-dropdown {
+    max-height: 200px;
+}
+#categories .under-block {
+    margin-top: 3rem;
+}

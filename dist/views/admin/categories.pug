@@ -7,19 +7,12 @@ body.has-fixed-sidenav
                 .col.s12
                     h2 Редактирование категорий
                 .col.s12
-                    .card
+                    #categories.card
                         .card-content
-                            .input-field
-                                select
-                                    option(value="" disabled selected)
-                                        | Выберите категорию
-                                    option(value="1" data-icon="../img/service-icons/origin.svg") Origin
-                                    option(value="2" data-icon="../img/service-icons/steam.svg") Steam
-                                label Редактирование
                             .category-add
                                 h5 Добавить категорию
                                 .row
-                                    form(action="/" method="POST")
+                                    form(id="categoryAdd" action="/control-panel/categories/create" method="POST" enctype="multipart/form-data")
                                         .input-field.col.l6.s12
                                             input(id="title" name="title" type="text" data-length="20" required)
                                             label(for="title") Название категории
@@ -36,22 +29,26 @@ body.has-fixed-sidenav
                                             input(type="text" id="format" name="format" required)
                                             label(for="format") Формат аккаунтов
                                         .col.s12
-                                            button(type="submit" class="btn") Добавить категорию
-                                            button(class="orange btn hide" style="margin-left:5px;") Редактировать
+                                            button(type="submit" class="btn green") Добавить категорию
                             .divider
-                            .category-delete
-                                h5 Удалить категорию
-                                .row
-                                    form(action="/")
-                                        .input-field.col.s12
+                            .under-block
+                                .category-edit
+                                    .row
+                                        #edit.input-field.col.s12
                                             select
                                                 option(value="" disabled selected)
-                                                    | Выберите категорию для удаления
-                                                option(value="1" data-icon="../img/service-icons/origin.svg") Origin
-                                                option(value="2" data-icon="../img/service-icons/steam.svg") Steam
-                                            label Удаление
-                                        .col.s6
-                                            button(type="submit" class="btn red") Удалить             
+                                                    | Выберите категорию для редактирования
+                                            label Редактирование
+                                .category-delete
+                                    .row
+                                        form(id="categoryDelete" action="/control-panel/categories/delete" method="POST")
+                                            #delete.input-field.col.s12
+                                                select(name="category")
+                                                    option(value="" disabled selected)
+                                                        | Выберите категорию для удаления
+                                                label Удаление
+                                            .col.s6
+                                                button(type="submit" class="btn red") Удалить             
 
                                    
     include ./assets/templates/footer.pug

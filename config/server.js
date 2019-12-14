@@ -12,14 +12,23 @@ const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const multer = require('multer');
 
 MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
     if (err) return console.log(err)
     const db = client.db(db_config.name);
 
+    const storage = multer.diskStorage({
+        destination: 'dist/public/img/service-icons',
+        filename: function(req, file, cb) {
+            cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        }
+    })
+
     // Config
     server.use(cors())
     server.use(express.static(path.join(__dirname, '../dist/public')));
+    server.use(multer({storage: storage}).single('img'));
     server.use(express.urlencoded({ extended: false }));
     server.use(flash());
     server.use(session({

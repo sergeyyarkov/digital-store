@@ -1,4 +1,5 @@
 const ObjectID = require('mongodb').ObjectID;
+const fs = require('fs');
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -112,21 +113,25 @@ function onePageItemRoute(req, res, dbo) {
     try {
         dbo.collection('items').find({_id: ObjectID(req.params.id)}).toArray((err, result) => {
             const item = result[0];
-            dbo.collection('categories').find({title: item.category}).toArray((err, result) => {
-                const category = result[0];
-                res.render('main/product', {
-                    title: item.title,
-                    image: category.img,
-                    count: item.count,
-                    category: item.category[0].toUpperCase() + item.category.slice(1),
-                    price: item.price,
-                    description: item.description,
-                    date: item.date,
-                    id: item._id,
-                    type: category.type,
-                    format: category.format
-                })
-            });
+            try {
+                dbo.collection('categories').find({title: item.category}).toArray((err, result) => {
+                    const category = result[0];
+                    res.render('main/product', {
+                        title: item.title,
+                        image: category.img,
+                        count: item.count,
+                        category: item.category[0].toUpperCase() + item.category.slice(1),
+                        price: item.price,
+                        description: item.description,
+                        date: item.date,
+                        id: item._id,
+                        type: category.type,
+                        format: category.format
+                    })
+                });
+            } catch {
+                res.render('main/404');
+            }
         })
     } catch {
         res.render('main/404');
@@ -221,6 +226,41 @@ function controlPanelDatabaseRoute(req, res) {
     });
 }
 
+function controlPanelAddCategory(req, res, db) { 
+    try {
+        const filedata = req.file;
+        const data = {
+            title: req.body.title.toLowerCase().trim(),
+            img: filedata.filename,
+            type: req.body.type,
+            format: req.body.format
+        }
+        db.collection('categories').insertOne(data);
+        res.redirect('/control-panel/categories');
+    } catch {
+        res.render('main/404');
+    }
+}
+
+function controlPanelDellCategory(req, res, db) {
+    try {
+        const data = JSON.parse(req.body.category);
+        db.collection('categories').deleteOne({"_id": ObjectID(data.id)});
+        
+        // Удаляем иконку
+        const path = `./dist/public/img/service-icons/${data.img}`
+        try {
+            fs.unlinkSync(path);
+        } catch (error) {
+            console.log(error);
+        }
+        res.redirect('/control-panel/categories');
+    } catch (error) {
+        console.log(error);
+        res.render('main/404');
+    }
+}
+
 module.exports = function (server, db) {
     server.get('/', (req, res) => indexRoute(req, res, db));
     server.get('/api', (req, res) => getItemsRoute(req, res, db));
@@ -235,4 +275,7 @@ module.exports = function (server, db) {
     server.get('/control-panel/content', checkAuthenticated, (req, res) => controlPanelContentRoute(req, res));
     server.get('/control-panel/administrators', checkAuthenticated, (req, res) => controlPanelAdministratorsRoute(req, res));
     server.get('/control-panel/database', checkAuthenticated, (req, res) => controlPanelDatabaseRoute(req, res));
+
+    server.post('/control-panel/categories/create', checkAuthenticated, (req, res) => controlPanelAddCategory(req, res, db));
+    server.post('/control-panel/categories/delete', checkAuthenticated, (req, res) => controlPanelDellCategory(req, res, db));
 }
