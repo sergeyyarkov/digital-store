@@ -29,6 +29,8 @@ export class MaterializeConfig {
             M.Sidenav.init(document.querySelectorAll('.sidenav'));
             M.Collapsible.init(document.querySelectorAll('.collapsible'));
             M.Modal.init(document.querySelectorAll('.modal'));
+            M.FormSelect.init(document.querySelectorAll('select'));
+            document.querySelector('#type') ? M.textareaAutoResize(document.querySelector('#type')) : false
             M.updateTextFields();
         
             // Окраска li по нажатию

@@ -734,13 +734,13 @@ footer.admin-footer{
 .modal .modal-content h4 {
     margin-bottom: 10px;
 }
-div.table-items td, div.table-items th {
+div.table td, div.table th {
     text-align: center;
 }
-div.table-items > table > tbody > tr > td:nth-child(1) > img{
+div.table > table > tbody > tr > td:nth-child(1) > img{
     height: 20px;
 }
-div.table-items > table > tbody > tr > td:nth-child(7) > button.btn.orange {
+div.table > table > tbody > tr > td:nth-child(7) > button.btn.orange {
     margin-left: 5px;
 }
 .sidenav .collapsible-body>ul:not(.collapsible)>li.active, .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active {
@@ -748,4 +748,8 @@ div.table-items > table > tbody > tr > td:nth-child(7) > button.btn.orange {
 }
 .sidenav .collapsible-body>ul:not(.collapsible)>li.active a, .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active a, .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active i {
     color: #f6f6f6;
+}
+.category-add h5, .category-delete h5 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
