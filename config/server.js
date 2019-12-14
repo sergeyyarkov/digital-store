@@ -39,7 +39,7 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
     require('./routes/admin')(server, db);
 
     // 404 Redirect
-    server.use((req, res) => res.status(404).render('404'));
+    server.use((req, res) => res.status(404).render('main/404'));
     server.listen(3000, () => console.log('Listen port 3000...'));          
 })
 

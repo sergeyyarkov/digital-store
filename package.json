@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode development",
-    "dev-server": "node ./config/server.js",
+    "server": "node ./config/server.js",
     "wp-server": "webpack-dev-server --mode development"
   },
   "repository": {
@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "express-flash": "0.0.2",
     "express-session": "^1.17.0",
+    "materialize-css": "^1.0.0",
     "method-override": "^3.0.0",
     "mongodb": "^3.3.4",
     "passport": "^0.4.0",
