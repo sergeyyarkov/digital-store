@@ -1,4 +1,4 @@
-const M = require('materialize-css');
+const M = require('../frameworks/materialize.min');
 export class MaterializeConfig {
     constructor() {
         document.addEventListener('DOMContentLoaded', function () {
