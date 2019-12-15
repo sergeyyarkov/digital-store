@@ -26,11 +26,9 @@ export class CategoriesComponent extends Component {
     async init() {
         const categories = await apiService.getCategories();
         const icons = await apiService.getIcons();
-
         const icons_html = renderIcons(icons);
         const html = renderCategories(categories);
 
-        document.querySelector('#categoriesCount').textContent = categories.length;
         this.$editSelect.insertAdjacentHTML('beforeend', html);
         this.$deleteSelect.insertAdjacentHTML('beforeend', html);
         this.$iconsSelect.insertAdjacentHTML('beforeend', icons_html);

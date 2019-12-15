@@ -12,7 +12,7 @@ body.has-fixed-sidenav
                         .card-content
                             span.card-title Кол-во категорий
                             .divider
-                            h3#categoriesCount 0
+                            h3#categoriesCount #{categoriesCount}
                 .col.s12
                     #categories.card
                         .card-content
@@ -24,7 +24,7 @@ body.has-fixed-sidenav
                                             input(id="title" name="title" type="text" required)
                                             label(for="title") Название категории
                                         #img.input-field.col.l6.s12
-                                            select(name="img" id="img" required)
+                                            select(name="img" required)
                                                     option(value="" disabled selected)
                                                         | Выберите иконку
                                             label(for="img") Иконка

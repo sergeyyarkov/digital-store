@@ -189,13 +189,15 @@ function controlPanelItemsRoute(req, res) {
     });
 }
 
-function controlPanelCategoriesRoute(req, res) {
+async function controlPanelCategoriesRoute(req, res, db) {
+    const categories = await db.collection('categories').find({}).toArray();
     res.render('admin/categories', {
         name: req.user.name,
         email: req.user.email,
         title: 'Digital-Store | Категории',
         host: req.headers.host,
         pageName: ['Категории', 'categories'],
+        categoriesCount: categories.length
     });
 }
 
@@ -305,7 +307,7 @@ module.exports = function (server, db) {
     server.get('/product/:id', (req, res) => onePageItemRoute(req, res, db));
     server.get('/control-panel', checkAuthenticated, (req, res) => controlPanelRoute(req, res));
     server.get('/control-panel/items', checkAuthenticated, (req, res) => controlPanelItemsRoute(req, res));
-    server.get('/control-panel/categories', checkAuthenticated, (req, res) => controlPanelCategoriesRoute(req, res));
+    server.get('/control-panel/categories', checkAuthenticated, (req, res) => controlPanelCategoriesRoute(req, res, db));
     server.get('/control-panel/content', checkAuthenticated, (req, res) => controlPanelContentRoute(req, res));
     server.get('/control-panel/administrators', checkAuthenticated, (req, res) => controlPanelAdministratorsRoute(req, res));
     server.get('/control-panel/database', checkAuthenticated, (req, res) => controlPanelDatabaseRoute(req, res));
