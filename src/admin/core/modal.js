@@ -3,15 +3,12 @@ export class Modal {
         this.$el = document.getElementById(id);
         this.open = document.getElementById(open);
         this.close = document.getElementById(close);
+        this.open ? this.close.addEventListener('click', this.hide.bind(this)) : false;  
+       
         this.init();
     }
 
-    init() {
-        if (this.open != null) {
-            this.open.addEventListener('click', openHandler.bind(this));
-            this.close.addEventListener('click', closeHandler.bind(this));
-        }
-    }
+    init() {}
 
     show() {
         this.$el.classList.remove('hide');
@@ -22,12 +19,4 @@ export class Modal {
         this.$el.classList.add('hide');
         document.body.style.overflowY = '';
     }
-}
-
-function openHandler() {
-    this.show();
-}
-
-function closeHandler() {
-    this.hide();
 }

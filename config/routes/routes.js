@@ -97,6 +97,9 @@ function getItemsRoute(req, res, dbo) {
                     ? res.send(result)
                     : res.send({error: 'На сайте нету категорий'});
             });
+        } else if (req.query.icons === 'all') {
+            const icons = fs.readdirSync('dist/public/img/service-icons');
+            res.send(icons);
         } else if (req.query.category) {
             dbo.collection('categories').find({title: req.query.category}).toArray((err, result) => {
                 res.send(result);
@@ -228,10 +231,9 @@ function controlPanelDatabaseRoute(req, res) {
 
 function controlPanelAddCategory(req, res, db) { 
     try {
-        const filedata = req.file;
         const data = {
             title: req.body.title.toLowerCase().trim(),
-            img: filedata.filename,
+            img: req.body.img,
             type: req.body.type,
             format: req.body.format
         }
@@ -246,14 +248,46 @@ function controlPanelDellCategory(req, res, db) {
     try {
         const data = JSON.parse(req.body.category);
         db.collection('categories').deleteOne({"_id": ObjectID(data.id)});
-        
-        // Удаляем иконку
-        const path = `./dist/public/img/service-icons/${data.img}`
-        try {
-            fs.unlinkSync(path);
-        } catch (error) {
-            console.log(error);
+        res.redirect('/control-panel/categories');
+    } catch (error) {
+        console.log(error);
+        res.render('main/404');
+    }
+}
+
+function controlPanelUpdCategory(req, res, db) {
+    try {
+        const data = {
+            id: req.body.id,
+            title: req.body.title.toLowerCase().trim(),
+            originalTitle: req.body.originalTitle.toLowerCase().trim(),
+            img: req.body.img,
+            type: req.body.type,
+            format: req.body.format
         }
+        db.collection('categories').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, img: data.img, type: data.type, format: data.format}});
+        db.collection('items').updateMany({"category": data.originalTitle}, {$set: {category: data.title}});
+        res.redirect('/control-panel/categories');
+        
+    } catch (error) {
+        console.log(error);
+        res.render('main/404');
+    }
+}
+
+function controlPanelAddIcon(req, res, db) {
+    try {
+        res.redirect('/control-panel/categories');
+    } catch (error) {
+        console.log(error);
+        res.render('main/404');
+    }
+}
+
+function controlPanelDellIcon(req, res, db) {
+    const path = `./dist/public/img/service-icons/${req.body.img}`
+    try {
+        fs.unlinkSync(path);
         res.redirect('/control-panel/categories');
     } catch (error) {
         console.log(error);
@@ -278,4 +312,7 @@ module.exports = function (server, db) {
 
     server.post('/control-panel/categories/create', checkAuthenticated, (req, res) => controlPanelAddCategory(req, res, db));
     server.post('/control-panel/categories/delete', checkAuthenticated, (req, res) => controlPanelDellCategory(req, res, db));
+    server.post('/control-panel/categories/update', checkAuthenticated, (req, res) => controlPanelUpdCategory(req, res, db));
+    server.post('/control-panel/categories/addicon', checkAuthenticated, (req, res) => controlPanelAddIcon(req, res, db));
+    server.post('/control-panel/categories/dellicon', checkAuthenticated, (req, res) => controlPanelDellIcon(req, res, db));
 }

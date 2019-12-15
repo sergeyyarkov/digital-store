@@ -1,0 +1,36 @@
+// Edit Category
+#editCategory.c_modal-wrap.hide
+  .container
+    .row
+      .c_modal
+        .c_modal-content.editCategory
+          .modal-content
+            .modal-content__header(style="margin-bottom: 1rem;")
+              h4.small-title Редактирование категории
+              span#editCategoryClose.modal-close
+                i.material-icons close
+            .modal-content__form
+                form(action="/control-panel/categories/update" method="POST")
+                    .input-field.id
+                        input(style="color: gray;" type="text" name="id" required readonly)
+                        label ID категории
+                    .input-field.originalTitle
+                        input(style="color: gray;" type="text" name="originalTitle" required readonly)
+                        label Старое название категории
+                    .input-field.title
+                        input(type="text" name="title" required)
+                        label Новое название категории
+                    .input-field.type
+                        input(type="text" name="type" required)
+                        label Тип аккаунтов
+                    .input-field.img
+                        select(name="img" id="img" required)
+                            option(value="" disabled selected)
+                                | Выберите иконку
+                        label(for="img") Иконка
+                    .input-field.format
+                        input(type="text" name="format" required)
+                        label Формат аккаунтов
+                    .edit_success
+                        button(type="submit" class="btn green waves-effect" style="width: 100%;height:50px") Редактировать
+// Edit Category END

@@ -52,6 +52,15 @@ class ApiService {
             console.error(err);
         }
     }
+
+    async getIcons() {
+        try {
+            const request = `${this.url}api?token=${API_TOKEN}&icons=all`;
+            return useRequest(request);
+        } catch (err) {
+            console.error(err);
+        }
+    }
 }
 
 async function useRequest(request) {

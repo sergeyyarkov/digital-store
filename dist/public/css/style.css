@@ -123,16 +123,14 @@ hr {
     background-color: #fff;
 }
 
-.cart,
-.pay {
+.c_modal {
     display: flex;
     justify-content: center;
     padding-right: 10px;
     padding-left: 10px;
 }
 
-.cart-wrap,
-.pay-wrap {
+.c_modal-wrap {
     position: fixed;
     background: rgba(0, 0, 0, .5);
     top: 0;
@@ -143,13 +141,15 @@ hr {
     overflow-y: auto;
 }
 
-.cart-content,
-.pay-content {
+.c_modal-content {
     background-color: #fff;
     margin-top: 7rem;
     padding: 25px;
     width: 460px;
     min-height: 230px;
+}
+.c_modal-content.editCategory {
+    width: 760px;
 }
 
 .modal-content__header .small-title {
@@ -163,13 +163,11 @@ hr {
     margin-bottom: 15px;
 }
 
-.cart-close,
-.pay-close {
+.modal-close {
     cursor: pointer;
 }
 
-.cart-close i,
-.pay-close i {
+.modal-close i {
     color: #8d8d8d;
 }
 
@@ -681,6 +679,9 @@ footer.main-footer {
 }
 .admin-main {
     margin-top: 20px;
+}
+.admin-main p {
+    margin-bottom: 1rem;
 }
 .admin-main h2 {
     margin: 23px 0px 20px 0px;
