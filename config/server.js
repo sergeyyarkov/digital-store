@@ -18,12 +18,13 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
     if (err) return console.log(err)
     const db = client.db(db_config.name);
 
+    // Как сохраняем иконки и куда
     const storage = multer.diskStorage({
         destination: 'dist/public/img/service-icons',
         filename: function(req, file, cb) {
             cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
         }
-    })
+    });
 
     // Config
     server.use(cors())
@@ -31,21 +32,17 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
     server.use(multer({storage: storage}).single('img'));
     server.use(express.urlencoded({ extended: false }));
     server.use(flash());
-    server.use(session({
-        secret: process.env.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: false
-    }));
+    server.use(session({secret: process.env.SESSION_SECRET,resave: false,saveUninitialized: false}));
     server.use(passport.initialize());
     server.use(passport.session());
     server.use(methodOverride('_method'));
-
     server.set('view engine', 'pug');
     server.set('views', path.join(__dirname, '../dist/views'));
 
     // Routes
-    require('./routes/routes')(server, db);
-    require('./routes/admin')(server, db);
+    require('./routes/main')(server, db); // маршруты сайта
+    require('./routes/admin')(server, db); // маршрут с формой авторизации админа
+    require('./routes/control-panel')(server, db); // маршруты с панелью управления
 
     // 404 Redirect
     server.use((req, res) => res.status(404).render('main/404'));

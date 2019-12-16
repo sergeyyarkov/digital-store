@@ -19,7 +19,6 @@ export class CategoriesComponent extends Component {
             this.$dellIconFrom.addEventListener('submit', this.dellIcon.bind(this));
             this.$addForm.addEventListener('submit', this.addCategory.bind(this));
             this.$deleteForm.addEventListener('submit', this.deleteCategory.bind(this));
-            this.$editSelect.addEventListener('change', this.insertData);
         }
     }
 

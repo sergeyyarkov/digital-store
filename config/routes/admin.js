@@ -4,9 +4,7 @@ const passport = require('passport');
 const initializePassport = require('../passport.config');
 
 function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return res.redirect('/control-panel');
-    }
+    if (req.isAuthenticated()) return res.redirect('/control-panel');
     next();
 }
 
