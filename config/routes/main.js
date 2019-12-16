@@ -148,11 +148,9 @@ module.exports = function (server, db) {
             res.render('main/404');
         }
     });
-    server.get('/product/:id', async (req, res) => {
+    server.get('/product/:id', (req, res) => {
         const product = new Promise((resolve, reject) => {
-            db.collection('items').find({
-                    _id: ObjectID(req.params.id)
-                }).toArray()
+            db.collection('items').find({_id: ObjectID(req.params.id)}).toArray()
                 .then((items) => {
                     const item = items.find(item => item);
                     resolve(item);
@@ -164,9 +162,9 @@ module.exports = function (server, db) {
                 db.collection('categories').find({title: item.category}).toArray()
                     .then((categories) => {
                         const category = categories.find(category => category);
-                        resolve({item,category});
+                        resolve({item, category});
                     });
-            })
+            });
         })
         .then(((data) => {
             const item = data.item,
