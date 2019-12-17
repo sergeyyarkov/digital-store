@@ -19,20 +19,20 @@ body.has-fixed-sidenav
                             .category-add
                                 h5 Добавить категорию
                                 .row
-                                    form(id="categoryAdd" action="/control-panel/categories/create" method="POST" enctype="multipart/form-data")
+                                    form(id="addCategory" action="/control-panel/categories/create" method="POST" enctype="multipart/form-data")
                                         .input-field.col.l6.s12
-                                            input(id="title" name="title" type="text" required)
+                                            input(name="title" type="text" required)
                                             label(for="title") Название категории
-                                        #img.input-field.col.l6.s12
+                                        #icons.input-field.col.l6.s12
                                             select(name="img" required)
                                                     option(value="" disabled selected)
                                                         | Выберите иконку
                                             label(for="img") Иконка
                                         .input-field.col.l6.s12
-                                            textarea(class="materialize-textarea" type="text" id="type" name="type" required)
+                                            textarea(class="materialize-textarea" type="text" name="type" required)
                                             label(for="type") Тип аккаунтов
                                         .input-field.col.l6.s12
-                                            input(type="text" id="format" name="format" required)
+                                            input(type="text" name="format" required)
                                             label(for="format") Формат аккаунтов
                                         .col.s12
                                             button(type="submit" class="btn") Добавить категорию
@@ -41,7 +41,7 @@ body.has-fixed-sidenav
                                 .icon-add
                                     h5 Добавить иконку
                                     .row
-                                        form(id="iconAdd" action="/control-panel/categories/addicon" method="POST" enctype="multipart/form-data")
+                                        form(action="/control-panel/categories/addicon" method="POST" enctype="multipart/form-data")
                                             .file-field.input-field.col.s12
                                                 .btn.orange
                                                     span Иконка
@@ -55,11 +55,11 @@ body.has-fixed-sidenav
                                             select
                                                 option(value="" disabled selected)
                                                     | Выберите категорию для редактирования
-                                            label Редактирование
+                                            label Редактирование категории
                                 .icon-dell
                                     .row
-                                        form(id="iconDell" action="/control-panel/categories/dellicon" method="POST")
-                                            #imgDell.input-field.col.s12
+                                        form(id="dellIcon" action="/control-panel/categories/dellicon" method="POST")
+                                            #dellIcon.input-field.col.s12
                                                 select(name="img")
                                                     option(value="" disabled selected)
                                                         | Выберите иконку для удаления
@@ -68,12 +68,12 @@ body.has-fixed-sidenav
                                                 button(type="submit" class="btn red ") Удалить 
                                 .category-delete
                                     .row
-                                        form(id="categoryDelete" action="/control-panel/categories/delete" method="POST")
+                                        form(id="dellCategory" action="/control-panel/categories/delete" method="POST")
                                             #delete.input-field.col.s12
                                                 select(name="category")
                                                     option(value="" disabled selected)
                                                         | Выберите категорию для удаления
-                                                label Удаление
+                                                label Удаление категории
                                             .col.s12
                                                 button(type="submit" class="btn red ") Удалить             
 

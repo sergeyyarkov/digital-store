@@ -7,18 +7,21 @@ export class CategoriesComponent extends Component {
     constructor(id) {
         super(id);
         if (this.$el) {
+            // обозначим все селекты для рендера в них наши категории и киноки в дальнейшем
             this.$editSelect = this.$el.querySelector('#edit select');
-            this.$deleteSelect = this.$el.querySelector('#delete select');
-            this.$iconsSelect = this.$el.querySelector('#img select');
-            this.$dellIconsSelect = this.$el.querySelector('#imgDell select');
+            this.$dellSelect = this.$el.querySelector('#delete select');
+            this.$iconsSelect = this.$el.querySelector('#icons select');
+            this.$dellIconsSelect = this.$el.querySelector('#dellIcon select');
 
-            this.$dellIconFrom = this.$el.querySelector('#iconDell');
-            this.$addForm = this.$el.querySelector('#categoryAdd');
-            this.$deleteForm = this.$el.querySelector('#categoryDelete');
+            // формы
+            this.$dellIconFrom = this.$el.querySelector('#dellIcon');
+            this.$addForm = this.$el.querySelector('#addCategory');
+            this.$dellForm = this.$el.querySelector('#dellCategory');
             
+            // добавим ивенты на наши формы
             this.$dellIconFrom.addEventListener('submit', this.dellIcon.bind(this));
             this.$addForm.addEventListener('submit', this.addCategory.bind(this));
-            this.$deleteForm.addEventListener('submit', this.deleteCategory.bind(this));
+            this.$dellForm.addEventListener('submit', this.deleteCategory.bind(this));
         }
     }
 
@@ -26,10 +29,10 @@ export class CategoriesComponent extends Component {
         const categories = await apiService.getCategories();
         const icons = await apiService.getIcons();
         const icons_html = renderIcons(icons);
-        const html = renderCategories(categories);
+        const categories_html = renderCategories(categories);
 
-        this.$editSelect.insertAdjacentHTML('beforeend', html);
-        this.$deleteSelect.insertAdjacentHTML('beforeend', html);
+        this.$editSelect.insertAdjacentHTML('beforeend', categories_html);
+        this.$dellSelect.insertAdjacentHTML('beforeend', categories_html);
         this.$iconsSelect.insertAdjacentHTML('beforeend', icons_html);
         this.$dellIconsSelect.insertAdjacentHTML('beforeend', icons_html);
         M.FormSelect.init(document.querySelectorAll('select')); // Инициализируем все селекты только после их рендера!
@@ -46,9 +49,9 @@ export class CategoriesComponent extends Component {
     async deleteCategory(e) {
         e.preventDefault();
         const categories = await apiService.getCategories();
-        const title = this.$deleteForm.elements[0].value.toLowerCase().trim();
+        const title = this.$dellForm.elements[0].value.toLowerCase().trim();
         const index = categories.map((category) => {return category.title}).indexOf(title);
-        index != -1 ? this.$deleteForm.submit() : alert('Выберите категорию для удаления.');
+        index != -1 ? this.$dellForm.submit() : alert('Выберите категорию для удаления.');
     }
 
     async dellIcon(e) {

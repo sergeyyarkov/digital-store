@@ -5,9 +5,14 @@ import { renderIcons } from "../templates/icons.template";
 export class editCategoryModal extends Modal {
     constructor(id, open, close) {
         super(id, open, close);
+    }
+
+    // перепишем метод для перевода ивента open в событие onchange
+    init() {
         if (this.open) {
             this.open.addEventListener('change', this.openHandler.bind(this));
-            this.$el.querySelector('form').addEventListener('submit', this.updateCategory.bind(this));
+            this.close.addEventListener('click', this.hide.bind(this));
+            this.$el.querySelector('form').addEventListener('submit', this.updateCategory.bind(this));  
         }
     }
     
@@ -17,7 +22,7 @@ export class editCategoryModal extends Modal {
         this.$el.querySelector('form .id input').value = data.id;
         this.$el.querySelector('form .originalTitle input').value = data.title[0].toUpperCase() + data.title.slice(1);
         this.$el.querySelector('form .title input').value = data.title[0].toUpperCase() + data.title.slice(1);
-        this.$el.querySelector('form .type input').value = data.type;
+        this.$el.querySelector('form .type textarea').value = data.type;
         this.$el.querySelector('form .format input').value = data.format;
 
         const icons = await apiService.getIcons();

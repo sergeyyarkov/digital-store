@@ -639,6 +639,10 @@ footer.main-footer .container {
     margin: 15px 0;
 }
 
+.product-right__content {
+    word-break: break-all;
+}
+
 /* Footer */
 footer.main-footer {
     margin-top: 4rem;
