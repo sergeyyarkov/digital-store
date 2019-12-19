@@ -35,6 +35,7 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
     server.use(session({secret: process.env.SESSION_SECRET,resave: false,saveUninitialized: false}));
     server.use(passport.initialize());
     server.use(passport.session());
+    ///server.use(express.json());
     server.use(methodOverride('_method'));
     server.set('view engine', 'pug');
     server.set('views', path.join(__dirname, '../dist/views'));
@@ -43,6 +44,7 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
     require('./routes/main')(server, db); // маршруты сайта
     require('./routes/admin')(server, db); // маршрут с формой авторизации админа
     require('./routes/control-panel')(server, db); // маршруты с панелью управления
+    require('./routes/api')(server, db); // rest api
 
     // 404 Redirect
     server.use((req, res) => res.status(404).render('main/404'));
