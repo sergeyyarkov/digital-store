@@ -1,5 +1,4 @@
 const axios = require('axios');
-const API_TOKEN = 'yYNfW8ynVO18L1TW5qIkILM1WtWgrVZz';
 
 class ApiService {
     constructor(baseUrl) {
@@ -8,7 +7,7 @@ class ApiService {
 
     async getCategory(category) {
         try {
-            const request = `${this.url}api?token=${API_TOKEN}&category=${encodeURIComponent(category)}`;
+            const request = `${this.url}/api/category/${encodeURIComponent(category)}`;
             return useRequest(request); 
         } catch (err) {
             console.error(err);
@@ -17,7 +16,7 @@ class ApiService {
 
     async getCategories() {
         try {
-            const request = `${this.url}api?token=${API_TOKEN}&categories=all`;
+            const request = `${this.url}/api/categories`;
             return useRequest(request); 
         } catch (err) {
             console.error(err);
@@ -27,10 +26,10 @@ class ApiService {
     async getItems(sorting) {
         try {
             if (sorting) {
-                const request = `${this.url}api?token=${API_TOKEN}&items=all&sorting=${sorting}`;
+                const request = `${this.url}/api/items?sorting=${sorting}`;
                 return useRequest(request); 
             } else {
-                const request = `${this.url}api?token=${API_TOKEN}&items=all`;
+                const request = `${this.url}/api/items`;
                 return useRequest(request); 
             }
             
@@ -42,10 +41,10 @@ class ApiService {
     async getItemsOne(category, sorting) {
         try {
             if (sorting) {
-                const request = `${this.url}api?token=${API_TOKEN}&items=all&category=${encodeURIComponent(category.toLowerCase())}&sorting=${sorting}`;
+                const request = `${this.url}/api/items/${encodeURIComponent(category.toLowerCase())}?sorting=${sorting}`;
                 return useRequest(request);
             } else {
-                const request = `${this.url}api?token=${API_TOKEN}&items=all&category=${encodeURIComponent(category.toLowerCase())}`;
+                const request = `${this.url}/api/items/${encodeURIComponent(category.toLowerCase())}`;
                 return useRequest(request);
             }
         } catch (err) {
@@ -55,7 +54,7 @@ class ApiService {
 
     async getIcons() {
         try {
-            const request = `${this.url}api?token=${API_TOKEN}&icons=all`;
+            const request = `${this.url}/api/icons`;
             return useRequest(request);
         } catch (err) {
             console.error(err);
@@ -68,4 +67,4 @@ async function useRequest(request) {
     return await JSON.parse(response.request.response);
 }
 
-export const apiService = new ApiService('http://localhost:3000/', API_TOKEN);
+export const apiService = new ApiService('http://localhost:3000');
