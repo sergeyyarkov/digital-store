@@ -26,7 +26,6 @@ export class ItemsComponent extends Component {
                 const html = renderItems(categories, fData);
                 this.insertItems(html);
                 this.btnColor();
-
                 this.loader.hide(); 
             } 
         } 
@@ -36,6 +35,7 @@ export class ItemsComponent extends Component {
         this.$el.querySelector('#roster').innerHTML = '';
         this.loader.hide();
     }
+    
     onShow() {
         this.$el.querySelector('#roster').innerHTML = '';
         this.loader.show();

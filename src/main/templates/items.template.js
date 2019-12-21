@@ -1,16 +1,13 @@
 export function renderItems(categories, items) {
-    const arrayCategories = categories;
-    const arrayItems = items;
-
     let html = '';
     try {
-        arrayCategories.forEach(category => {
+        categories.forEach(category => {
             html += `<div class="items-category">
                         <h2 class="small-title">${category.title}</h2>
                     </div>`;
             category.itemsInCategory = 0; // счетчит для отслеживания категорий где нету айтемов
             try {
-                arrayItems.forEach(item => {
+                items.forEach(item => {
                     if (item.category.toLowerCase() === category.title.toLowerCase()) {
                         category.itemsInCategory += 1;
                         html += `

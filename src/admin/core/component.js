@@ -1,11 +1,13 @@
 export class Component {
     constructor(id) {
         this.$el = document.getElementById(id);
+        this.$el ? this.setElems() : false;
         this.$el ? this.init() : false;
-        
     }
 
     init() {}
+
+    setElems() {}
 
     onShow() {}
 

@@ -46,6 +46,12 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
     
         // 404 Redirect
         server.use((req, res) => res.status(404).render('main/404'));
-        server.listen(3000, () => console.log('Listen port 3000...')); 
     })
-    .catch((error) => {console.log(error)});
+    .catch((error) => {
+        server.get('*', (req, res) => {
+            res.send('Ошибка соединения с БД. Настройте файл database.js');
+        });
+    })
+    .finally(() =>  {
+        server.listen(3000, () => console.log('Listen port 3000...'));
+    });

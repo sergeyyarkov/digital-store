@@ -45,6 +45,10 @@ hr {
 
 /* Custom Styles */
 
+.pagination {
+    padding-bottom: 24px;
+}
+
 #notification {
     width: 300px;
     position: fixed;
@@ -700,8 +704,8 @@ footer.main-footer {
     margin-top: 8px;
 }
 .table-buyers, .table-items {
-    max-height: 365px;
-    overflow-y: scroll;
+    max-height: 385px;
+    overflow-y: hidden;
 }
 footer.admin-footer{
     background-color: #fff;

@@ -6,23 +6,24 @@ import { renderIcons } from "../templates/icons.template";
 export class CategoriesComponent extends Component {
     constructor(id) {
         super(id);
-        if (this.$el) {
-            // обозначим все селекты для рендера в них наши категории и киноки в дальнейшем
-            this.$editSelect = this.$el.querySelector('#edit select');
-            this.$dellSelect = this.$el.querySelector('#delete select');
-            this.$iconsSelect = this.$el.querySelector('#icons select');
-            this.$dellIconsSelect = this.$el.querySelector('#dellIcon select');
+    }
 
-            // формы
-            this.$dellIconFrom = this.$el.querySelector('#dellIcon');
-            this.$addForm = this.$el.querySelector('#addCategory');
-            this.$dellForm = this.$el.querySelector('#dellCategory');
-            
-            // добавим ивенты на наши формы
-            this.$dellIconFrom.addEventListener('submit', this.dellIcon.bind(this));
-            this.$addForm.addEventListener('submit', this.addCategory.bind(this));
-            this.$dellForm.addEventListener('submit', this.deleteCategory.bind(this));
-        }
+    setElems() {
+        // обозначим все селекты для рендера в них наши категории и киноки в дальнейшем
+        this.$editSelect = this.$el.querySelector('#edit select');
+        this.$dellSelect = this.$el.querySelector('#delete select');
+        this.$iconsSelect = this.$el.querySelector('#icons select');
+        this.$dellIconsSelect = this.$el.querySelector('#dellIcon select');
+
+        // формы
+        this.$dellIconFrom = this.$el.querySelector('#dellIcon');
+        this.$addForm = this.$el.querySelector('#addCategory');
+        this.$dellForm = this.$el.querySelector('#dellCategory');
+        
+        // добавим ивенты на наши формы
+        this.$dellIconFrom.addEventListener('submit', this.dellIcon.bind(this));
+        this.$addForm.addEventListener('submit', this.addCategory.bind(this));
+        this.$dellForm.addEventListener('submit', this.deleteCategory.bind(this));
     }
 
     async init() {
