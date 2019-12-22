@@ -33,20 +33,8 @@ body.has-fixed-sidenav
                                     tbody
                                         #loader.progress
                                             .indeterminate
-                        .divider
-                        ul.pagination.center
-                            li.active
-                                a(href="#" class="disabled")
-                                    i.material-icons chevron_left
-                            li
-                                a(href="#" class="active") 1
-                            li
-                                a(href="#") 2
-                            li
-                                a(href="#") 3
-                            li
-                                a(href="#" class="disabled")
-                                    i.material-icons chevron_right
+                        ul#pagination.pagination.center(data-page="1")
+                            
                                    
     include ./assets/templates/footer.pug
     include ./assets/scripts.pug

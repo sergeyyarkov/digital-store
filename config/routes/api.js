@@ -25,6 +25,17 @@ module.exports = function(server, db) {
             }
         } else res.send({error: 'Товаров в магазине пока что нет.'});
     });
+
+    server.get('/api/items/page/:page', async (req, res) => {
+        try {
+            const page = parseInt(req.params.page),
+                limit = parseInt(req.query.limit),
+                items = await db.collection('items').find({}, {skip: limit * (page - 1), limit}).toArray();
+            items.length > 0 && !isNaN(page) ? res.json(items) : res.json({error: 'Такой страницы не существует.'});
+        } catch (error) {
+            res.render('main/404');
+        }
+    });
     
     server.get('/api/items/:category', async (req, res) => {
         const items = await db.collection('items').find({category: req.params.category}).toArray(),

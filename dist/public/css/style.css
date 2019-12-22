@@ -707,6 +707,9 @@ footer.main-footer {
     max-height: 385px;
     overflow-y: hidden;
 }
+#items .card-content {
+    min-height: 519px;
+}
 footer.admin-footer{
     background-color: #fff;
     border-top: 1px solid #e0e0e0;

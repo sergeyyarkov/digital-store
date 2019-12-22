@@ -38,6 +38,15 @@ class ApiService {
         }
     }
 
+    async getItemsOffset(page, limit) {
+        try {
+            const request = `${this.url}/api/items/page/${page}?limit=${limit}`;
+            return useRequest(request);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     async getItemsOne(category, sorting) {
         try {
             if (sorting) {

@@ -14,10 +14,12 @@ export class Component {
     onHide() {}
 
     hide() {
-        this.$el ? this.$el.classList.add('hide') : false
+        this.$el ? this.$el.classList.add('hide') : false;
+        this.onHide();
     }
     
     show() {
-        this.$el ? this.$el.classList.remove('hide') : false
+        this.$el ? this.$el.classList.remove('hide') : false;
+        this.onShow();
     }
 }

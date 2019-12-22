@@ -20,14 +20,17 @@ module.exports = function(server, db) {
             res.render('main/404');
         }
     });
-    server.get('/control-panel/items', checkAuthenticated, (req, res) => {
+    server.get('/control-panel/items', checkAuthenticated, async (req, res) => {
         try {
+            const items = await db.collection('items').find({}).toArray();
+            const count = items.length;
             res.render('admin/items', {
                 name: req.user.name,
                 email: req.user.email,
                 title: 'Digital-Store | Товары',
                 host: req.headers.host,
                 pageName: ['Товары', 'items'],
+                count: count / 2
             });
         } catch (error) {
             res.render('main/404');

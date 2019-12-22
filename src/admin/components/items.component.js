@@ -8,16 +8,30 @@ export class ItemsComponent extends Component {
         this.loader = loader;
     }
 
-    setElems() {
+    async init() {
+        const items = await apiService.getItemsOffset(1, 5), 
+            categories = await apiService.getCategories(),
+            html = renderItems(items, categories);
+
         this.$table = this.$el.querySelector('table tbody');
+        this.$table.insertAdjacentHTML('afterbegin', html);
+        this.onHide();
     }
 
-    async init() { 
-        const categories = await apiService.getCategories();
-        const items = await apiService.getItems();
-        const html = renderItems(items, categories);
+    onHide() {
+        this.loader.hide();
+    }
+
+    onShow() {
+        this.loader.show();
+        this.$table.innerHTML = '';
+    }
+
+    async insertItems(page, limit) {
+        const items = await apiService.getItemsOffset(page, limit), 
+            categories = await apiService.getCategories(),
+            html = renderItems(items, categories);
 
         this.$table.insertAdjacentHTML('afterbegin', html);
-        this.loader.hide();
     }
 }
