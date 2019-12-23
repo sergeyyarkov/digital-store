@@ -29,7 +29,7 @@ module.exports = function(server, db) {
     server.get('/api/items/page/:page', async (req, res) => {
         try {
             const page = parseInt(req.params.page),
-                limit = parseInt(req.query.limit),
+                limit = 5,
                 items = await db.collection('items').find({}, {skip: limit * (page - 1), limit}).toArray();
             items.length > 0 && !isNaN(page) ? res.json(items) : res.json({error: 'Такой страницы не существует.'});
         } catch (error) {

@@ -38,9 +38,9 @@ class ApiService {
         }
     }
 
-    async getItemsOffset(page, limit) {
+    async getItemsOffset(page) {
         try {
-            const request = `${this.url}/api/items/page/${page}?limit=${limit}`;
+            const request = `${this.url}/api/items/page/${page}`;
             return useRequest(request);
         } catch (err) {
             console.error(err);

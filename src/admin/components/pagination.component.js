@@ -18,17 +18,17 @@ export class PaginationComponent extends Component {
     buttonHandler(e) {
         e.preventDefault();
         if (e.target.dataset.move) {
-            const value = parseInt(e.target.dataset.move),
+            const page = parseInt(e.target.dataset.move),
                 target = e.target.parentNode;
 
             this.removeActive();
             target.classList.add('active');
-            this.moveTo(value);
+            this.moveTo(page);
         } else if (e.target.tagName.toLowerCase() === 'i') {
             const moveType = e.target.parentNode.dataset.type,
-                value = parseInt(this.$el.dataset.page);
+                page = parseInt(this.$el.dataset.page);
 
-            moveType === 'prev' ? this.movePrev(value, this.$pages) : this.moveNext(value, this.$pages);
+            moveType === 'prev' ? this.movePrev(page, this.$pages) : this.moveNext(page, this.$pages);
         }
     }
 
@@ -52,17 +52,13 @@ export class PaginationComponent extends Component {
             this.removeActive();
             this.setActive(li, value);
             this.updatePage(value);
-            this.items.onShow();
-            this.items.insertItems(value, this.limit);
-            this.items.onHide();
+            this.itemsInit(value);
         }
     }
 
     moveTo(value) {
         this.updatePage(value);
-        this.items.onShow();
-        this.items.insertItems(value, this.limit);
-        this.items.onHide();
+        this.itemsInit(value);
     }
 
     moveNext(value, li) {
@@ -74,15 +70,14 @@ export class PaginationComponent extends Component {
             this.removeActive();
             this.setActive(li, value);
             this.updatePage(value);
-            this.items.onShow();
-            this.items.insertItems(value, this.limit);
-            this.items.onHide();   
+            this.itemsInit(value);  
         }
     }
 
     async insertPages() {
         const pages = await apiService.getItems(),
             count = pages.length / this.limit;
+
         let html = '';
 
         // назад
@@ -96,5 +91,12 @@ export class PaginationComponent extends Component {
         // вперед
         html += '<li><a class="disabled" href="#" data-type="next"><i class="material-icons">chevron_right</i></a></li>';
         this.$el.insertAdjacentHTML('afterbegin', html);
+    }
+
+    // определяем методы для инициализации наших компонентов
+    itemsInit(value) {
+        this.items.onShow();
+        this.items.insertItems(value);
+        this.items.onHide();
     }
 }

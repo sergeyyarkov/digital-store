@@ -9,10 +9,7 @@ export class ItemsComponent extends Component {
     }
 
     async init() {
-        const items = await apiService.getItemsOffset(1, 5), 
-            categories = await apiService.getCategories(),
-            html = renderItems(items, categories);
-
+        const html = await this.getItemsByPage(1);
         this.$table = this.$el.querySelector('table tbody');
         this.$table.insertAdjacentHTML('afterbegin', html);
         this.onHide();
@@ -27,11 +24,14 @@ export class ItemsComponent extends Component {
         this.$table.innerHTML = '';
     }
 
-    async insertItems(page, limit) {
-        const items = await apiService.getItemsOffset(page, limit), 
-            categories = await apiService.getCategories(),
-            html = renderItems(items, categories);
-
+    async insertItems(page) {
+        const html = await this.getItemsByPage(page);
         this.$table.insertAdjacentHTML('afterbegin', html);
     }
+    
+    async getItemsByPage(page) {
+        const items = await apiService.getItemsOffset(page), 
+            categories = await apiService.getCategories();
+        return renderItems(items, categories);
+    } 
 }
