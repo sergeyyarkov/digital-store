@@ -9,7 +9,7 @@ export class PaginationComponent extends Component {
     // вставляем кнопки со страницами и назначаем ивент
     initialize(pages, insertTo, request) {
         this.insertButtons(pages);
-        this.$pages = this.$el.querySelectorAll('li');
+        this.$pages = Array.from(this.$el.querySelectorAll('li'));
         this.$el.onclick = (e) => this.buttonHandler(e, insertTo, request);
         this.moveTo(1, insertTo, request); // показываем первую страницу
         this.$el.querySelector('li').nextElementSibling.classList.add('active'); 
