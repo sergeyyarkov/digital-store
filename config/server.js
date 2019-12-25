@@ -49,7 +49,7 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
     })
     .catch((error) => {
         server.get('*', (req, res) => {
-            res.send('Ошибка соединения с БД. Настройте файл database.js');
+            res.send('Ошибка соединения с БД.');
         });
     })
     .finally(() =>  {

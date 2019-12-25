@@ -1,39 +1,18 @@
 import { Component } from "../core/component";
-import { apiService } from "../services/api.service";
 
 export class PaginationComponent extends Component {
-    constructor(id, {items}) {
+    constructor(id, {loader}) {
         super(id);
-        this.limit = 5;
-        this.items = items;
+        this.loader = loader;
     }
 
-    async init() {
-        await this.insertPages();
+    // вставляем кнопки со страницами и назначаем ивент
+    initialize(pages, insertTo, request) {
+        this.insertButtons(pages);
         this.$pages = this.$el.querySelectorAll('li');
-        this.$el.addEventListener('click', this.buttonHandler.bind(this));
-        this.$el.querySelector('li').nextElementSibling.classList.add('active');
-    }
-
-    buttonHandler(e) {
-        e.preventDefault();
-        if (e.target.dataset.move) {
-            const page = parseInt(e.target.dataset.move),
-                target = e.target.parentNode;
-
-            this.removeActive();
-            target.classList.add('active');
-            this.moveTo(page);
-        } else if (e.target.tagName.toLowerCase() === 'i') {
-            const moveType = e.target.parentNode.dataset.type,
-                page = parseInt(this.$el.dataset.page);
-
-            moveType === 'prev' ? this.movePrev(page, this.$pages) : this.moveNext(page, this.$pages);
-        }
-    }
-
-    updatePage(value) {
-        this.$el.setAttribute('data-page', value); 
+        this.$el.onclick = (e) => this.buttonHandler(e, insertTo, request);
+        this.moveTo(1, insertTo, request); // показываем первую страницу
+        this.$el.querySelector('li').nextElementSibling.classList.add('active'); 
     }
 
     removeActive() {
@@ -44,40 +23,53 @@ export class PaginationComponent extends Component {
         li.forEach(li => {const page = parseInt(li.querySelector('a').dataset.move);page === value ? li.classList.add('active') : false;});
     }
 
-    movePrev(value, li) {
-        if (value === 1) {
-            return 0;
-        } else {
-            --value;
+    buttonHandler(e, insertTo, request) {
+        e.preventDefault();
+        if (e.target.dataset.move) {
+            const page = parseInt(e.target.dataset.move),
+                target = e.target.parentNode;
+
             this.removeActive();
-            this.setActive(li, value);
-            this.updatePage(value);
-            this.itemsInit(value);
+            target.classList.add('active');
+            this.moveTo(page, insertTo, request);
+        } else if (e.target.tagName.toLowerCase() === 'i') {
+            const moveType = e.target.parentNode.dataset.type,
+                page = parseInt(this.$el.dataset.page);
+
+            moveType === 'prev' ? this.movePrev(page, this.$pages, insertTo, request) : this.moveNext(page, this.$pages, insertTo, request);
         }
     }
 
-    moveTo(value) {
-        this.updatePage(value);
-        this.itemsInit(value);
+    movePrev(page, li, insertTo, request) {
+        if (page === 1) return 0; else {
+            --page;
+            this.removeActive();
+            this.setActive(li, page);
+            this.moveTo(page, insertTo, request);
+        }
     }
 
-    moveNext(value, li) {
+    // выполняем запрос на сервер и выводим на данные
+    async moveTo(page, insertTo, request) {
+        this.$el.setAttribute('data-page', page);
+        insertTo.innerHTML = '';
+        this.loader.show();
+        insertTo.insertAdjacentHTML('afterbegin', await request(page));
+        this.loader.hide();
+    }
+
+    moveNext(page, li, insertTo, request) {
         const length = this.$pages.length - 2;
-        if (value === length) {
-            return 0;
-        } else {
-            ++value;
+        if (page === length) return 0; else {
+            ++page;
             this.removeActive();
-            this.setActive(li, value);
-            this.updatePage(value);
-            this.itemsInit(value);  
+            this.setActive(li, page);
+            this.moveTo(page, insertTo, request); 
         }
     }
 
-    async insertPages() {
-        const pages = await apiService.getItems(),
-            count = pages.length / this.limit;
-
+    insertButtons(pages) {
+        const count = Math.ceil(pages / 5);
         let html = '';
 
         // назад
@@ -91,12 +83,5 @@ export class PaginationComponent extends Component {
         // вперед
         html += '<li><a class="disabled" href="#" data-type="next"><i class="material-icons">chevron_right</i></a></li>';
         this.$el.insertAdjacentHTML('afterbegin', html);
-    }
-
-    // определяем методы для инициализации наших компонентов
-    itemsInit(value) {
-        this.items.onShow();
-        this.items.insertItems(value);
-        this.items.onHide();
     }
 }

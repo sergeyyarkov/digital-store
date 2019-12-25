@@ -32,7 +32,7 @@ export class MaterializeConfig {
             document.querySelector('#type') ? M.textareaAutoResize(document.querySelector('#type')) : false
             M.updateTextFields();
         
-            // Окраска li по нажатию
+            // окраска li по нажатию
             if (document.querySelector('#currentPage')) {
               const currentPage = document.querySelector('#currentPage').dataset.current;
               const pages = Array.from(document.querySelectorAll('.collapsible li'));
