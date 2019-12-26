@@ -7,6 +7,7 @@ function checkAuthenticated(req, res, next) {
 }
 
 module.exports = function(server, db) {
+    // роуты
     server.get('/control-panel', checkAuthenticated, (req, res) => {
         try {
             res.render('admin/control-panel', {
@@ -91,6 +92,8 @@ module.exports = function(server, db) {
         }
     });
 
+
+    // редактирование категорий
     server.post('/control-panel/categories/create', checkAuthenticated, (req, res) => {
         try {
             const data = {
@@ -144,6 +147,24 @@ module.exports = function(server, db) {
             fs.unlinkSync(path);
             res.redirect('/control-panel/categories');
         } catch (error) {
+            res.render('main/404');
+        }
+    });
+
+    // товары
+    server.post('/control-panel/items/update', checkAuthenticated, (req, res) => {
+        try {
+            const data = {
+                id: req.body.id,
+                title: req.body.title,
+                price: parseFloat(req.body.price),
+                description: req.body.description,
+                category: JSON.parse(req.body.category)
+            }
+            db.collection('items').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, price: data.price, description: data.description, category: data.category.title}});
+            res.redirect('/control-panel/items');
+        } catch (error) {
+            console.log(error);
             res.render('main/404');
         }
     });

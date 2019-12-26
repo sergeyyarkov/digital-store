@@ -10,14 +10,13 @@ export class editCategoryModal extends Modal {
     // перепишем метод для перевода ивента open в событие onchange
     init() {
         if (this.open) {
-            this.open.addEventListener('change', this.openHandler.bind(this));
+            this.open.addEventListener('change', this.show.bind(this));
             this.close.addEventListener('click', this.hide.bind(this));
             this.$el.querySelector('form').addEventListener('submit', this.updateCategory.bind(this));  
         }
     }
     
     async openHandler(e) {
-        this.show();
         const data = JSON.parse(e.target.value);
         this.$el.querySelector('form .id input').value = data.id;
         this.$el.querySelector('form .originalTitle input').value = data.title[0].toUpperCase() + data.title.slice(1);

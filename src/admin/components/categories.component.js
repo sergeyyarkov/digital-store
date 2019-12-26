@@ -9,13 +9,13 @@ export class CategoriesComponent extends Component {
     }
 
     setElems() {
-        // обозначим все селекты для рендера в них наши категории и иконки в дальнейшем
-        this.$editSelect = this.$el.querySelector('#edit select');
-        this.$dellSelect = this.$el.querySelector('#delete select');
-        this.$iconsSelect = this.$el.querySelector('#icons select');
-        this.$dellIconsSelect = this.$el.querySelector('#dellIcon select');
+        // селекты в которых рендерится контент
+        this.$editSelect = this.$el.querySelector('#editCategory_select'); // редактирование категории
+        this.$dellSelect = this.$el.querySelector('#delete_select'); // удаление категории
+        this.$iconsSelect = this.$el.querySelector('#icons_select'); // выбор иконки
+        this.$dellIconsSelect = this.$el.querySelector('#dellIcon_select'); // удаление иконки
 
-        // формы
+        // обработка форм
         this.$dellIconFrom = this.$el.querySelector('#dellIcon'); // удаление иконки
         this.$addForm = this.$el.querySelector('#addCategory'); // добавление категории
         this.$dellForm = this.$el.querySelector('#dellCategory'); // удаление категории

@@ -23,8 +23,8 @@ body.has-fixed-sidenav
                                         .input-field.col.l6.s12
                                             input(name="title" type="text" required)
                                             label(for="title") Название категории
-                                        #icons.input-field.col.l6.s12
-                                            select(name="img" required)
+                                        .input-field.col.l6.s12
+                                            select#icons_select(name="img" required)
                                                     option(value="" disabled selected)
                                                         | Выберите иконку
                                             label(for="img") Иконка
@@ -51,16 +51,16 @@ body.has-fixed-sidenav
                                             button(type="submit" class="btn right" style="margin-right: 10px;") Добавить
                                 .category-edit
                                     .row
-                                        #edit.input-field.col.s12
-                                            select
+                                        .input-field.col.s12
+                                            select#editCategory_select
                                                 option(value="" disabled selected)
                                                     | Выберите категорию для редактирования
                                             label Редактирование категории
                                 .icon-dell
                                     .row
                                         form(id="dellIcon" action="/control-panel/categories/dellicon" method="POST")
-                                            #dellIcon.input-field.col.s12
-                                                select(name="img")
+                                            .input-field.col.s12
+                                                select#dellIcon_select(name="img")
                                                     option(value="" disabled selected)
                                                         | Выберите иконку для удаления
                                                 label Удаление иконки
@@ -69,8 +69,8 @@ body.has-fixed-sidenav
                                 .category-delete
                                     .row
                                         form(id="dellCategory" action="/control-panel/categories/delete" method="POST")
-                                            #delete.input-field.col.s12
-                                                select(name="category")
+                                            .input-field.col.s12
+                                                select#delete_select(name="category")
                                                     option(value="" disabled selected)
                                                         | Выберите категорию для удаления
                                                 label Удаление категории

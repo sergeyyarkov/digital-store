@@ -53,5 +53,7 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
         });
     })
     .finally(() =>  {
-        server.listen(3000, () => console.log('Listen port 3000...'));
+        server.listen(3000, () => {
+            console.log('Listen port 3000...');
+        });
     });

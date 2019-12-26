@@ -8,18 +8,26 @@ export class Modal {
 
     init() {
         if (this.open) {
+            this.setElems();
             this.open.addEventListener('click', this.show.bind(this));
             this.close.addEventListener('click', this.hide.bind(this));  
         }
     }
 
-    show() {
-        this.$el.classList.remove('hide');
-        document.body.style.overflowY = 'hidden';
+    show(e) {
+        if (e.target.id === this.open.id) {
+            this.$el.classList.remove('hide');
+            document.body.style.overflowY = 'hidden';
+            this.openHandler(e); 
+        }
     }
 
     hide() {
         this.$el.classList.add('hide');
         document.body.style.overflowY = '';
     }
+
+    openHandler() {}
+
+    setElems() {}
 }

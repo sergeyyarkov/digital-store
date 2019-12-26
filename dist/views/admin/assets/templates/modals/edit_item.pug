@@ -1,0 +1,31 @@
+// Edit Item
+#editItemModal.c_modal-wrap.hide
+  .container
+    .row
+      .c_modal
+        .c_modal-content.editItem
+          .modal-content
+            .modal-content__header(style="margin-bottom: 1rem;")
+              h4.small-title Редактирование товара
+              span#editItemClose.modal-close
+                i.material-icons close
+            .modal-content__form
+                form(action="/control-panel/items/update" method="POST")
+                    .input-field
+                        input.id(style="color: gray;" type="text" name="id" required readonly)
+                        label ID товара
+                    .input-field
+                        input.title(id="title" type="text" name="title" required)
+                        label(for="title") Новое название товара
+                    .input-field
+                        input.price(id="price" type="text" name="price" required)
+                        label(for="price") Цена
+                    .input-field
+                        textarea.description(id="description" class="materialize-textarea" type="text" name="description")
+                        label(for="description") Описание товара
+                    .input-field
+                        select.category(name="category")
+                        label Категория
+                    .edit_success
+                        button(type="submit" class="btn orange waves-effect" style="width: 100%;height:50px") Редактировать
+// Edit Category END
