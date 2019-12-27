@@ -15,11 +15,9 @@ export class Modal {
     }
 
     show(e) {
-        if (e.target.id === this.open.id) {
-            this.$el.classList.remove('hide');
-            document.body.style.overflowY = 'hidden';
-            this.openHandler(e); 
-        }
+        this.$el.classList.remove('hide');
+        document.body.style.overflowY = 'hidden';
+        this.openHandler(e); 
     }
 
     hide() {

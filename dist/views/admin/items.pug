@@ -17,7 +17,7 @@ body.has-fixed-sidenav
                                         label.label-icon(for="search")
                                             i.material-icons search
                                         i.material-icons close
-                            .table-items.table
+                            #edit.table-items.table
                                 table.highlight
                                     thead
                                         tr
@@ -30,11 +30,12 @@ body.has-fixed-sidenav
                                             th Редактирование
                                             
                                     .divider
-                                    tbody#editItem
+                                    tbody
                                         #loader.progress
                                             .indeterminate
                         ul#pagination.pagination.center(data-page="1")
-                            
+
+    include ./assets/templates/modals/delete_item.pug                       
     include ./assets/templates/modals/edit_item.pug                                 
     include ./assets/templates/footer.pug
     include ./assets/scripts.pug

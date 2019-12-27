@@ -164,7 +164,14 @@ module.exports = function(server, db) {
             db.collection('items').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, price: data.price, description: data.description, category: data.category.title}});
             res.redirect('/control-panel/items');
         } catch (error) {
-            console.log(error);
+            res.render('main/404');
+        }
+    });
+    server.post('/control-panel/items/delete', checkAuthenticated, (req, res) => {
+        try {
+            db.collection('items').deleteOne({"_id": ObjectID(req.body.id)});
+            res.redirect('/control-panel/items');
+        } catch (error) {
             res.render('main/404');
         }
     });
