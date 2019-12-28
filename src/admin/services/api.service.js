@@ -47,6 +47,15 @@ class ApiService {
         }
     }
 
+    async getItemsQuery(text) {
+        try {
+            const request = `${this.url}/api/items?q=${text}`;
+            return useRequest(request);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     async getItemsOne(category, sorting) {
         try {
             if (sorting) {

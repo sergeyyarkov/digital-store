@@ -2,28 +2,34 @@ const fs = require('fs');
 
 module.exports = function(server, db) {
     server.get('/api/items', async (req, res) => {
-        const items = await db.collection('items').find({}).toArray(),
-            sortBy = req.query.sorting;
+        if (req.query.q) {
+                const items = await db.collection('items').find({title: {$regex: req.query.q, $options: "i"}}, {limit: 5}).toArray();
+                res.json(items);
+        } else {
+           const items = await db.collection('items').find({}).toArray(),
+               sortBy = req.query.sorting;
 
-        if (items.length > 0) {
-            switch (sortBy) {
-                case 'ascending':
-                    res.json(items.sort((a, b) => a.price - b.price));
-                    break;
-                case 'descending':
-                    res.json(items.sort((a, b) => b.price - a.price));
-                    break;
-                case 'newer':
-                    res.json(items.sort((a, b) => b.date - a.date));
-                    break;
-                case 'older':
-                    res.json(items.sort((a, b) => a.date - b.date));
-                    break;
-                default:
-                    res.json(items);
-                    break;
-            }
-        } else res.send({error: 'Товаров в магазине пока что нет.'});
+           if (items.length > 0) {
+               switch (sortBy) {
+                   case 'ascending':
+                       res.json(items.sort((a, b) => a.price - b.price));
+                       break;
+                   case 'descending':
+                       res.json(items.sort((a, b) => b.price - a.price));
+                       break;
+                   case 'newer':
+                       res.json(items.sort((a, b) => b.date - a.date));
+                       break;
+                   case 'older':
+                       res.json(items.sort((a, b) => a.date - b.date));
+                       break;
+                   default:
+                       res.json(items);
+                       break;
+               }
+           } else res.send({error: 'Товаров в магазине пока что нет.'});
+        }
+        
     });
 
     server.get('/api/items/page/:page', async (req, res) => {
@@ -36,6 +42,11 @@ module.exports = function(server, db) {
             res.render('main/404');
         }
     });
+
+    server.get('/api/items/search/:query', (req, res) => {
+        const query = req.query.q;
+        console.log(query);
+    })
     
     server.get('/api/items/:category', async (req, res) => {
         const items = await db.collection('items').find({category: req.params.category}).toArray(),

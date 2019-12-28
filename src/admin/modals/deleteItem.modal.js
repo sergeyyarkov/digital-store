@@ -15,22 +15,23 @@ export class deleteItemModal extends Modal {
     }
 
     setElems() {
-        this.$content = this.$el.querySelector('.modal-content__form');
+        this.$content = this.$el.querySelector('.modal-content__form p');
     }
 
     openHandler(e) {
         const data = JSON.parse(e.target.parentNode.parentNode.dataset.info);
+        this.$content.innerHTML = `Вы действительно хотите удалить товар: <br> "${data.title}"?`;
         this.$el.querySelector('.delete-item').onclick = this.deleteHandler.bind(this, data.id);
     }
 
-    deleteHandler(id) {
-        axios.post('/control-panel/items/delete', {id})
-            .then(() => {
-                alert('Товар был успешно удален.');
-                document.location.reload(true);
-            })
-            .catch(() => {
-                alert('Невозможно выполнить запрос.');
-            });
+    async deleteHandler(id) {
+        try {
+            this.$content.innerHTML = '<div class="progress"><div class="indeterminate"></div></div>'
+            await axios.post('/control-panel/items/delete', {id});
+            alert('Товар был успешно удален.');
+            document.location.reload(true);
+        } catch (error) {
+            alert('Невозможно выполнить запрос.');
+        }
     }
 }
