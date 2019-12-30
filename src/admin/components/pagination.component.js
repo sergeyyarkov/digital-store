@@ -90,8 +90,4 @@ export class PaginationComponent extends Component {
         html += '<li><a class="disabled" href="#" data-type="next"><i class="material-icons">chevron_right</i></a></li>';
         this.$el.insertAdjacentHTML('afterbegin', html);
     }
-
-    hide() {
-        this.$el.classList.add('hide');
-    }
 }

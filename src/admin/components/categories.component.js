@@ -13,30 +13,24 @@ export class CategoriesComponent extends Component {
         this.$editSelect = this.$el.querySelector('#editCategory_select'); // редактирование категории
         this.$dellSelect = this.$el.querySelector('#delete_select'); // удаление категории
         this.$iconsSelect = this.$el.querySelector('#icons_select'); // выбор иконки
-        this.$dellIconsSelect = this.$el.querySelector('#dellIcon_select'); // удаление иконки
 
         // обработка форм
-        this.$dellIconFrom = this.$el.querySelector('#dellIcon'); // удаление иконки
         this.$addForm = this.$el.querySelector('#addCategory'); // добавление категории
         this.$dellForm = this.$el.querySelector('#dellCategory'); // удаление категории
         
         // добавим ивенты на наши формы
-        this.$dellIconFrom.addEventListener('submit', this.dellIcon.bind(this));
         this.$addForm.addEventListener('submit', this.addCategory.bind(this));
         this.$dellForm.addEventListener('submit', this.deleteCategory.bind(this));
     }
 
     async init() {
         const categories = await apiService.getCategories(),
-            icons = await apiService.getIcons(),
-            icons_html = renderIcons(icons),
-            categories_html = renderCategories(categories);
+            icons = await apiService.getIcons();
 
-        this.$editSelect.insertAdjacentHTML('beforeend', categories_html);
-        this.$dellSelect.insertAdjacentHTML('beforeend', categories_html);
-        this.$iconsSelect.insertAdjacentHTML('beforeend', icons_html);
-        this.$dellIconsSelect.insertAdjacentHTML('beforeend', icons_html);
-        M.FormSelect.init(document.querySelectorAll('select')); // Инициализируем все селекты только после их рендера!
+        this.$editSelect.insertAdjacentHTML('beforeend', renderCategories(categories));
+        this.$dellSelect.insertAdjacentHTML('beforeend', renderCategories(categories));
+        this.$iconsSelect.insertAdjacentHTML('beforeend', renderIcons(icons));
+        M.FormSelect.init(document.querySelectorAll('select'));
     }
 
     async addCategory(e) {
@@ -55,14 +49,5 @@ export class CategoriesComponent extends Component {
             index = categories.map((category) => {return category.title}).indexOf(title);
 
         index != -1 ? this.$dellForm.submit() : alert('Выберите категорию для удаления.');
-    }
-
-    async dellIcon(e) {
-        e.preventDefault();
-        const icons = await apiService.getIcons(),
-            currIcon = e.target.elements[0].value,
-            index = icons.indexOf(currIcon);
-
-        index != -1 ? e.target.submit() : alert('Выберите иконку для удаления.');
     }
 }

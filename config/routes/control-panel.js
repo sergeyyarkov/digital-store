@@ -52,6 +52,19 @@ module.exports = function(server, db) {
             res.render('main/404');
         }
     });
+    server.get('/control-panel/icons', checkAuthenticated, async (req, res) => {
+        try {
+            res.render('admin/icons', {
+                name: req.user.name,
+                email: req.user.email,
+                title: 'Digital-Store | Категории',
+                host: req.headers.host,
+                pageName: ['Иконки', 'icons']
+            });
+        } catch (error) {
+            res.render('main/404');
+        }
+    });
     server.get('/control-panel/content', checkAuthenticated, (req, res) => {
         try {
             res.render('admin/content', {
@@ -114,6 +127,7 @@ module.exports = function(server, db) {
             db.collection('categories').deleteOne({"_id": ObjectID(data.id)});
             res.redirect('/control-panel/categories');
         } catch (error) {
+            console.log(error);
             res.render('main/404');
         }
     });
@@ -134,24 +148,60 @@ module.exports = function(server, db) {
             res.render('main/404');
         }
     });
-    server.post('/control-panel/categories/addicon', checkAuthenticated, (req, res) => {
+
+    // иконки
+    server.post('/control-panel/icons/create', checkAuthenticated, (req, res) => {
         try {
-            res.redirect('/control-panel/categories');
+            res.redirect('/control-panel/icons');
         } catch (error) {
             res.render('main/404');
         }
     });
-    server.post('/control-panel/categories/dellicon', checkAuthenticated, (req, res) => {
+    server.post('/control-panel/icons/delete', checkAuthenticated, (req, res) => {
         const path = `./dist/public/img/service-icons/${req.body.img}`
         try {
             fs.unlinkSync(path);
-            res.redirect('/control-panel/categories');
+            res.redirect('/control-panel/icons');
         } catch (error) {
             res.render('main/404');
         }
     });
 
     // товары
+    server.post('/control-panel/items/create', checkAuthenticated, (req, res) => {
+        try {
+            // документ с информацией товара для отдачи клиенту
+            const item = {
+                _id: new ObjectID(),
+                title: req.body.title,
+                count: req.body.data.split(',').length,
+                price: parseFloat(req.body.price),
+                category: JSON.parse(req.body.category).title,
+                description: req.body.description,
+                date: new Date()
+            }
+            // документ куда мы записываем данные товара
+            const info = {
+                _id: item._id,
+                title: item.title,
+                data: req.body.data.split(',')
+            }
+
+            db.collection('info').insertOne(info);
+            db.collection('items').insertOne(item);
+            res.redirect('/control-panel/items');
+        } catch (error) {
+            res.render('main/404');
+        }
+    });
+    server.post('/control-panel/items/delete', checkAuthenticated, (req, res) => {
+        try {
+            db.collection('items').deleteOne({"_id": ObjectID(req.body.id)});
+            res.redirect('/control-panel/items');
+        } catch (error) {
+            res.render('main/404');
+        }
+    });
     server.post('/control-panel/items/update', checkAuthenticated, (req, res) => {
         try {
             const data = {
@@ -162,14 +212,6 @@ module.exports = function(server, db) {
                 category: JSON.parse(req.body.category)
             }
             db.collection('items').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, price: data.price, description: data.description, category: data.category.title}});
-            res.redirect('/control-panel/items');
-        } catch (error) {
-            res.render('main/404');
-        }
-    });
-    server.post('/control-panel/items/delete', checkAuthenticated, (req, res) => {
-        try {
-            db.collection('items').deleteOne({"_id": ObjectID(req.body.id)});
             res.redirect('/control-panel/items');
         } catch (error) {
             res.render('main/404');

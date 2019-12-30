@@ -38,17 +38,6 @@ body.has-fixed-sidenav
                                             button(type="submit" class="btn") Добавить категорию
                             .divider
                             .under-block
-                                .icon-add
-                                    h5 Добавить иконку
-                                    .row
-                                        form(action="/control-panel/categories/addicon" method="POST" enctype="multipart/form-data")
-                                            .file-field.input-field.col.s12
-                                                .btn.orange
-                                                    span Иконка
-                                                    input(type="file" name="img" required)
-                                                .file-path-wrapper
-                                                    input(type="text" class="file-path" placeholder="Загрузите иконку в формате .svg")
-                                            button(type="submit" class="btn right" style="margin-right: 10px;") Добавить
                                 .category-edit
                                     .row
                                         .input-field.col.s12
@@ -56,16 +45,6 @@ body.has-fixed-sidenav
                                                 option(value="" disabled selected)
                                                     | Выберите категорию для редактирования
                                             label Редактирование категории
-                                .icon-dell
-                                    .row
-                                        form(id="dellIcon" action="/control-panel/categories/dellicon" method="POST")
-                                            .input-field.col.s12
-                                                select#dellIcon_select(name="img")
-                                                    option(value="" disabled selected)
-                                                        | Выберите иконку для удаления
-                                                label Удаление иконки
-                                            .col.s12
-                                                button(type="submit" class="btn red ") Удалить 
                                 .category-delete
                                     .row
                                         form(id="dellCategory" action="/control-panel/categories/delete" method="POST")

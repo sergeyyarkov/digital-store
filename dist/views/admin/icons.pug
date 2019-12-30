@@ -1,0 +1,35 @@
+include ./assets/head.pug
+body.has-fixed-sidenav
+    include ./assets/templates/header.pug
+    main.admin-main
+        .container
+            .row
+                .col.s12
+                    h2 Редактирование иконок
+                .col.s12
+                    #icons.card
+                        .card-content
+                            .icon-add
+                                    h5 Добавить иконку
+                                    .row
+                                        form(action="/control-panel/icons/create" method="POST" enctype="multipart/form-data")
+                                            .file-field.input-field.col.s12
+                                                .btn.orange
+                                                    span Иконка
+                                                    input(type="file" name="img" required)
+                                                .file-path-wrapper
+                                                    input(type="text" class="file-path" placeholder="Загрузите иконку в формате .svg")
+                                            button(type="submit" class="btn right" style="margin-right: 10px;") Добавить
+                            .icon-dell
+                                h5 Удалить иконку
+                                    .row
+                                        form(id="dellIcon" action="/control-panel/icons/delete" method="POST")
+                                            .input-field.col.s12
+                                                select#selectIcons(name="img")
+                                                    option(value="" disabled selected)
+                                                        | Выберите иконку для удаления
+                                            .col.s12
+                                                button(type="submit" class="btn red right") Удалить 
+                               
+    include ./assets/templates/footer.pug
+    include ./assets/scripts.pug

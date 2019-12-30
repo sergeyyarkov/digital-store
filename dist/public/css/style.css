@@ -697,6 +697,12 @@ footer.main-footer {
 .admin-header nav.navbar {
     padding-left: 10px;
 }
+.card .card-content {
+    padding: 0;
+}
+.card {
+    padding: 24px;
+}
 .card .card-content .card-title {
     font-size: 16px;
 }
@@ -761,9 +767,9 @@ div.table > table > tbody > tr > td:nth-child(7) > button.btn.orange {
 .sidenav .collapsible-body>ul:not(.collapsible)>li.active a, .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active a, .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active i {
     color: #f6f6f6;
 }
-.category-add h5, .category-delete h5 {
+.card h5 {
     margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 .select-dropdown {
     max-height: 200px;

@@ -7,11 +7,13 @@ import { PaginationComponent } from "./components/pagination.component.js";
 import { editItemModal } from "./modals/editItem.modal.js";
 import { deleteItemModal } from "./modals/deleteItem.modal.js";
 import { SearchComponent } from "./components/search.component.js";
+import { IconsComponent } from "./components/icons.component.js";
 
 const loader = new LoaderComponent('loader');
 const pagination = new PaginationComponent('pagination', {loader}); 
 const search = new SearchComponent('search', {loader});
 const categories = new CategoriesComponent('categories');
+const icons = new IconsComponent('icons');
 const items = new ItemsComponent('items', {pagination}, {search});
 
 const editCategory = new editCategoryModal('editCategoryModal', 'editCategory_select', 'editCategoryClose');
