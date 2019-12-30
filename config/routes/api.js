@@ -1,5 +1,10 @@
 const fs = require('fs');
 
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) return next();
+    res.redirect('/admin');
+}
+
 module.exports = function(server, db) {
     server.get('/api/items', async (req, res) => {
         if (req.query.q) {
@@ -43,10 +48,14 @@ module.exports = function(server, db) {
         }
     });
 
-    server.get('/api/items/search/:query', (req, res) => {
-        const query = req.query.q;
-        console.log(query);
-    })
+    server.get('/api/items/data', checkAuthenticated, async (req, res) => {
+        try {
+            const data = await db.collection('info').find({}).toArray();
+            res.json(data);
+        } catch (error) {
+            res.render('main/404');
+        }
+    });
     
     server.get('/api/items/:category', async (req, res) => {
         const items = await db.collection('items').find({category: req.params.category}).toArray(),

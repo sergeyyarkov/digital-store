@@ -11,25 +11,25 @@
                 i.material-icons close
             .modal-content__form
                 form(action="/control-panel/categories/update" method="POST")
-                    .input-field.id
-                        input(style="color: gray;" type="text" name="id" required readonly)
+                    .input-field
+                        input.id(style="color: gray;" type="text" name="id" required readonly)
                         label ID категории
-                    .input-field.originalTitle
-                        input(style="color: gray;" type="text" name="originalTitle" required readonly)
+                    .input-field
+                        input.originalTitle(style="color: gray;" type="text" name="originalTitle" required readonly)
                         label Старое название категории
-                    .input-field.title
-                        input(type="text" name="title" required)
+                    .input-field
+                        input.title(type="text" name="title" required)
                         label Новое название категории
-                    .input-field.type
-                        textarea(class="materialize-textarea" type="text" name="type" required)
+                    .input-field
+                        textarea.type(class="materialize-textarea" type="text" name="type" required)
                         label Тип аккаунтов
-                    .input-field.img
-                        select(name="img" required)
+                    .input-field
+                        select.img(name="img" required)
                             option(value="" disabled selected)
                                 | Выберите иконку
                         label(for="img") Иконка
-                    .input-field.format
-                        input(type="text" name="format" required)
+                    .input-field
+                        input.format(type="text" name="format" required)
                         label Формат аккаунтов
                     .edit_success
                         button(type="submit" class="btn orange waves-effect" style="width: 100%;height:50px") Редактировать

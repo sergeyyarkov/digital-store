@@ -27,13 +27,15 @@ export class ItemsComponent extends Component {
 
     async getItemsByText(text) {
         const items = await apiService.getItemsQuery(text),
-            categories = await apiService.getCategories();
-        return renderItems(items, categories);
+            categories = await apiService.getCategories(),
+            data = await apiService.getItemsData();
+        return renderItems(items, categories, data);
     }
     
     async getItemsByPage(page) {
         const items = await apiService.getItemsOffset(page), 
-            categories = await apiService.getCategories();
-        return renderItems(items, categories);
+            categories = await apiService.getCategories(),
+            data = await apiService.getItemsData();
+        return renderItems(items, categories, data);
     }
 }

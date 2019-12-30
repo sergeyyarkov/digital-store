@@ -196,7 +196,9 @@ module.exports = function(server, db) {
     });
     server.post('/control-panel/items/delete', checkAuthenticated, (req, res) => {
         try {
-            db.collection('items').deleteOne({"_id": ObjectID(req.body.id)});
+            const id = ObjectID(req.body.id);
+            db.collection('items').deleteOne({"_id": id});
+            db.collection('info').deleteOne({"_id": id});
             res.redirect('/control-panel/items');
         } catch (error) {
             res.render('main/404');
@@ -209,9 +211,11 @@ module.exports = function(server, db) {
                 title: req.body.title,
                 price: parseFloat(req.body.price),
                 description: req.body.description,
-                category: JSON.parse(req.body.category)
+                category: JSON.parse(req.body.category),
+                info: req.body.data.split(',')
             }
-            db.collection('items').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, price: data.price, description: data.description, category: data.category.title}});
+            db.collection('items').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, count: data.info.length, price: data.price, description: data.description, category: data.category.title}});
+            db.collection('info').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, data: data.info}});
             res.redirect('/control-panel/items');
         } catch (error) {
             res.render('main/404');

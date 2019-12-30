@@ -10,24 +10,35 @@ export class editCategoryModal extends Modal {
     // перепишем метод для перевода ивента open в событие onchange
     init() {
         if (this.open) {
+            this.setElems();
             this.open.addEventListener('change', this.show.bind(this));
             this.close.addEventListener('click', this.hide.bind(this));
             this.$el.querySelector('form').addEventListener('submit', this.updateCategory.bind(this));  
         }
     }
+
+    setElems() {
+        this.$id = this.$el.querySelector('.id');
+        this.$originalTitle = this.$el.querySelector('.originalTitle');
+        this.$title = this.$el.querySelector('.title');
+        this.$type = this.$el.querySelector('.type');
+        this.$format = this.$el.querySelector('.format');
+        this.$img = this.$el.querySelector('.img');
+    }
     
     async openHandler(e) {
-        const data = JSON.parse(e.target.value);
-        this.$el.querySelector('form .id input').value = data.id;
-        this.$el.querySelector('form .originalTitle input').value = data.title[0].toUpperCase() + data.title.slice(1);
-        this.$el.querySelector('form .title input').value = data.title[0].toUpperCase() + data.title.slice(1);
-        this.$el.querySelector('form .type textarea').value = data.type;
-        this.$el.querySelector('form .format input').value = data.format;
+        const data = JSON.parse(e.target.value),
+            icons = await apiService.getIcons();
 
-        const icons = await apiService.getIcons();
-        const icons_html = renderIcons(icons);
-        this.$el.querySelector('form .img select').insertAdjacentHTML('beforeend', icons_html);
-        M.FormSelect.init(this.$el.querySelector('form .img select'));
+        this.$img.innerHTML = '';
+        this.$id.value = data.id;
+        this.$originalTitle.value = data.title[0].toUpperCase() + data.title.slice(1);
+        this.$title.value = data.title[0].toUpperCase() + data.title.slice(1);
+        this.$type.value = data.type;
+        this.$format.value = data.format;
+        this.$img.insertAdjacentHTML('beforeend', renderIcons(icons));
+        M.FormSelect.init(this.$img);
+        M.textareaAutoResize(this.$type);
         M.updateTextFields();
     }
 

@@ -21,7 +21,7 @@ export class deleteItemModal extends Modal {
 
     openHandler(e) {
         const data = JSON.parse(e.target.parentNode.parentNode.dataset.info);
-        this.$content.innerHTML = `Вы действительно хотите удалить товар: <br> "${data.title}"?`;
+        this.$content.innerHTML = `Вы действительно хотите удалить товар "${data.title}"? Находящиеся в нем аккаунты будут удалены.`;
         this.$button.onclick = this.deleteHandler.bind(this, data.id);
     }
 

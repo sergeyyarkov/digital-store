@@ -21,6 +21,7 @@ export class editItemModal extends Modal {
         this.$price = this.$el.querySelector('.price');
         this.$description = this.$el.querySelector('.description');
         this.$category = this.$el.querySelector('.category');
+        this.$data = this.$el.querySelector('.data');
     }
 
     async openHandler(e) {
@@ -33,7 +34,10 @@ export class editItemModal extends Modal {
             this.$price.value = data.price;
             this.$description.value = data.description;
             this.$category.insertAdjacentHTML('beforeend', renderCategories(categories));
+            this.$data.value = data.data;
             M.FormSelect.init(this.$category);
+            M.textareaAutoResize(this.$description);
+            M.textareaAutoResize(this.$data);
             M.updateTextFields();  
     }
 }

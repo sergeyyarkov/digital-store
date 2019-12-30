@@ -21,11 +21,14 @@
                         input.price(id="price" type="text" name="price" required)
                         label(for="price") Цена товара ₽
                     .input-field
-                        textarea.description(id="description" class="materialize-textarea" type="text" name="description")
+                        textarea.description(id="description" class="materialize-textarea" type="text" name="description" required)
                         label(for="description") Описание товара
                     .input-field
                         select.category(name="category")
                         label Категория
+                    .input-field
+                        textarea.data(id="data" class="materialize-textarea" type="text" name="data" placeholder="Перечислите аккаунты через запятую." required)
+                        label(for="data") Данные товара
                     .edit_success
                         button(type="submit" class="btn orange waves-effect" style="width: 100%;height:50px") Редактировать
 // Edit Category END

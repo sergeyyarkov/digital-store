@@ -70,6 +70,15 @@ class ApiService {
         }
     }
 
+    async getItemsData() {
+        try {
+            const request = `${this.url}/api/items/data`;
+            return useRequest(request);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     async getIcons() {
         try {
             const request = `${this.url}/api/icons`;

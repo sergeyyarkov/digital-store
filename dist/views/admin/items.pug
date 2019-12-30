@@ -40,21 +40,21 @@ body.has-fixed-sidenav
                             .row
                                 form(action="/control-panel/items/create" method="POST")
                                     .input-field.col.l6.s12
-                                        input(id="title" type="text" name="title")
+                                        input(id="title" type="text" name="title" required)
                                         label(for="title") Название товара
                                     .input-field.col.l6.s12
-                                        input(id="price" type="text" name="price")
-                                        label(for="price") Цена товара ₽
+                                        input(id="price" type="text" name="price" pattern="([0-9\.]+)" required) 
+                                        label(for="price") Цена товара в рублях ₽
                                     .input-field.col.l6.s12
-                                        textarea(id="description" class="materialize-textarea" type="text" name="description")
+                                        textarea(id="description" class="materialize-textarea" type="text" name="description" required)
                                         label(for="description") Описание товара
                                     .input-field.col.l6.s12
-                                        select#selectCategories(name="category")
+                                        select#selectCategories(name="category" required)
                                             option(value="" disabled selected)
                                                     | Выберите категорию
                                         label Категория товара
                                     .input-field.col.s12
-                                        textarea(class="materialize-textarea" type="text" placeholder="Пречеслите аккаунты в вашем формате через запятую." name="data")
+                                        textarea(class="materialize-textarea" type="text" placeholder="Пречеслите аккаунты в вашем формате через запятую." name="data" required)
                                         label Данные товара
                                     .col.s12
                                         button(type="submit" class="btn") Добавить товар
