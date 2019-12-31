@@ -2,7 +2,7 @@ import { Modal } from "../core/modal";
 import { apiService } from "../services/api.service";
 import { renderIcons } from "../templates/icons.template";
 
-export class editCategoryModal extends Modal {
+export class CategoryEditModal extends Modal {
     constructor(id, open, close) {
         super(id, open, close);
     }
@@ -29,8 +29,8 @@ export class editCategoryModal extends Modal {
     async openHandler(e) {
         const data = JSON.parse(e.target.value),
             icons = await apiService.getIcons();
-
-        this.$img.innerHTML = '';
+            
+        this.$img.innerHTML = '<option value="" disabled selected>Выберите иконку</option>';
         this.$id.value = data.id;
         this.$originalTitle.value = data.title[0].toUpperCase() + data.title.slice(1);
         this.$title.value = data.title[0].toUpperCase() + data.title.slice(1);

@@ -1,7 +1,7 @@
 import { Modal } from "../core/modal";
 import axios from "axios";
 
-export class deleteItemModal extends Modal {
+export class ItemDeleteModal extends Modal {
     constructor(id, open, close) {
         super(id, open, close);
     }

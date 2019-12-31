@@ -2,7 +2,7 @@ import { Modal } from "../core/modal";
 import { apiService } from "../services/api.service";
 import { renderCategories } from "../templates/categories.template";
 
-export class editItemModal extends Modal {
+export class ItemEditModal extends Modal {
     constructor(id, open, close) {
         super(id, open, close);
     }

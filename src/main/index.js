@@ -10,7 +10,7 @@ import { PayModal } from "./modals/pay.modal.js";
 import { NotificationComponent } from "./components/notification.component.js";
 import { MaterializeConfig } from "./config/materialize.config.js";
 
-
+// Components
 const header = new HeaderComponent('header');
 const loader = new LoaderComponent('loader');
 const information = new InformationComponent('information');
@@ -19,7 +19,10 @@ const items = new ItemsComponent('items', {loader}, {notification});
 const filter = new FilterComponent('filter', {items});
 const category = new CategoryComponent('category', {items}, {filter});
 const breadcumb = new BreadcrumbComponent('breadcrumb');
+
+// Modals
 const cart = new CartModal('cart', 'cartOpen', 'cartClose', {items});
 const pay = new PayModal('pay', 'pay-js', 'payClose');
+
 const materialize = new MaterializeConfig();
 console.log('Main Page');
