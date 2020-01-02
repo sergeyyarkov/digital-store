@@ -1,61 +1,82 @@
 const ObjectID = require('mongodb').ObjectID;
 
 module.exports = function (server, db) {
-    server.get('/', (req, res) => {
+    server.get('/', async (req, res) => {
         try {
+            const store = await db.collection('content').findOne({});
             db.collection('categories').find().toArray((err, result) => {
                 const categories = result.map(category => category.title[0].toUpperCase() + category.title.slice(1));
                 res.render('main/index', {
                     pageName: 'index',
-                    title: 'Digital-Store | Главная',
-                    categories
+                    title: `${store.title} | Главная`,
+                    categories,
+                    store: {
+                        title: store.title
+                    }
                 });
             });
         } catch (error) {
             res.render('main/404');
         }
     });
-    server.get('/how-to-buy', (req, res) => {
+    server.get('/how-to-buy', async (req, res) => {
         try {
+            const store = await db.collection('content').findOne({});
             res.render('main/how-to-buy', {
                 pageName: 'how-to-buy',
-                title: 'Digital-Store | Как купить товар'
+                title: `${store.title} | Как купить товар`,
+                store: {
+                    title: store.title
+                }
             });
         } catch (error) {
             res.send('main/404');
         }
     });
-    server.get('/contacts', (req, res) => {
+    server.get('/contacts', async (req, res) => {
         try {
+            const store = await db.collection('content').findOne({});
             res.render('main/contacts', {
                 pageName: 'contacts',
-                title: 'Digital-Store | Контакты'
+                title: `${store.title} | Контакты`,
+                store: {
+                    title: store.title
+                }
             });
         } catch (error) {
             res.send('main/404');
         }
     });
-    server.get('/comments', (req, res) => {
+    server.get('/comments', async (req, res) => {
         try {
+            const store = await db.collection('content').findOne({});
             res.render('main/comments', {
                 pageName: 'comments',
-                title: 'Digital-Store | Отзывы'
+                title: `${store.title} | Отзывы`,
+                store: {
+                    title: store.title
+                }
             });
         } catch (error) {
             res.render('main/404');
         }
     });
-    server.get('/my-orders', (req, res) => {
+    server.get('/my-orders', async (req, res) => {
         try {
+            const store = await db.collection('content').findOne({});
             res.render('main/my-orders', {
                 pageName: 'my-orders',
-                title: 'Digital-Store | Мои покупки'
+                title: `${store.title} | Мои покупки`,
+                store: {
+                    title: store.title
+                }
             });
         } catch (error) {
             res.render('main/404');
         }
     });
-    server.get('/product/:id', (req, res) => {
+    server.get('/product/:id', async (req, res) => {
+        const store = await db.collection('content').findOne({});
         const product = new Promise((resolve, reject) => {
             db.collection('items').find({_id: ObjectID(req.params.id)}).toArray()
                 .then((items) => {
@@ -86,7 +107,10 @@ module.exports = function (server, db) {
                 date: item.date,
                 id: item._id,
                 type: category.type,
-                format: category.format
+                format: category.format,
+                store: {
+                    title: store.title
+                }
             });
         }))
         .catch((error) => {

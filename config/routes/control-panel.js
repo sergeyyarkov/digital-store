@@ -6,14 +6,17 @@ function checkAuthenticated(req, res, next) {
     res.redirect('/admin');
 }
 
-module.exports = function(server, db) {
+
+
+module.exports = function (server, db) { 
     // роуты
-    server.get('/control-panel', checkAuthenticated, (req, res) => {
+    server.get('/control-panel', checkAuthenticated, async (req, res) => {
         try {
+            const store = await db.collection('content').findOne({});
             res.render('admin/control-panel', {
                 name: req.user.name,
                 email: req.user.email,
-                title: 'Digital-Store | Панель управления сайтом',
+                title: `${store.title} | Панель управления сайтом`,
                 host: req.headers.host,
                 pageName: ['Главная', 'main'],
             });
@@ -24,11 +27,12 @@ module.exports = function(server, db) {
     server.get('/control-panel/items', checkAuthenticated, async (req, res) => {
         try {
             const items = await db.collection('items').find({}).toArray();
+            const store = await db.collection('content').findOne({});
             const count = items.length;
             res.render('admin/items', {
                 name: req.user.name,
                 email: req.user.email,
-                title: 'Digital-Store | Товары',
+                title: `${store.title} | Товары`,
                 host: req.headers.host,
                 pageName: ['Товары', 'items'],
                 count: count / 2
@@ -40,10 +44,11 @@ module.exports = function(server, db) {
     server.get('/control-panel/categories', checkAuthenticated, async (req, res) => {
         try {
             const categories = await db.collection('categories').find({}).toArray();
+            const store = await db.collection('content').findOne({});
             res.render('admin/categories', {
                 name: req.user.name,
                 email: req.user.email,
-                title: 'Digital-Store | Категории',
+                title: `${store.title} | Категории`,
                 host: req.headers.host,
                 pageName: ['Категории', 'categories'],
                 categoriesCount: categories.length
@@ -54,10 +59,11 @@ module.exports = function(server, db) {
     });
     server.get('/control-panel/icons', checkAuthenticated, async (req, res) => {
         try {
+            const store = await db.collection('content').findOne({});
             res.render('admin/icons', {
                 name: req.user.name,
                 email: req.user.email,
-                title: 'Digital-Store | Категории',
+                title: `${store.title} | Категории`,
                 host: req.headers.host,
                 pageName: ['Иконки', 'icons']
             });
@@ -65,25 +71,30 @@ module.exports = function(server, db) {
             res.render('main/404');
         }
     });
-    server.get('/control-panel/content', checkAuthenticated, (req, res) => {
+    server.get('/control-panel/content', checkAuthenticated, async (req, res) => {
         try {
+            const store = await db.collection('content').findOne({});
             res.render('admin/content', {
                 name: req.user.name,
                 email: req.user.email,
-                title: 'Digital-Store | Контент',
+                title: `${store.title} | Контент`,
                 host: req.headers.host,
                 pageName: ['Контент', 'content'],
+                store: {
+                    title: store.title
+                }
             });
         } catch (error) {
             res.render('main/404');
         }
     });
-    server.get('/control-panel/administrators', checkAuthenticated, (req, res) => {
+    server.get('/control-panel/administrators', checkAuthenticated, async (req, res) => {
         try {
+            const store = await db.collection('content').findOne({});
             res.render('admin/administrators', {
                 name: req.user.name,
                 email: req.user.email,
-                title: 'Digital-Store | Администраторы',
+                title: `${store.title} | Администраторы`,
                 host: req.headers.host,
                 pageName: ['Администраторы', 'administrators'],
             });
@@ -91,12 +102,13 @@ module.exports = function(server, db) {
             res.render('main/404');
         }
     });
-    server.get('/control-panel/database', checkAuthenticated, (req, res) => {
+    server.get('/control-panel/database', checkAuthenticated, async (req, res) => {
         try {
+            const store = await db.collection('content').findOne({});
             res.render('admin/database', {
                 name: req.user.name,
                 email: req.user.email,
-                title: 'Digital-Store | Настройка Базы Данных',
+                title: `${store.title} | Настройка Базы Данных`,
                 host: req.headers.host,
                 pageName: ['База данных', 'database'],
             });
@@ -220,5 +232,18 @@ module.exports = function(server, db) {
         } catch (error) {
             res.render('main/404');
         }
+    });
+    
+    // контент
+    server.post('/control-panel/content/update', checkAuthenticated, (req, res) => {
+       try {
+           const data = {
+               title: req.body.title
+           }
+           db.collection('content').updateOne({}, {$set: {title: data.title}});
+           res.redirect('/control-panel/content');
+       } catch (error) {
+           res.render('main/404');
+       } 
     });
 }

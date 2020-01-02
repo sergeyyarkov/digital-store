@@ -37,7 +37,7 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
         server.use(methodOverride('_method'));
         server.set('view engine', 'pug');
         server.set('views', path.join(__dirname, '../dist/views'));
-    
+
         // Routes
         require('./routes/main')(server, db); // маршруты сайта
         require('./routes/admin')(server, db); // маршрут с формой авторизации админа

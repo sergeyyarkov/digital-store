@@ -11,12 +11,12 @@ export class CategoriesComponent extends Component {
     setElems() {
         // селекты в которых рендерится контент
         this.$editSelect = this.$el.querySelector('#editCategory_select'); // редактирование категории
-        this.$dellSelect = this.$el.querySelector('#delete_select'); // удаление категории
+        this.$dellSelect = this.$el.querySelector('#deleteCategory_select'); // удаление категории
         this.$iconsSelect = this.$el.querySelector('#icons_select'); // выбор иконки
 
         // обработка форм
-        this.$addForm = this.$el.querySelector('#addCategory'); // добавление категории
-        this.$dellForm = this.$el.querySelector('#dellCategory'); // удаление категории
+        this.$addForm = this.$el.querySelector('#addCategory');
+        this.$dellForm = this.$el.querySelector('#deleteCategory');
         
         // добавим ивенты на наши формы
         this.$addForm.addEventListener('submit', this.addCategory.bind(this));

@@ -8,9 +8,10 @@ function checkNotAuthenticated(req, res, next) {
     next();
 }
 
-function loginRoute(req, res) {
+async function loginRoute(req, res, db) {
+    const store = await db.collection('content').findOne({});
     res.render('admin/admin', {
-        title: 'Digital-Store | Вход в панель управления сайтом'
+        title: `${store.title} | Вход в панель управления сайтом`
     })
 }
 
@@ -27,7 +28,7 @@ module.exports = function (server, db) {
                 id => result.find(user => user.id === id)
             ); 
         });
-        loginRoute(req, res);
+        loginRoute(req, res, db);
     });
     // Отдача страницы с регистрацией
     //server.get('/register', checkNotAuthenticated, (req, res) => registerRoute(req, res));

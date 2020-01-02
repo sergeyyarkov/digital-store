@@ -47,9 +47,9 @@ body.has-fixed-sidenav
                                             label Редактирование категории
                                 .category-delete
                                     .row
-                                        form(id="dellCategory" action="/control-panel/categories/delete" method="POST")
+                                        form(id="deleteCategory" action="/control-panel/categories/delete" method="POST")
                                             .input-field.col.s12
-                                                select#delete_select(name="category")
+                                                select#deleteCategory_select(name="category")
                                                     option(value="" disabled selected)
                                                         | Выберите категорию для удаления
                                                 label Удаление категории

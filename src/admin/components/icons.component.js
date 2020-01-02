@@ -15,7 +15,6 @@ export class IconsComponent extends Component {
 
     async init() {
         const icons = await apiService.getIcons();
-
         this.$icons.insertAdjacentHTML('beforeend', renderIcons(icons));
         M.FormSelect.init(this.$icons);
     }
