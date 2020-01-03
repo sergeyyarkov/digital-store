@@ -7,8 +7,6 @@ function checkAuthenticated(req, res, next) {
     res.redirect('/admin');
 }
 
-
-
 module.exports = function (server, db) { 
     // роуты
     server.get('/control-panel', checkAuthenticated, async (req, res) => {
@@ -22,6 +20,7 @@ module.exports = function (server, db) {
                 host: req.headers.host,
                 pageName: ['Главная', 'main'],
             });
+            console.log(req.user);
         } catch (error) {
             res.render('main/404');
         }
@@ -272,6 +271,9 @@ module.exports = function (server, db) {
             if(await bcrypt.compare(data.oldPass, admin.password)) {
                 const hashedPassword = await bcrypt.hash(data.newPass, 10);
                 db.collection('administrators').updateOne({id: data.id}, {$set: {name: data.name, email: data.email, password: hashedPassword}});
+                req.user.name = data.name;
+                req.user.email = data.email;
+                req.user.password = hashedPassword;
                 res.send('Данные успешно изменены.');
             } else res.send('Неверный пароль.');
         } catch (error) {
