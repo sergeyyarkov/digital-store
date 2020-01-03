@@ -8,6 +8,7 @@ import { IconsComponent } from "./components/icons.component.js";
 import { ItemEditModal } from "./modals/item-edit.modal.js";
 import { ItemDeleteModal } from "./modals/item-delete.modal.js";
 import { CategoryEditModal } from "./modals/category-edit.modal";
+import { ContentComponent } from "./components/content.component.js";
 
 // Components
 const loader = new LoaderComponent('loader');
@@ -16,6 +17,7 @@ const search = new SearchComponent('search', {loader});
 const categories = new CategoriesComponent('categories');
 const icons = new IconsComponent('icons');
 const items = new ItemsComponent('items', {pagination}, {search});
+const content = new ContentComponent('content');
 
 // Modals
 const itemEdit = new ItemEditModal('editItemModal', 'edit', 'editItemClose');

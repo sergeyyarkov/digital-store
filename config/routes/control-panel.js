@@ -81,7 +81,11 @@ module.exports = function (server, db) {
                 host: req.headers.host,
                 pageName: ['Контент', 'content'],
                 store: {
-                    title: store.title
+                    title: store.title,
+                    info: store.info,
+                    infoBottom: store.infoBottom,
+                    howToBuy: store.howToBuy,
+                    contacts: store.contacts
                 }
             });
         } catch (error) {
@@ -238,9 +242,13 @@ module.exports = function (server, db) {
     server.post('/control-panel/content/update', checkAuthenticated, (req, res) => {
        try {
            const data = {
-               title: req.body.title
+               title: req.body.title,
+               info: req.body.info,
+               infoBottom: req.body.infoBottom,
+               howToBuy: req.body.howToBuy,
+               contacts: req.body.contacts
            }
-           db.collection('content').updateOne({}, {$set: {title: data.title}});
+           db.collection('content').updateOne({}, {$set: {title: data.title, info: data.info, infoBottom: data.infoBottom, howToBuy: data.howToBuy, contacts: data.contacts}});
            res.redirect('/control-panel/content');
        } catch (error) {
            res.render('main/404');

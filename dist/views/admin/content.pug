@@ -16,7 +16,19 @@ body.has-fixed-sidenav
                                     form(action="/control-panel/content/update" method="POST")
                                         .input-field.col.s12
                                             input(id="title" type="text" name="title" value=store.title)
-                                            label(for="title") Название вашего магазина
+                                            label(for="title") Название магазина
+                                        .input-field.col.s12
+                                            textarea(id="contacts" class="materialize-textarea" type="text" name="contacts") #{store.contacts}
+                                            label(for="contacts") Контакты магазина
+                                        .input-field.col.s12
+                                            textarea(id="info" class="materialize-textarea" type="text" name="info") #{store.info}
+                                            label(for="info") Блок с важной информацией
+                                        .input-field.col.s12
+                                            textarea(id="infoBottom" class="materialize-textarea" type="text" name="infoBottom") #{store.infoBottom}
+                                            label(for="infoBottom") Блок с информацией вконце страницы
+                                        .input-field.col.s12
+                                            textarea(id="howToBuy" class="materialize-textarea" type="text" name="howToBuy") #{store.howToBuy}
+                                            label(for="howToBuy") Как купить товар в магазине
                                         .edit_success.col.s12
                                             button(type="submit" class="btn waves-effect") Сохранить
 

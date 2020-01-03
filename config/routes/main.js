@@ -11,7 +11,9 @@ module.exports = function (server, db) {
                     title: `${store.title} | Главная`,
                     categories,
                     store: {
-                        title: store.title
+                        title: store.title,
+                        info: store.info,
+                        infoBottom: store.infoBottom
                     }
                 });
             });
@@ -26,7 +28,8 @@ module.exports = function (server, db) {
                 pageName: 'how-to-buy',
                 title: `${store.title} | Как купить товар`,
                 store: {
-                    title: store.title
+                    title: store.title,
+                    howToBuy: store.howToBuy
                 }
             });
         } catch (error) {
@@ -40,7 +43,8 @@ module.exports = function (server, db) {
                 pageName: 'contacts',
                 title: `${store.title} | Контакты`,
                 store: {
-                    title: store.title
+                    title: store.title,
+                    contacts: store.contacts
                 }
             });
         } catch (error) {
