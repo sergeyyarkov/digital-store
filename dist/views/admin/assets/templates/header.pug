@@ -55,10 +55,6 @@ header.admin-header
                                 a(href='http://'+host+'/control-panel/content')
                                     i.material-icons visibility
                                     | Контент на сайте
-                            li(data-page="administrators")
-                                a(href='http://'+host+'/control-panel/administrators')
-                                    i.material-icons supervisor_account
-                                    | Администраторы
             ul.collapsible
                     li
                         a(href="#" class="collapsible-header waves-effect")
@@ -66,6 +62,10 @@ header.admin-header
                             | Настройки
                         .collapsible-body
                             ul
+                                li(data-page="administrators")
+                                    a(href='http://'+host+'/control-panel/administrators')
+                                        i.material-icons supervisor_account
+                                        | Администратор
                                 li(data-page="database")
                                     a(href='http://'+host+'/control-panel/database')
                                         i.material-icons storage

@@ -1,5 +1,6 @@
 const ObjectID = require('mongodb').ObjectID;
 const fs = require('fs');
+const bcrypt = require('bcryptjs');
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) return next();
@@ -14,6 +15,7 @@ module.exports = function (server, db) {
         try {
             const store = await db.collection('content').findOne({});
             res.render('admin/control-panel', {
+                id: req.user.id,
                 name: req.user.name,
                 email: req.user.email,
                 title: `${store.title} | Панель управления сайтом`,
@@ -96,6 +98,7 @@ module.exports = function (server, db) {
         try {
             const store = await db.collection('content').findOne({});
             res.render('admin/administrators', {
+                id: req.user.id,
                 name: req.user.name,
                 email: req.user.email,
                 title: `${store.title} | Администраторы`,
@@ -254,4 +257,25 @@ module.exports = function (server, db) {
            res.render('main/404');
        } 
     });
+
+    // администратор
+    server.post('/control-panel/administrators/update', checkAuthenticated, async (req, res) => {
+        try {
+            const data = {
+                id: req.body.id,
+                name: req.body.name,
+                email: req.body.email,
+                oldPass: req.body.oldPass,
+                newPass: req.body.newPass
+            }
+            const admin = await db.collection('administrators').findOne({id: data.id});
+            if(await bcrypt.compare(data.oldPass, admin.password)) {
+                const hashedPassword = await bcrypt.hash(data.newPass, 10);
+                db.collection('administrators').updateOne({id: data.id}, {$set: {name: data.name, email: data.email, password: hashedPassword}});
+                res.send('Данные успешно изменены.');
+            } else res.send('Неверный пароль.');
+        } catch (error) {
+            res.render('main/404');
+        }
+    })
 }

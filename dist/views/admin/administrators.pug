@@ -5,7 +5,32 @@ body.has-fixed-sidenav
         .container
             .row
                 .col.s12
-                    h2 Редактирование администраторов               
+                    h2 Редактирование администраторов  
+                .col.s12   
+                    #administrator.card
+                            .card-administrator
+                                .administrator-update
+                                    h5 Редактировать данные
+                                    p Изменяйте данные администратора на этой странице.
+                                    .row
+                                        form(action="#")
+                                            .input-field.col.s12
+                                                input(style="color:gray;" id="id" type="text" name="id" value=id required readonly)
+                                                label(for="id") ID Администратора
+                                            .input-field.col.s12
+                                                input(id="name" type="text" name="name" value=name required)
+                                                label(for="name") Имя
+                                            .input-field.col.s12
+                                                input(id="email" type="text" name="email" value=email required)
+                                                label(for="email") Почта
+                                            .input-field.col.s12
+                                                input(id="oldPass" type="password" name="oldPass" required)
+                                                label(for="oldPass") Старый пароль
+                                            .input-field.col.s12
+                                                input(id="newPass" type="password" name="newPass" required)
+                                                label(for="newPass") Новый пароль
+                                            .edit_success.col.s12
+                                                button(type="submit" class="btn waves-effect") Сохранить            
                                    
     include ./assets/templates/footer.pug
     include ./assets/scripts.pug
