@@ -30,7 +30,7 @@ export class CategoryEditModal extends Modal {
         const data = JSON.parse(e.target.value),
             icons = await apiService.getIcons();
             
-        this.$img.innerHTML = '<option value="" disabled selected>Выберите иконку</option>';
+        this.$img.innerHTML = `<option value='${data.img}' selected>Оставить прежнюю</option>`;
         this.$id.value = data.id;
         this.$originalTitle.value = data.title[0].toUpperCase() + data.title.slice(1);
         this.$title.value = data.title[0].toUpperCase() + data.title.slice(1);

@@ -18,18 +18,18 @@
                         input.originalTitle(style="color: gray;" type="text" name="originalTitle" required readonly)
                         label Старое название категории
                     .input-field
-                        input.title(type="text" name="title" required)
+                        input.title(placeholder="Введите новое название категории" type="text" name="title" required)
                         label Новое название категории
                     .input-field
-                        textarea.type(class="materialize-textarea" type="text" name="type" required)
+                        textarea.type(placeholder="Введите тип аккаунтов" class="materialize-textarea" type="text" name="type" required)
                         label Тип аккаунтов
                     .input-field
                         select.img(name="img" required)
                             option(value="" disabled selected)
                                 | Выберите иконку
-                        label(for="img") Иконка
+                        label Иконка
                     .input-field
-                        input.format(type="text" name="format" required)
+                        input.format(placeholder="Введите формат аккаунтов" type="text" name="format" required)
                         label Формат аккаунтов
                     .edit_success
                         button(type="submit" class="btn orange waves-effect" style="width: 100%;height:50px") Редактировать

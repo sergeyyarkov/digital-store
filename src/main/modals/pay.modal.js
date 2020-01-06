@@ -1,4 +1,5 @@
 import { Modal } from "../core/modal";
+import axios from "axios";
 
 export class PayModal extends Modal {
     constructor (id, open, close) {
@@ -27,7 +28,7 @@ export class PayModal extends Modal {
         }
     }
     
-    makePay(e, info) {
+    async makePay(e, info) {
         e.preventDefault();
         
         const payInfo = {
@@ -38,10 +39,9 @@ export class PayModal extends Modal {
             totalPrice: parseFloat(info.price)
         }
         payInfo.payMethod = this.$el.querySelector('.payment-field input').value;
-        payInfo.phone = this.$el.querySelector('.phone-field input').value;
         payInfo.email = this.$el.querySelector('.email-field input').value;
-
-        console.log('Pay info: ', payInfo);
+        const response = await axios.put('/payment', payInfo);
+        //console.log(response.data);
+        document.location.href = response.data.payUrl;
     }
-    
 }

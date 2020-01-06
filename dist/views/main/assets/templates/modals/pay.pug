@@ -9,7 +9,7 @@
               h4.small-title Оплатить товар
               span#payClose.modal-close
                 i.material-icons close
-            form(action='#')
+            form
               .modal-content__fields
                 .title-field
                   label(for='title') Наименование
@@ -17,12 +17,9 @@
                 .email-field
                   label(for='email') Ваш E-mail
                   input(required='' type='text' name='email')
-                .phone-field
-                  label(for="phone") Номер QIWI
-                  input(required='' type='text' name='phone')
                 .payment-field
                   label(for='payment') Способ оплаты
-                  select(name='payment')
+                  select
                     option(value='qiwi' data-icon='../img/payments-icons/qiwi.svg') QIWI
               .modal-content__purchase
                 button.purchase-btn.waves-effect.btn(type='submit' href='#') Перейти к оплате

@@ -7,8 +7,7 @@ function checkAuthenticated(req, res, next) {
     res.redirect('/admin');
 }
 
-module.exports = function (server, db) { 
-    // роуты
+module.exports = function (server, db) {
     server.get('/control-panel', checkAuthenticated, async (req, res) => {
         try {
             const store = await db.collection('content').findOne({});
@@ -20,7 +19,6 @@ module.exports = function (server, db) {
                 host: req.headers.host,
                 pageName: ['Главная', 'main'],
             });
-            console.log(req.user);
         } catch (error) {
             res.render('main/404');
         }
@@ -108,21 +106,6 @@ module.exports = function (server, db) {
             res.render('main/404');
         }
     });
-    server.get('/control-panel/database', checkAuthenticated, async (req, res) => {
-        try {
-            const store = await db.collection('content').findOne({});
-            res.render('admin/database', {
-                name: req.user.name,
-                email: req.user.email,
-                title: `${store.title} | Настройка Базы Данных`,
-                host: req.headers.host,
-                pageName: ['База данных', 'database'],
-            });
-        } catch (error) {
-            res.render('main/404');
-        }
-    });
-
 
     // редактирование категорий
     server.post('/control-panel/categories/create', checkAuthenticated, (req, res) => {

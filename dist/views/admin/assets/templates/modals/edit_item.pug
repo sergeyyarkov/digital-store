@@ -15,20 +15,20 @@
                         input.id(style="color: gray;" type="text" name="id" required readonly)
                         label ID товара
                     .input-field
-                        input.title(id="title" type="text" name="title" required)
-                        label(for="title") Новое название товара
+                        input.title(placeholder="Введите новое название товара" type="text" name="title" required)
+                        label Новое название товара
                     .input-field
-                        input.price(id="price" type="text" name="price" required)
-                        label(for="price") Цена товара ₽
+                        input.price(placeholder="Введите цену товара ₽" type="text" name="price" pattern="([0-9\.]+)" required)
+                        label Цена товара ₽
                     .input-field
-                        textarea.description(id="description" class="materialize-textarea" type="text" name="description" required)
-                        label(for="description") Описание товара
+                        textarea.description(placeholder="Введите описание товара" class="materialize-textarea" type="text" name="description" required)
+                        label Описание товара
                     .input-field
                         select.category(name="category")
                         label Категория
                     .input-field
-                        textarea.data(id="data" class="materialize-textarea" type="text" name="data" placeholder="Перечислите аккаунты через запятую." required)
-                        label(for="data") Данные товара
+                        textarea.data(class="materialize-textarea" type="text" name="data" placeholder="Перечислите аккаунты через запятую." required)
+                        label Данные товара
                     .edit_success
                         button(type="submit" class="btn orange waves-effect" style="width: 100%;height:50px") Редактировать
 // Edit Category END

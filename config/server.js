@@ -11,6 +11,7 @@ const path = require('path');
 const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const methodOverride = require('method-override');
 const multer = require('multer');
 
@@ -31,7 +32,12 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
         server.use(express.urlencoded({ extended: false }));
         server.use(express.json());
         server.use(flash());
-        server.use(session({secret: process.env.SESSION_SECRET,resave: false,saveUninitialized: false}));
+        server.use(session({secret: process.env.SESSION_SECRET,resave: false,saveUninitialized: false, store: 
+            new MongoStore({
+                url: db_config.url,
+                touchAfter: 24 * 3600 // time period in seconds
+            })
+        }));
         server.use(passport.initialize());
         server.use(passport.session());
         server.use(methodOverride('_method'));
@@ -43,6 +49,9 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
         require('./routes/admin')(server, db); // маршрут с формой авторизации админа
         require('./routes/control-panel')(server, db); // маршруты с панелью управления
         require('./routes/api')(server, db); // отдача данных клиенту
+
+        // Payments
+        require('./routes/payments/qiwi.payment')(server, db);
     
         // 404 Redirect
         server.use((req, res) => res.status(404).render('main/404'));
@@ -50,10 +59,12 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
     .catch((error) => {
         server.get('*', (req, res) => {
             res.send('Ошибка соединения с БД.');
+            console.log(error);
         });
     })
     .finally(() =>  {
-        server.listen(3000, () => {
+        const port = process.env.PORT || 3000;
+        server.listen(port, () => {
             console.log('Listen port 3000...');
         });
     });
