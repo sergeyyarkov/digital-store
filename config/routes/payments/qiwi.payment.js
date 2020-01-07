@@ -1,10 +1,6 @@
-const QiwiBillPaymentsAPI = require('@qiwi/bill-payments-node-js-sdk');
-
-const SECRET_KEY = '';
-const qiwiApi = new QiwiBillPaymentsAPI(SECRET_KEY);
-module.exports = function(server, db) {
+module.exports = function(server, db, qiwiApi) {
     server.put('/payment', (req, res) => {
-        const billId = qiwiApi.generateId(); 
+        const billId = qiwiApi.generateId();
         const fields = {
             amount: req.body.totalPrice,
             currency: 'RUB',
@@ -12,7 +8,7 @@ module.exports = function(server, db) {
             expirationDateTime: qiwiApi.getLifetimeByDay(),
             customFields: {themeCode: 'Sergei-YaS7mIY0CQe'},
             email: req.body.email,
-            successUrl: `http://test.ru/`
+            successUrl: `https://polar-peak-95205.herokuapp.com/success?bill_id=${billId}&item_id=${req.body.items[0].id}&payment=qiwi`
         }
         qiwiApi.createBill(billId, fields).then((data) => {
             res.send(data);

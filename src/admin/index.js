@@ -27,4 +27,4 @@ const itemDelete = new ItemDeleteModal('deleteItemModal', 'edit', 'deleteItemClo
 const categoryEdit = new CategoryEditModal('editCategoryModal', 'editCategory_select', 'editCategoryClose');
 
 const materialize = new MaterializeConfig();
-console.log('Control-Panel v1.0.0');
+console.log('Control-Panel v1.0.01');

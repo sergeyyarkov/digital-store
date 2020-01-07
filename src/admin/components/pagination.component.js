@@ -51,17 +51,16 @@ export class PaginationComponent extends Component {
 
     // выполняем запрос на сервер и выводим на данные
     async moveTo(page, insertTo, request) {
+        this.loader.show();
+        insertTo.innerHTML = '';
         const response = await request(page);
-
         if (response != '') {
             this.$el.setAttribute('data-page', page);
-            insertTo.innerHTML = '';
-            this.loader.show();
-            insertTo.insertAdjacentHTML('afterbegin', response);
-            this.loader.hide();  
+            insertTo.insertAdjacentHTML('afterbegin', response); 
         } else {
             insertTo.innerHTML = 'Данных нету.';
         }
+        this.loader.hide(); 
     }
 
     moveNext(page, li, insertTo, request) {
