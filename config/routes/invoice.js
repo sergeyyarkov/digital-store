@@ -1,3 +1,5 @@
+const ObjectID = require('mongodb').ObjectID;
+
 module.exports = function(server, db, qiwiApi) {
     server.get('/success', (req, res) => {
         const query = req.query;
@@ -13,12 +15,17 @@ module.exports = function(server, db, qiwiApi) {
 
                 if (status === 'PAID') {
                     const findBill = await db.collection('buyers').findOne({bill_id: query.bill_id});
-                    if (findBill == null) {
-                        // создаем покупателя
+                    if(findBill == null) {
+                        // выдаем данные и создаем покупателя
+                        const item = await db.collection('info').findOne({"_id": ObjectID(query.item_id)}),
+                            data = item.data,
+                            invoiceResult = data.splice(-1, 1);
+
+                        db.collection('info').updateOne({"_id": ObjectID(query.item_id)}, {$set: {data: data}})
                         db.collection('buyers').insertOne({bill_id, email, method, date, amount});
-                        res.send('Выдаем данные!');
+                        res.send(invoiceResult);
                     } else {
-                        res.send('Ошибка');
+                        res.send('Этот заказ уже был оплачен. Данные были высланы покупателю.');
                     }
                 } else if (status === 'WAITING') {
                     res.send('Инвоис ждет оплаты');
@@ -27,10 +34,10 @@ module.exports = function(server, db, qiwiApi) {
                 }
             })
             .catch(() => {
-                res.send('произошла ошибка!');
+                res.render('main/404');
             });
         } else {
-            res.send('bad request');
+            res.render('main/404');
         }
     });
 }

@@ -94,4 +94,4 @@ async function useRequest(request) {
     return await JSON.parse(response.request.response);
 }
 
-export const apiService = new ApiService('http://localhost:3000');
+export const apiService = new ApiService('https://polar-peak-95205.herokuapp.com');

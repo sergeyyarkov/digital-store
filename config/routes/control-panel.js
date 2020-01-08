@@ -215,7 +215,7 @@ module.exports = function (server, db) {
                 category: JSON.parse(req.body.category),
                 info: req.body.data.split(',')
             }
-            db.collection('items').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, count: data.info.length, price: data.price, description: data.description, category: data.category.title}});
+            db.collection('items').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, price: data.price, description: data.description, category: data.category.title}});
             db.collection('info').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, data: data.info}});
             res.redirect('/control-panel/items');
         } catch (error) {

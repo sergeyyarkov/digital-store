@@ -16,7 +16,7 @@ const methodOverride = require('method-override');
 const multer = require('multer');
 const QiwiBillPaymentsAPI = require('@qiwi/bill-payments-node-js-sdk');
 
-const SECRET_KEY = '/';
+const SECRET_KEY = 'eyJ2ZXJzaW9uIjoiUDJQIiwiZGF0YSI6eyJwYXlpbl9tZXJjaGFudF9zaXRlX3VpZCI6ImlsYzZ5Yy0wMCIsInVzZXJfaWQiOiI3OTMxMjc2NDY3NCIsInNlY3JldCI6ImFkZWJmMWU2NjYyMmJjZTViODE2NzE3YTU4ZmJkZDc1NTUwNzMyYWI5NGY2OTU0ZTg5NjljNjUzMGZkM2U0M2YifX0=';
 const qiwiApi = new QiwiBillPaymentsAPI(SECRET_KEY);
 
 MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: true})
@@ -48,9 +48,9 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
         require('./routes/admin')(server, db); // маршрут с формой авторизации админа
         require('./routes/control-panel')(server, db); // маршруты с панелью управления
         require('./routes/api')(server, db); // отдача данных клиенту
-        require('./routes/invoice')(server, db, qiwiApi);
-
+        
         // Payments
+        require('./routes/invoice')(server, db, qiwiApi);
         require('./routes/payments/qiwi.payment')(server, db, qiwiApi);
     
         // 404 Redirect

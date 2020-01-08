@@ -1,4 +1,5 @@
 const fs = require('fs');
+const ObjectID = require('mongodb').ObjectID;
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) return next();
@@ -11,10 +12,14 @@ module.exports = function(server, db) {
                 const items = await db.collection('items').find({title: {$regex: req.query.q, $options: "i"}}, {limit: 5}).toArray();
                 res.json(items);
         } else {
-           const items = await db.collection('items').find({}).toArray(),
-               sortBy = req.query.sorting;
+            const items = await db.collection('items').find({}).toArray(),
+                info = await db.collection('info').find({}).toArray(),
+                sortBy = req.query.sorting;
+            
 
            if (items.length > 0) {
+            // устанавливаем count для каждого товара.
+            info.forEach(info => db.collection('items').updateOne({"_id": ObjectID(info._id)}, {$set: {count: info.data.length}}));
                switch (sortBy) {
                    case 'ascending':
                        res.json(items.sort((a, b) => a.price - b.price));
