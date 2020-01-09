@@ -1,5 +1,6 @@
 import { Modal } from "../core/modal";
 import { insertCount } from "../other/counter";
+import axios from "axios";
 
 export class CartModal extends Modal {
     constructor(id, open, close, {items}) {
@@ -65,7 +66,7 @@ export class CartModal extends Modal {
         this.$el.querySelector(`#${id}`).innerHTML = `${totalPrice.toFixed(2)}₽`;
     }
 
-    makePay(e) {
+    async makePay(e) {
         e.preventDefault();
         const payInfo = {items: this.items.cart.map(item => {
             return {
@@ -78,10 +79,10 @@ export class CartModal extends Modal {
         payInfo.items.forEach(item => totalPrice += parseFloat(item.price));
         payInfo.totalPrice = Math.round(totalPrice * 100) / 100;
         payInfo.payMethod = this.$el.querySelector('.payment-field input').value;
-        payInfo.phone = this.$el.querySelector('.phone-field input').value;
         payInfo.email = this.$el.querySelector('.email-field input').value;
 
-        console.log('Pay info:', payInfo);
+        const response = await axios.put('/payment', payInfo);
+        response.data.payUrl ? document.location.href = response.data.payUrl : alert(response.data);
     }
 
     defaultBtnColor(id) {

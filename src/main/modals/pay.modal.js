@@ -40,6 +40,7 @@ export class PayModal extends Modal {
         }
         payInfo.payMethod = this.$el.querySelector('.payment-field input').value;
         payInfo.email = this.$el.querySelector('.email-field input').value;
+
         const response = await axios.put('/payment', payInfo);
         response.data.payUrl ? document.location.href = response.data.payUrl : alert(response.data);
     }

@@ -14,16 +14,21 @@ module.exports = function(server, db, qiwiApi) {
                     amount = data.amount.value;
 
                 if (status === 'PAID') {
+                    const ids = query.item_id.split('and');
                     const findBill = await db.collection('buyers').findOne({bill_id: query.bill_id});
                     if(findBill == null) {
-                        // выдаем данные и создаем покупателя
-                        const item = await db.collection('info').findOne({"_id": ObjectID(query.item_id)}),
-                            data = item.data,
-                            invoiceResult = data.splice(-1, 1);
+                        const result = [];
+                        //выдаем данные и создаем покупателя
+                        for (let i = 0; i < ids.length; i++) {
+                            const item = await db.collection('info').findOne({"_id": ObjectID(ids[i])}),
+                                data = item.data;
+                            result.push(data.splice(-1, 1));
 
-                        db.collection('info').updateOne({"_id": ObjectID(query.item_id)}, {$set: {data: data}})
+                            db.collection('info').updateOne({"_id": ObjectID(ids[i])}, {$set: {data: data}});
+                        }
+                    
                         db.collection('buyers').insertOne({bill_id, email, method, date, amount});
-                        res.send(invoiceResult);
+                        res.send(result);
                     } else {
                         res.send('Этот заказ уже был оплачен. Данные были высланы покупателю.');
                     }
@@ -33,7 +38,8 @@ module.exports = function(server, db, qiwiApi) {
                     res.send('Время жизни счета истекло. Счет не оплачен');
                 }
             })
-            .catch(() => {
+            .catch((error) => {
+                console.log(error);
                 res.render('main/404');
             });
         } else {
