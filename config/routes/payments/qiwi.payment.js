@@ -2,7 +2,6 @@ const ObjectID = require('mongodb').ObjectID;
 
 module.exports = function(server, db, qiwiApi) {
     server.put('/payment', async (req, res) => {
-        // проверяем товар на его наличие
         const ids = req.body.items.map(item => item.id);
         const titles = req.body.items.map(item => item.title).join(',');
         let empty = false;
@@ -11,6 +10,8 @@ module.exports = function(server, db, qiwiApi) {
             const item = await db.collection('info').findOne({"_id": ObjectID(req.body.items[i].id)});
             if (item.data.length === 0) empty = i;
         }
+        
+        // проверяем товар на его наличие и создаем bill
         if (empty === false) {
             const billId = qiwiApi.generateId();
             const fields = {

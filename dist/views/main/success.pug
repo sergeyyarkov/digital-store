@@ -1,0 +1,15 @@
+//- Head HTML
+include ./assets/head.pug
+
+main.main-section
+  .container
+    .row
+      .col.s12
+        h1(style="margin-top: 2rem;font-size:70px;margin-bottom:2rem;") Успешно!
+        p Данные аккаунтов были высланы на почту: #{email}
+        br
+        ul
+            each val in result
+                li= val
+            
+        a(href="/") Вернуться в магазин

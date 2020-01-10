@@ -16,7 +16,7 @@ const methodOverride = require('method-override');
 const multer = require('multer');
 const QiwiBillPaymentsAPI = require('@qiwi/bill-payments-node-js-sdk');
 
-const SECRET_KEY = '/';
+const SECRET_KEY = '.';
 const qiwiApi = new QiwiBillPaymentsAPI(SECRET_KEY);
 
 MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: true})

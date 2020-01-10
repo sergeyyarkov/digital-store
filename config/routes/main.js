@@ -117,7 +117,7 @@ module.exports = function (server, db) {
                 }
             });
         }))
-        .catch((error) => {
+        .catch(() => {
             res.render('main/404');
         });
     });
