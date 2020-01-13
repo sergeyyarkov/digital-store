@@ -14,8 +14,24 @@ module.exports = function (server, db) {
                 buyers = await db.collection('buyers').find({}).toArray(),
                 items = await db.collection('items').find({}).toArray(); 
                 
-            
+            // считаем сумму проданных товаров
+            const sum = () => {
+                let result = 0;
+                for (let i = 0; i < buyers.length; i++) {    
+                    result += buyers[i].amount;  
+                }
+                return result;
+            }
 
+            // считаем кол-во проданных товаров
+            const quantitySold = () => {
+                let result = 0;
+                for (let i = 0; i < buyers.length; i++) {    
+                    result += buyers[i].data.length;  
+                }
+                return result;
+            }
+            
             res.render('admin/control-panel', {
                 id: req.user.id,
                 name: req.user.name,
@@ -23,11 +39,12 @@ module.exports = function (server, db) {
                 title: `${store.title} | Панель управления сайтом`,
                 host: req.headers.host,
                 pageName: ['Главная', 'main'],
-                sum: buyers.reduce((sum, current) => sum.amount + current.amount),
-                quantitySold: buyers.reduce((summ, current) => summ.data.length + current.data.length),
+                sum: sum(),
+                quantitySold: quantitySold(),
                 count: items.length
             });
         } catch (error) {
+            console.log(error);
             res.render('main/404');
         }
     });

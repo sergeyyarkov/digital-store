@@ -79,6 +79,15 @@ class ApiService {
         }
     }
 
+    async getBuyersOffset(page) {
+        try {
+            const request = `${this.url}/api/buyers/page/${page}`;
+            return useRequest(request);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     async getIcons() {
         try {
             const request = `${this.url}/api/icons`;
@@ -94,4 +103,4 @@ async function useRequest(request) {
     return await JSON.parse(response.request.response);
 }
 
-export const apiService = new ApiService('https://polar-peak-95205.herokuapp.com');
+export const apiService = new ApiService('http://localhost:3000');

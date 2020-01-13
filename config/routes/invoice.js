@@ -26,7 +26,7 @@ module.exports = function(server, db, qiwiApi) {
                             const item = await db.collection('info').findOne({"_id": ObjectID(ids[i])}),
                                 data = item.data;
 
-                            result.push(data.splice(-1, 1));
+                            result.push(data.splice(-1, 1).join(''));
                             db.collection('info').updateOne({"_id": ObjectID(ids[i])}, {$set: {data: data}});
                         }
 

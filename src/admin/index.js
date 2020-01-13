@@ -10,6 +10,7 @@ import { ItemDeleteModal } from "./modals/item-delete.modal.js";
 import { CategoryEditModal } from "./modals/category-edit.modal";
 import { ContentComponent } from "./components/content.component.js";
 import { AdministratorComponent } from "./components/administrator.component.js";
+import { DashboardComponent } from "./components/dashboard.component.js";
 
 // Components
 const loader = new LoaderComponent('loader');
@@ -18,6 +19,7 @@ const search = new SearchComponent('search', {loader});
 const categories = new CategoriesComponent('categories');
 const icons = new IconsComponent('icons');
 const items = new ItemsComponent('items', {pagination}, {search});
+const dashboards = new DashboardComponent('dashboard', {pagination}, {search});
 const content = new ContentComponent('content');
 const administrator = new AdministratorComponent('administrator');
 
@@ -27,4 +29,4 @@ const itemDelete = new ItemDeleteModal('deleteItemModal', 'edit', 'deleteItemClo
 const categoryEdit = new CategoryEditModal('editCategoryModal', 'editCategory_select', 'editCategoryClose');
 
 const materialize = new MaterializeConfig();
-console.log('Control-Panel v1.0.01');
+console.log('Control-Panel v1.0.0');

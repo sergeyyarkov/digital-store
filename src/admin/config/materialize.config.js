@@ -39,7 +39,7 @@ export class MaterializeConfig {
               pages.forEach(function (page) {
                   if (page.dataset.page) {
                       if (currentPage === page.dataset.page) {
-                          document.querySelector('#dashboard').classList.remove('active');
+                          document.querySelector('#home').classList.remove('active');
                           page.classList.add('active');
                           const collapse = M.Collapsible.getInstance(page.closest('.collapsible'));
                           collapse.open();
