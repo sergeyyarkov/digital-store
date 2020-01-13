@@ -10,7 +10,12 @@ function checkAuthenticated(req, res, next) {
 module.exports = function (server, db) {
     server.get('/control-panel', checkAuthenticated, async (req, res) => {
         try {
-            const store = await db.collection('content').findOne({});
+            const store = await db.collection('content').findOne({}),
+                buyers = await db.collection('buyers').find({}).toArray(),
+                items = await db.collection('items').find({}).toArray(); 
+                
+            
+
             res.render('admin/control-panel', {
                 id: req.user.id,
                 name: req.user.name,
@@ -18,6 +23,9 @@ module.exports = function (server, db) {
                 title: `${store.title} | Панель управления сайтом`,
                 host: req.headers.host,
                 pageName: ['Главная', 'main'],
+                sum: buyers.reduce((sum, current) => sum.amount + current.amount),
+                quantitySold: buyers.reduce((summ, current) => summ.data.length + current.data.length),
+                count: items.length
             });
         } catch (error) {
             res.render('main/404');
@@ -28,6 +36,7 @@ module.exports = function (server, db) {
             const items = await db.collection('items').find({}).toArray();
             const store = await db.collection('content').findOne({});
             const count = items.length;
+
             res.render('admin/items', {
                 name: req.user.name,
                 email: req.user.email,

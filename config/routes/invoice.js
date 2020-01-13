@@ -12,7 +12,7 @@ module.exports = function(server, db, qiwiApi) {
                     email = data.customer.email,
                     method = 'qiwi',
                     date = data.status.changedDateTime,
-                    amount = data.amount.value;
+                    amount = parseFloat(data.amount.value);
 
                 if (status === 'PAID') {
                     const ids = query.item_id.split('and');
