@@ -62,12 +62,30 @@ module.exports = function(server, db) {
         }
     });
 
+    server.get('/api/buyers', checkAuthenticated, async (req, res) => {
+        try {
+            const buyers = await db.collection('buyers').find({}).toArray();
+            res.json(buyers);
+        } catch (error) {
+            res.render('main/404');
+        }
+    });
+
+    server.get('/api/buyers/:bill_id', checkAuthenticated, async (req, res) => {
+        try {
+            const buyers = await db.collection('buyers').find({bill_id: req.params.bill_id}).toArray();
+            res.json(buyers);
+        } catch (error) {
+            res.render('main/404');
+        }
+    });
+
     server.get('/api/buyers/page/:page', checkAuthenticated, async (req, res) => {
         try {
             const page = parseInt(req.params.page),
                 limit = 5,
-                items = await db.collection('buyers').find({}, {skip: limit * (page - 1), limit}).toArray();
-            items.length > 0 && !isNaN(page) ? res.json(items) : res.json({error: 'Такой страницы не существует.'});
+                buyers = await db.collection('buyers').find({}, {skip: limit * (page - 1), limit}).toArray();
+            buyers.length > 0 && !isNaN(page) ? res.json(buyers) : res.json({error: 'Такой страницы не существует.'});
         } catch (error) {
             res.render('main/404');
         }

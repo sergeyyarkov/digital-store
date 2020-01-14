@@ -31,6 +31,15 @@ module.exports = function (server, db) {
                 }
                 return result;
             }
+
+            // общее кол-во товаров в магазине
+            const itemsAmount = () => {
+                let result = 0;
+                for (let i = 0; i < items.length; i++) {    
+                    result += items[i].count;
+                }
+                return result;
+            }
             
             res.render('admin/control-panel', {
                 id: req.user.id,
@@ -41,7 +50,7 @@ module.exports = function (server, db) {
                 pageName: ['Главная', 'main'],
                 sum: sum(),
                 quantitySold: quantitySold(),
-                count: items.length
+                count: itemsAmount()
             });
         } catch (error) {
             console.log(error);

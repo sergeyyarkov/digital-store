@@ -79,9 +79,27 @@ class ApiService {
         }
     }
 
+    async getBuyers() {
+        try {
+            const request = `${this.url}/api/buyers`;
+            return useRequest(request);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     async getBuyersOffset(page) {
         try {
             const request = `${this.url}/api/buyers/page/${page}`;
+            return useRequest(request);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async getBillId(bill_id) {
+        try {
+            const request = `${this.url}/api/buyers/${bill_id}`;
             return useRequest(request);
         } catch (err) {
             console.error(err);

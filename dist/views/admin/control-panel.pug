@@ -31,7 +31,7 @@ body.has-fixed-sidenav
                             .search-field
                                 .nav-wrapper
                                     .input-field
-                                        input#search(type="search" required placeholder="Введите почту покупателя")
+                                        input#search(type="search" required placeholder="Введите номер заказа")
                                         label.label-icon(for="search")
                                             i.material-icons search
                                         i.material-icons close
@@ -45,56 +45,8 @@ body.has-fixed-sidenav
                                             th Сумма
                                     .divider
                                     tbody
-                                        tr
-                                            td test@gmail.com
-                                            td Qiwi
-                                            td 2019-12-05
-                                            td 145 ₽
-                                        tr
-                                            td test@gmail.com
-                                            td Qiwi
-                                            td 2019-12-05
-                                            td 145 ₽
-                                        tr
-                                            td test@gmail.com
-                                            td Qiwi
-                                            td 2019-12-05
-                                            td 145 ₽
-                                        tr
-                                            td test@gmail.com
-                                            td Qiwi
-                                            td 2019-12-05
-                                            td 145 ₽
-                                        tr
-                                            td test@gmail.com
-                                            td Qiwi
-                                            td 2019-12-05
-                                            td 145 ₽
-                                        tr
-                                            td test@gmail.com
-                                            td Qiwi
-                                            td 2019-12-05
-                                            td 145 ₽
-                                        tr
-                                            td test@gmail.com
-                                            td Qiwi
-                                            td 2019-12-05
-                                            td 145 ₽
-                                        tr
-                                            td test@gmail.com
-                                            td Qiwi
-                                            td 2019-12-05
-                                            td 145 ₽
-                                        tr
-                                            td test@gmail.com
-                                            td Qiwi
-                                            td 2019-12-05
-                                            td 145 ₽
-                                        tr
-                                            td test@gmail.com
-                                            td Qiwi
-                                            td 2019-12-05
-                                            td 145 ₽      
+                                        #loader.progress
+                                            .indeterminate     
                         ul#pagination.pagination.center(data-page="1")              
     include ./assets/templates/footer.pug
     include ./assets/scripts.pug
