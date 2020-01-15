@@ -6,6 +6,6 @@
 ```js
 SESSION_SECRET=secret
 DATABASE_URI=подключение к БД MONGODB
-DATABASE_NAME=digital_store
+DATABASE_NAME=имя БД
 QIWI_SECRET_KEY=секретный ключ QIWI API
 ```
