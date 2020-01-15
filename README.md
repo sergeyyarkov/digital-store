@@ -1,7 +1,6 @@
-# Digital Store v1.0.0
 # Панель управления:
 Для входа в панель управления магазином используйте данные:
-```
+```js
 Login: admin@support.ru
 Password: admin
 ```
