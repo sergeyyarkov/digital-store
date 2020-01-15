@@ -126,7 +126,7 @@ module.exports = function(server, db) {
         category.length > 0 ? res.send(category) : res.send({error: 'Такой категории не существует.'});
     });
 
-    server.get('/api/icons', (req, res) => {
+    server.get('/api/icons', checkAuthenticated, (req, res) => {
         const icons = fs.readdirSync('dist/public/img/service-icons');
         res.json(icons);
     });

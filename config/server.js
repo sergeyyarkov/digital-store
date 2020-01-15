@@ -16,8 +16,7 @@ const methodOverride = require('method-override');
 const multer = require('multer');
 const QiwiBillPaymentsAPI = require('@qiwi/bill-payments-node-js-sdk');
 
-const SECRET_KEY = '.';
-const qiwiApi = new QiwiBillPaymentsAPI(SECRET_KEY);
+const qiwiApi = new QiwiBillPaymentsAPI(process.env.QIWI_SECRET_KEY);
 
 MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: true})
     .then((client) => {
@@ -65,6 +64,6 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
     .finally(() =>  {
         const port = process.env.PORT || 3000;
         server.listen(port, () => {
-            console.log('Listen port 3000...');
+            console.log('App is running...');
         });
     });

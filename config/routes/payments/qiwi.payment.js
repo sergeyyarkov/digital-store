@@ -27,7 +27,10 @@ module.exports = function(server, db, qiwiApi) {
             }
             qiwiApi.createBill(billId, fields).then((data) => {
                 res.send(data);
-            });
+            })
+            .catch(() => {
+                res.send('Произошла ошибка при создании заказа. Попробуйте позже.');
+            })
         } else {
             res.send(`Товара "${req.body.items[empty].title}" нет в наличии`);
         }         

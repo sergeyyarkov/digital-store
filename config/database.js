@@ -1,4 +1,4 @@
 module.exports = {
-    url: 'mongodb+srv://ds_user1:zBD4b6kQbKAK2ar@cluster0-vtuzl.mongodb.net/test?retryWrites=true',
+    url: process.env.DATABASE_URI,
     name: 'digital_store'
 }
