@@ -1,4 +1,5 @@
 const ObjectID = require('mongodb').ObjectID;
+const nodemailer = require('../nodemailer.config');
 
 module.exports = function(server, db, qiwiApi) {
     server.get('/success', (req, res) => {
@@ -15,13 +16,13 @@ module.exports = function(server, db, qiwiApi) {
                     amount = parseFloat(data.amount.value);
 
                 if (status === 'PAID') {
-                    const ids = query.item_id.split('and');
-                    const findBill = await db.collection('buyers').findOne({bill_id: query.bill_id});
+                    const ids = query.item_id.split('and'),
+                        findBill = await db.collection('buyers').findOne({bill_id: query.bill_id});
 
                     if(findBill == null) {
                         const result = [];
 
-                        //выдаем данные и создаем покупателя
+                        // создаем покупателя и выдаем данные
                         for (let i = 0; i < ids.length; i++) {
                             const item = await db.collection('info').findOne({"_id": ObjectID(ids[i])}),
                                 data = item.data;
@@ -29,8 +30,19 @@ module.exports = function(server, db, qiwiApi) {
                             result.push(data.splice(-1, 1).join(''));
                             db.collection('info').updateOne({"_id": ObjectID(ids[i])}, {$set: {data: data}});
                         }
-
                         db.collection('buyers').insertOne({bill_id, email, method, date, amount, data: result});
+
+                        await nodemailer.transporter.sendMail({
+                            from: `"Оплата аккаунта." <${process.env.EMAIL_LOGIN}>`, // sender address
+                            to: email, // list of receivers
+                            subject: "Оплата успешно проведена.", // subject
+                            text: "Данные купленного товара находятся в этом письме.", // plain text body
+                            html: `<b>Номер заказа: ${bill_id}</b><br>
+                                <b>Данные товара:</b><br>
+                                <p>${result.join('<br>')}</p>
+                            ` // html body
+                        });
+
                         res.render('main/success', {result, email});
                     } else {
                         res.send('Этот заказ уже был оплачен. Данные были высланы покупателю.');
@@ -41,7 +53,8 @@ module.exports = function(server, db, qiwiApi) {
                     res.send('Время жизни счета истекло. Счет не оплачен');
                 }
             })
-            .catch(() => {
+            .catch((error) => {
+                console.log(error);
                 res.render('main/404');
             });
         } else {
