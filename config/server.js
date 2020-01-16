@@ -49,7 +49,7 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
         require('./routes/api')(server, db); // отдача данных клиенту
         
         // Payments
-        require('./routes/invoice')(server, db, qiwiApi);
+        require('./routes/success')(server, db, qiwiApi);
         require('./routes/payments/qiwi.payment')(server, db, qiwiApi);
     
         // 404 Redirect
