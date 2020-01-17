@@ -2,8 +2,9 @@ const ObjectID = require('mongodb').ObjectID;
 const nodemailer = require('../nodemailer.config');
 
 module.exports = function(server, db, qiwiApi) {
-    server.get('/success', (req, res) => {
-        const query = req.query;
+    server.get('/success', async (req, res) => {
+        const store = await db.collection('content').findOne({}),
+            query = req.query;
 
         // qiwi
         if (query.bill_id && query.item_id && query.payment === 'qiwi') {
@@ -53,12 +54,11 @@ module.exports = function(server, db, qiwiApi) {
                     res.send('Время жизни счета истекло. Счет не оплачен');
                 }
             })
-            .catch((error) => {
-                console.log(error);
-                res.render('main/404');
+            .catch(() => {
+                res.render('main/failure', {email: store.email});
             });
         } else {
-            res.render('main/404');
+            res.status(404).render('main/404');
         }
     });
 }

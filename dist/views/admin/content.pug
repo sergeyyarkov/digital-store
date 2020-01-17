@@ -18,6 +18,9 @@ body.has-fixed-sidenav
                                             input(id="title" type="text" name="title" value=store.title)
                                             label(for="title") Название магазина
                                         .input-field.col.s12
+                                            input(id="email" type="email" name="email" value=store.email)
+                                            label(for="email") Почта службы поддержки
+                                        .input-field.col.s12
                                             textarea(id="contacts" class="materialize-textarea" type="text" name="contacts") #{store.contacts}
                                             label(for="contacts") Контакты магазина
                                         .input-field.col.s12

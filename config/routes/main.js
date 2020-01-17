@@ -17,8 +17,8 @@ module.exports = function (server, db) {
                     }
                 });
             });
-        } catch (error) {
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
     server.get('/how-to-buy', async (req, res) => {
@@ -32,8 +32,8 @@ module.exports = function (server, db) {
                     howToBuy: store.howToBuy
                 }
             });
-        } catch (error) {
-            res.send('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
     server.get('/contacts', async (req, res) => {
@@ -47,8 +47,8 @@ module.exports = function (server, db) {
                     contacts: store.contacts
                 }
             });
-        } catch (error) {
-            res.send('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
     server.get('/comments', async (req, res) => {
@@ -61,8 +61,8 @@ module.exports = function (server, db) {
                     title: store.title
                 }
             });
-        } catch (error) {
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
     server.get('/my-orders', async (req, res) => {
@@ -75,8 +75,8 @@ module.exports = function (server, db) {
                     title: store.title
                 }
             });
-        } catch (error) {
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
     server.get('/product/:id', async (req, res) => {
@@ -118,7 +118,7 @@ module.exports = function (server, db) {
             });
         }))
         .catch(() => {
-            res.render('main/404');
+            res.status(500).render('main/404');
         });
     });
 }

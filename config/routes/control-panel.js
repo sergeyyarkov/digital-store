@@ -52,9 +52,8 @@ module.exports = function (server, db) {
                 quantitySold: quantitySold(),
                 count: itemsAmount()
             });
-        } catch (error) {
-            console.log(error);
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
     server.get('/control-panel/items', checkAuthenticated, async (req, res) => {
@@ -71,8 +70,8 @@ module.exports = function (server, db) {
                 pageName: ['Товары', 'items'],
                 count: count / 2
             });
-        } catch (error) {
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
     server.get('/control-panel/categories', checkAuthenticated, async (req, res) => {
@@ -87,8 +86,8 @@ module.exports = function (server, db) {
                 pageName: ['Категории', 'categories'],
                 categoriesCount: categories.length
             });
-        } catch (error) {
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
     server.get('/control-panel/icons', checkAuthenticated, async (req, res) => {
@@ -101,8 +100,8 @@ module.exports = function (server, db) {
                 host: req.headers.host,
                 pageName: ['Иконки', 'icons']
             });
-        } catch (error) {
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
     server.get('/control-panel/content', checkAuthenticated, async (req, res) => {
@@ -116,14 +115,15 @@ module.exports = function (server, db) {
                 pageName: ['Контент', 'content'],
                 store: {
                     title: store.title,
+                    email: store.email,
                     info: store.info,
                     infoBottom: store.infoBottom,
                     howToBuy: store.howToBuy,
                     contacts: store.contacts
                 }
             });
-        } catch (error) {
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
     server.get('/control-panel/administrators', checkAuthenticated, async (req, res) => {
@@ -137,8 +137,8 @@ module.exports = function (server, db) {
                 host: req.headers.host,
                 pageName: ['Администраторы', 'administrators'],
             });
-        } catch (error) {
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
 
@@ -154,7 +154,7 @@ module.exports = function (server, db) {
             db.collection('categories').insertOne(data);
             res.redirect('/control-panel/categories');
         } catch {
-            res.render('main/404');
+            res.status(500).render('main/404');
         }
     });
     server.post('/control-panel/categories/delete', checkAuthenticated, (req, res) => {
@@ -162,9 +162,8 @@ module.exports = function (server, db) {
             const data = JSON.parse(req.body.category);
             db.collection('categories').deleteOne({"_id": ObjectID(data.id)});
             res.redirect('/control-panel/categories');
-        } catch (error) {
-            console.log(error);
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
     server.post('/control-panel/categories/update', checkAuthenticated, (req, res) => {
@@ -180,8 +179,8 @@ module.exports = function (server, db) {
             db.collection('categories').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, img: data.img, type: data.type, format: data.format}});
             db.collection('items').updateMany({"category": data.originalTitle}, {$set: {category: data.title}});
             res.redirect('/control-panel/categories');
-        } catch (error) {
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
 
@@ -189,8 +188,8 @@ module.exports = function (server, db) {
     server.post('/control-panel/icons/create', checkAuthenticated, (req, res) => {
         try {
             res.redirect('/control-panel/icons');
-        } catch (error) {
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
     server.post('/control-panel/icons/delete', checkAuthenticated, (req, res) => {
@@ -198,8 +197,8 @@ module.exports = function (server, db) {
         try {
             fs.unlinkSync(path);
             res.redirect('/control-panel/icons');
-        } catch (error) {
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
 
@@ -226,8 +225,8 @@ module.exports = function (server, db) {
             db.collection('info').insertOne(info);
             db.collection('items').insertOne(item);
             res.redirect('/control-panel/items');
-        } catch (error) {
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
     server.post('/control-panel/items/delete', checkAuthenticated, (req, res) => {
@@ -236,7 +235,7 @@ module.exports = function (server, db) {
             db.collection('items').deleteOne({"_id": id});
             db.collection('info').deleteOne({"_id": id});
             res.redirect('/control-panel/items');
-        } catch (error) {
+        } catch {
             res.render('main/404');
         }
     });
@@ -253,8 +252,8 @@ module.exports = function (server, db) {
             db.collection('items').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, price: data.price, description: data.description, category: data.category.title}});
             db.collection('info').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, data: data.info}});
             res.redirect('/control-panel/items');
-        } catch (error) {
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     });
     
@@ -264,14 +263,15 @@ module.exports = function (server, db) {
            const data = {
                title: req.body.title,
                info: req.body.info,
+               email: req.body.email,
                infoBottom: req.body.infoBottom,
                howToBuy: req.body.howToBuy,
                contacts: req.body.contacts
            }
-           db.collection('content').updateOne({}, {$set: {title: data.title, info: data.info, infoBottom: data.infoBottom, howToBuy: data.howToBuy, contacts: data.contacts}});
+           db.collection('content').updateOne({}, {$set: {title: data.title, email: data.email, info: data.info, infoBottom: data.infoBottom, howToBuy: data.howToBuy, contacts: data.contacts}});
            res.redirect('/control-panel/content');
-       } catch (error) {
-           res.render('main/404');
+       } catch {
+            res.status(500).render('main/404');
        } 
     });
 
@@ -286,7 +286,7 @@ module.exports = function (server, db) {
                 newPass: req.body.newPass
             }
             const admin = await db.collection('administrators').findOne({id: data.id});
-            if(await bcrypt.compare(data.oldPass, admin.password)) {
+            if (await bcrypt.compare(data.oldPass, admin.password)) {
                 const hashedPassword = await bcrypt.hash(data.newPass, 10);
                 db.collection('administrators').updateOne({id: data.id}, {$set: {name: data.name, email: data.email, password: hashedPassword}});
                 req.user.name = data.name;
@@ -294,8 +294,8 @@ module.exports = function (server, db) {
                 req.user.password = hashedPassword;
                 res.send('Данные успешно изменены.');
             } else res.send('Неверный пароль.');
-        } catch (error) {
-            res.render('main/404');
+        } catch {
+            res.status(500).render('main/404');
         }
     })
 }
