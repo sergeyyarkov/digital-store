@@ -5,7 +5,7 @@ Login: admin@support.ru
 Password: admin
 ```
 # Переменные среды:
-Создайте файл .env в корне приложения и запишите переменные:
+Установите на вашем сервере переменные среды:
 ```js
 SESSION_SECRET=secret
 DATABASE_URI=подключение к БД MONGODB
