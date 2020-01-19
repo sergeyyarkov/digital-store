@@ -9,6 +9,7 @@ import { CartModal } from "./modals/cart.modal.js";
 import { PayModal } from "./modals/pay.modal.js";
 import { NotificationComponent } from "./components/notification.component.js";
 import { MaterializeConfig } from "./config/materialize.config.js";
+import { OrdersComponent } from "./components/orders.component.js";
 
 // Components
 const header = new HeaderComponent('header');
@@ -19,6 +20,7 @@ const items = new ItemsComponent('items', {loader}, {notification});
 const filter = new FilterComponent('filter', {items});
 const category = new CategoryComponent('category', {items}, {filter});
 const breadcumb = new BreadcrumbComponent('breadcrumb');
+const orders = new OrdersComponent('orders', {notification});
 
 // Modals
 const cart = new CartModal('cart', 'cartOpen', 'cartClose', {items});

@@ -5,16 +5,16 @@ export class NotificationComponent extends Component {
         super(id);
     }
 
-    notificate(text, color) {
+    notificate(text, color, delay) {
         const card = document.createElement('div');
         card.classList.add('card-panel');
         card.style.backgroundColor = color;
         card.innerHTML = `<span class="white-text">${text}</span>`;
         this.$el.innerHTML += card.outerHTML;
-        this.removeNotificate();  
+        this.removeNotificate(delay);  
     }
 
-    removeNotificate() {
+    removeNotificate(delay) {
         // Полифилл для IE ^9
         (function() {
             var arr = [window.Element, window.CharacterData, window.DocumentType];
@@ -45,6 +45,6 @@ export class NotificationComponent extends Component {
 
         setTimeout(() => {
             this.$el.querySelector('.card-panel').remove();
-        }, 2000)
+        }, delay || 2000);
     }
 }
