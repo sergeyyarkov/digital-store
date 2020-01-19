@@ -22,7 +22,7 @@ export class OrdersComponent extends Component {
                             this.notification.notificate(`Данные были успешно высланы на почту "${email}".`, '#26A69A', 3500);
                             break;
                         case 'NF':
-                            this.notification.notificate(`Покупатель с почтой ${email} не был найден.`, '#f44336', 3500);
+                            this.notification.notificate(`Покупатель с почтой "${email}" не был найден.`, '#f44336', 3500);
                             break;
                         case 'ERR':
                             this.notification.notificate(`Произошла ошибка, попробуйте повторить запрос позже.`, '#f44336', 3500);
