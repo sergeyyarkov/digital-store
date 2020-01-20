@@ -34,14 +34,14 @@ module.exports = function(server, db, qiwiApi) {
                         db.collection('buyers').insertOne({bill_id, email, method, date, amount, data: result});
 
                         await nodemailer.transporter.sendMail({
-                            from: `"Оплата аккаунта." <${process.env.EMAIL_LOGIN}>`, // sender address
-                            to: email, // list of receivers
-                            subject: "Оплата успешно проведена.", // subject
-                            text: "Данные купленного товара находятся в этом письме.", // plain text body
+                            from: `"Оплата аккаунта." <${process.env.EMAIL_LOGIN}>`,
+                            to: email,
+                            subject: "Оплата успешно проведена.",
+                            text: "Данные купленного товара находятся в этом письме.",
                             html: `<b>Номер заказа: ${bill_id}</b><br>
                                 <b>Данные товара:</b><br>
                                 <p>${result.join('<br>')}</p>
-                            ` // html body
+                            `
                         });
 
                         res.render('main/success', {result, email});

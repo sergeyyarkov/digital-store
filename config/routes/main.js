@@ -1,4 +1,5 @@
 const ObjectID = require('mongodb').ObjectID;
+const nodemailer = require('../nodemailer.config');
 
 module.exports = function (server, db) {
     server.get('/', async (req, res) => {
@@ -120,5 +121,35 @@ module.exports = function (server, db) {
         .catch(() => {
             res.status(500).render('main/404');
         });
+    });
+    server.post('/my-orders', async (req, res) => {
+        const buyers = await db.collection('buyers').find({email: req.body.email}).toArray();
+        if (buyers.length > 0) {
+            // рендерим html
+            const html = buyers.map((buyer) => {
+                return `
+                    <b>Номер заказа: ${buyer.bill_id}</b><br>
+                    <b>Дата оплаты: ${new Date(buyer.date).toLocaleDateString()}</b><br>
+                    <b>Данные товара:</b><br>
+                    <p>${buyer.data.join('<br>')}</p>
+                    <p>======================================================================</p>
+                `;
+            });
+
+            // высылаем данные покупателю
+            try {
+                await nodemailer.transporter.sendMail({
+                    from: `"Ваши покупки." <${process.env.EMAIL_LOGIN}>`,
+                    to: req.body.email, 
+                    subject: "Данные купленных товаров находятся в этом письме.",
+                    html: html.join('')
+                });
+                res.json({status: 'OK'});
+            } catch (error) {
+                res.json({status: 'ERR'});
+            }
+        } else {
+            res.json({status: 'NF'});
+        }
     });
 }

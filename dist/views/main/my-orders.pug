@@ -6,6 +6,7 @@ include ./assets/templates/header.pug
 main.main-section
   include ./assets/templates/modals/cart.pug
   include ./assets/templates/modals/pay.pug
+  #notification
   .container
     .row
       .col.s12
@@ -22,7 +23,7 @@ main.main-section
               form(action='#')
                 .email-field(style='max-width: 400px;margin-bottom: 10px;')
                   label(for='email') Почта
-                  input#email(required='' type='text' name='email')
+                  input#email(required='' type='email' name='email')
                 .show-orders
                   button.waves-effect.waves-light.btn(type='submit') Узнать
 
