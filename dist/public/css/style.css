@@ -45,6 +45,63 @@ hr {
 
 /* Custom Styles */
 
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.loader-fullscreen {
+    background-color: #000;
+    background-color: rgba(0,0,0,.8);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    animation: fadein 0.1s;
+    -moz-animation: fadein 0.1s; /* Firefox */
+    -webkit-animation: fadein 0.1s; /* Safari and Chrome */
+    -o-animation: fadein 0.1s; /* Opera */
+}
+
+.loader-fullscreen__wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
 .pagination {
     padding-bottom: 24px;
 }
