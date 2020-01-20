@@ -20,7 +20,7 @@ const items = new ItemsComponent('items', {loader}, {notification});
 const filter = new FilterComponent('filter', {items});
 const category = new CategoryComponent('category', {items}, {filter});
 const breadcumb = new BreadcrumbComponent('breadcrumb');
-const orders = new OrdersComponent('orders', {notification});
+const orders = new OrdersComponent('orders', {notification}, {loader});
 
 // Modals
 const cart = new CartModal('cart', 'cartOpen', 'cartClose', {items});

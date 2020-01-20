@@ -7,6 +7,19 @@ main.main-section
   include ./assets/templates/modals/cart.pug
   include ./assets/templates/modals/pay.pug
   #notification
+  #loader.loader-fullscreen.hide
+    .loader-fullscreen__wrap
+      <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-green-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
   .container
     .row
       .col.s12

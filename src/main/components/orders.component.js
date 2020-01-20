@@ -2,9 +2,10 @@ import { Component } from "../core/component";
 import axios from "axios";
 
 export class OrdersComponent extends Component {
-    constructor(id, {notification}) {
+    constructor(id, {notification}, {loader}) {
         super(id);
         this.notification = notification;
+        this.loader = loader;
     }
 
     init() {
@@ -14,6 +15,7 @@ export class OrdersComponent extends Component {
                 e.preventDefault();
                 if (valid) {
                     valid = false;
+                    this.loader.show();
                     const email = e.target.elements.email.value,
                         request = await axios.post('/my-orders', {email});
                     
@@ -30,6 +32,7 @@ export class OrdersComponent extends Component {
                         default:
                             break;
                     }
+                    this.loader.hide();
                     setTimeout(() => valid = true, 10000);
                 } else {
                     this.notification.notificate(`Подождите еще нескольно секунд прежде чем сделать запрос...`, '#f44336', 3500);
