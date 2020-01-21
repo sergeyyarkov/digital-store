@@ -11,6 +11,7 @@ import { CategoryEditModal } from "./modals/category-edit.modal";
 import { ContentComponent } from "./components/content.component.js";
 import { AdministratorComponent } from "./components/administrator.component.js";
 import { DashboardComponent } from "./components/dashboard.component.js";
+import { BillDataModal } from "./modals/bill-data.modal.js";
 
 // Components
 const loader = new LoaderComponent('loader');
@@ -27,6 +28,7 @@ const administrator = new AdministratorComponent('administrator');
 const itemEdit = new ItemEditModal('editItemModal', 'edit', 'editItemClose');
 const itemDelete = new ItemDeleteModal('deleteItemModal', 'edit', 'deleteItemClose');
 const categoryEdit = new CategoryEditModal('editCategoryModal', 'editCategory_select', 'editCategoryClose');
+const billData = new BillDataModal('billDataModal', 'dashboard', 'billDataClose');
 
 const materialize = new MaterializeConfig();
 console.log('Control-Panel v1.0.0');

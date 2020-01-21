@@ -1,0 +1,31 @@
+// Edit Item
+#billDataModal.c_modal-wrap.hide
+  .container
+    .row
+      .c_modal
+        .c_modal-content
+          .modal-content
+            .modal-content__header
+              h4.small-title Информация о заказе
+              span#billDataClose.modal-close
+                i.material-icons close
+            .modal-content__form
+                    .input-field
+                        input#bill_id(type="text" readonly)
+                        label Номер заказа
+                    .input-field
+                        input#email(type="text" readonly)
+                        label Почта
+                    .input-field
+                        input#method(type="text" readonly)
+                        label Способ оплаты
+                    .input-field
+                        input#date(type="text" readonly)
+                        label Дата оплаты
+                    .input-field
+                        input#amount(type="text" readonly)
+                        label Сумма
+                    .input-field
+                        textarea#data(class="materialize-textarea" type="text" name="type" readonly)
+                        label Данные аккаунтов
+// Edit Category END
