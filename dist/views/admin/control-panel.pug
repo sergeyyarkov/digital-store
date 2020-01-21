@@ -43,10 +43,12 @@ body.has-fixed-sidenav
                                             th Способ оплаты
                                             th Дата оплаты
                                             th Сумма
+                                            th Информация о покупке
                                     .divider
                                     tbody
                                         #loader.progress
                                             .indeterminate     
-                        ul#pagination.pagination.center(data-page="1")              
+                        ul#pagination.pagination.center(data-page="1")
+    include ./assets/templates/modals/bill_data.pug                
     include ./assets/templates/footer.pug
     include ./assets/scripts.pug
