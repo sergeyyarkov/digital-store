@@ -28,13 +28,13 @@ main.main-section
             .orders-text
               hr
               p
-                strong Введите почту
+                strong Введите вашу почту и мы вышлем вам ваши товары которые вы оплачивали
               p &nbsp;
               form(action='#')
-                .email-field(style='max-width: 400px;margin-bottom: 10px;')
+                .email-field(style='margin-bottom: 10px;')
                   label(for='email') Почта
                   input#email(required='' type='email' name='email')
-                .show-orders
+                .show-orders(style='display: flex;justify-content: flex-end;')
                   button.waves-effect.waves-light.btn(type='submit') Узнать
 
 

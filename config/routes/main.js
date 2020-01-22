@@ -14,7 +14,8 @@ module.exports = function (server, db) {
                     store: {
                         title: store.title,
                         info: store.info,
-                        infoBottom: store.infoBottom
+                        infoBottom: store.infoBottom,
+                        color: store.color
                     }
                 });
             });
@@ -30,7 +31,8 @@ module.exports = function (server, db) {
                 title: `${store.title} | Как купить товар`,
                 store: {
                     title: store.title,
-                    howToBuy: store.howToBuy
+                    howToBuy: store.howToBuy,
+                    color: store.color
                 }
             });
         } catch {
@@ -45,7 +47,8 @@ module.exports = function (server, db) {
                 title: `${store.title} | Контакты`,
                 store: {
                     title: store.title,
-                    contacts: store.contacts
+                    contacts: store.contacts,
+                    color: store.color
                 }
             });
         } catch {
@@ -59,7 +62,8 @@ module.exports = function (server, db) {
                 pageName: 'comments',
                 title: `${store.title} | Отзывы`,
                 store: {
-                    title: store.title
+                    title: store.title,
+                    color: store.color
                 }
             });
         } catch {
@@ -73,7 +77,8 @@ module.exports = function (server, db) {
                 pageName: 'my-orders',
                 title: `${store.title} | Мои покупки`,
                 store: {
-                    title: store.title
+                    title: store.title,
+                    color: store.color
                 }
             });
         } catch {
@@ -115,7 +120,8 @@ module.exports = function (server, db) {
                 format: category.format,
                 store: {
                     title: store.title,
-                    recommendations: store.recommendations
+                    recommendations: store.recommendations,
+                    color: store.color
                 }
             });
         }))

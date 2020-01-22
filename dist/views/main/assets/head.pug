@@ -13,4 +13,16 @@ html(lang='ru')
         link(rel="stylesheet", href="/css/media.css")
         // Material Icons
         link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+        if store
+            style.
+                nav, footer.main-footer, .items-category, .category-items li .active, .category-items li a:hover, .progress .indeterminate, button {
+                    background-color: #{store.color} !important;
+                }
+                button:hover {
+                    background-color: #{store.color} !important;
+                    opacity: .7;
+                }
+                .progress {
+                    background-color: #deecea;
+                }
     body
