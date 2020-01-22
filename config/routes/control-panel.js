@@ -143,6 +143,23 @@ module.exports = function (server, db) {
         }
     });
 
+    server.get('/control-panel/theme', checkAuthenticated, async (req, res) => {
+        try {
+            const store = await db.collection('content').findOne({});
+            res.render('admin/theme', {
+                id: req.user.id,
+                name: req.user.name,
+                email: req.user.email,
+                title: `${store.title} | Оформление`,
+                host: req.headers.host,
+                pageName: ['Оформление', 'theme'],
+                color: store.color
+            });
+        } catch {
+            res.status(500).render('main/404');
+        }
+    });
+
     // редактирование категорий
     server.post('/control-panel/categories/create', checkAuthenticated, (req, res) => {
         try {
@@ -299,5 +316,18 @@ module.exports = function (server, db) {
         } catch {
             res.status(500).render('main/404');
         }
-    })
+    });
+
+    // формление
+    server.post('/control-panel/theme/update', checkAuthenticated, (req, res) => {
+        try {
+            const data = {
+                color: req.body.color
+            }
+            db.collection('content').updateOne({}, {$set: {color: data.color}});
+            res.redirect('/control-panel/theme');
+        } catch {
+             res.status(500).render('main/404');
+        } 
+     });
 }

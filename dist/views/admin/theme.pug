@@ -1,0 +1,24 @@
+include ./assets/head.pug
+body.has-fixed-sidenav
+    include ./assets/templates/header.pug
+    main.admin-main
+        .container
+            .row
+                .col.s12
+                    h2 Изменить оформление
+                    p Измените оформление вашего магазине на этой странице.
+                .col.s12
+                    #theme.card
+                        .card-content
+                            .theme-change
+                                h5 Общий цвета
+                            .row
+                                form(action="/control-panel/theme/update" method="POST")
+                                    #color.input-field.col.s12
+                                        input(id="color" type="text" pattern="^#(?:[0-9a-fA-F]{3}){1,2}$" name="color" value=color required)
+                                        label(for="color") Цвет в формате HEX (#000000)
+                                    .edit_success.col.s12
+                                        button(type="submit" class="btn waves-effect") Сохранить
+                               
+    include ./assets/templates/footer.pug
+    include ./assets/scripts.pug
