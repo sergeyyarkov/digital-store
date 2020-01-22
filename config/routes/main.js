@@ -114,7 +114,8 @@ module.exports = function (server, db) {
                 type: category.type,
                 format: category.format,
                 store: {
-                    title: store.title
+                    title: store.title,
+                    recommendations: store.recommendations
                 }
             });
         }))
