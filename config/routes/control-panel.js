@@ -119,7 +119,8 @@ module.exports = function (server, db) {
                     info: store.info,
                     infoBottom: store.infoBottom,
                     howToBuy: store.howToBuy,
-                    contacts: store.contacts
+                    contacts: store.contacts,
+                    recommendations: store.recommendations
                 }
             });
         } catch {
@@ -266,9 +267,10 @@ module.exports = function (server, db) {
                email: req.body.email,
                infoBottom: req.body.infoBottom,
                howToBuy: req.body.howToBuy,
-               contacts: req.body.contacts
+               contacts: req.body.contacts,
+               recommendations: req.body.recommendations
            }
-           db.collection('content').updateOne({}, {$set: {title: data.title, email: data.email, info: data.info, infoBottom: data.infoBottom, howToBuy: data.howToBuy, contacts: data.contacts}});
+           db.collection('content').updateOne({}, {$set: {title: data.title, email: data.email, info: data.info, infoBottom: data.infoBottom, howToBuy: data.howToBuy, contacts: data.contacts, recommendations: data.recommendations}});
            res.redirect('/control-panel/content');
        } catch {
             res.status(500).render('main/404');
