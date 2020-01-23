@@ -110,6 +110,13 @@ hr {
     padding-bottom: 24px;
 }
 
+#notification > div {
+    animation: fadein 0.2s;
+    -moz-animation: fadein 0.2s; /* Firefox */
+    -webkit-animation: fadein 0.2s; /* Safari and Chrome */
+    -o-animation: fadein 0.2s; /* Opera */
+}
+
 #notification {
     width: 300px;
     position: fixed;
