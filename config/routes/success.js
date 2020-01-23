@@ -13,7 +13,7 @@ module.exports = function(server, db, qiwiApi) {
                     status = data.status.value,
                     email = data.customer.email,
                     method = 'qiwi',
-                    date = new Date().toISOString(),
+                    date = data.status.changedDateTime,
                     amount = parseFloat(data.amount.value);
 
                 if (status === 'PAID') {
