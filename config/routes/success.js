@@ -38,7 +38,9 @@ module.exports = function(server, db, qiwiApi) {
                             to: email,
                             subject: "Оплата успешно проведена.",
                             text: "Данные купленного товара находятся в этом письме.",
-                            html: `<b>Номер заказа: ${bill_id}</b><br>
+                            html: `
+                                <b>Номер заказа: ${bill_id}</b><br>
+                                <b>Дата оплаты: ${new Date(data.status.changedDateTime).toLocaleDateString()}</b><br>
                                 <b>Данные товара:</b><br>
                                 <p>${result.join('<br>')}</p>
                             `
