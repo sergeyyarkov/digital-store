@@ -1,0 +1,64 @@
+{ 
+    "_id" : ObjectId("5e15dbc415303a1980cd77a0"), 
+    "title" : "Тестовый товар №1", 
+    "data" : [
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass"
+    ]
+},
+{ 
+    "_id" : ObjectId("5e15dcb4138c3339bcbc3719"), 
+    "title" : "Тестовый товар №3", 
+    "data" : [
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass"
+    ]
+},
+{ 
+    "_id" : ObjectId("5e175c63b479600ac493ce88"), 
+    "title" : "Тестовый товар №4", 
+    "data" : [
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass"
+    ]
+},
+{ 
+    "_id" : ObjectId("5e1ccf30d5b894228c86385a"), 
+    "title" : "Тестовый товар №5", 
+    "data" : [
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass", 
+        "login:pass"
+    ]
+}

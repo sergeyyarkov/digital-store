@@ -1,0 +1,28 @@
+{ 
+    "_id" : ObjectId("5df63ed5044ecc18c43e9e91"), 
+    "title" : "steam", 
+    "img" : "img-1576420937629.svg", 
+    "type" : "Steam Type", 
+    "format" : "Steam Format"
+},
+{ 
+    "_id" : ObjectId("5df64563309e691f2c33d400"), 
+    "title" : "uplay", 
+    "img" : "img-1576349954743.svg", 
+    "type" : "Uplay Type", 
+    "format" : "Uplay Format"
+},
+{ 
+    "_id" : ObjectId("5e04ea023625771abc75fd14"), 
+    "title" : "fortnite", 
+    "img" : "img-1576349989720.svg", 
+    "type" : "Fortnite Type", 
+    "format" : "Fortnite Format"
+},
+{ 
+    "_id" : ObjectId("5e11c381471ae208f0b6aae4"), 
+    "title" : "origin", 
+    "img" : "img-1576421960189.svg", 
+    "type" : "Origin Type", 
+    "format" : "Origin Format"
+}

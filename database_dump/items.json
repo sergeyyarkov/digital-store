@@ -1,0 +1,36 @@
+{ 
+    "_id" : ObjectId("5e15dbc415303a1980cd77a0"), 
+    "title" : "Тестовый товар №1", 
+    "count" : NumberInt(10), 
+    "price" : NumberInt(1), 
+    "category" : "steam", 
+    "description" : "Тестовый товар №1  описание", 
+    "date" : ISODate("2020-01-08T13:40:20.353+0000")
+},
+{ 
+    "_id" : ObjectId("5e15dcb4138c3339bcbc3719"), 
+    "title" : "Тестовый товар №3", 
+    "count" : NumberInt(10), 
+    "price" : NumberInt(1), 
+    "category" : "uplay", 
+    "description" : "Тестовый товар №3 fdsfd", 
+    "date" : ISODate("2020-01-08T13:44:20.940+0000")
+},
+{ 
+    "_id" : ObjectId("5e175c63b479600ac493ce88"), 
+    "title" : "Тестовый товар №4", 
+    "count" : NumberInt(10), 
+    "price" : NumberInt(1), 
+    "category" : "fortnite", 
+    "description" : "Тестовый товар №4 opis", 
+    "date" : ISODate("2020-01-09T17:01:23.446+0000")
+},
+{ 
+    "_id" : ObjectId("5e1ccf30d5b894228c86385a"), 
+    "title" : "Тестовый товар №5", 
+    "count" : NumberInt(10), 
+    "price" : NumberInt(1), 
+    "category" : "origin", 
+    "description" : "sdsdsds", 
+    "date" : ISODate("2020-01-13T20:12:32.814+0000")
+}
