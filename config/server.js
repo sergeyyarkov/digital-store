@@ -11,7 +11,6 @@ const path = require('path');
 const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
 const methodOverride = require('method-override');
 const multer = require('multer');
 const QiwiBillPaymentsAPI = require('@qiwi/bill-payments-node-js-sdk');
@@ -35,7 +34,7 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
         server.use(express.urlencoded({ extended: false }));
         server.use(express.json());
         server.use(flash());
-        server.use(session({secret: process.env.SESSION_SECRET,resave: false,saveUninitialized: false}));
+        server.use(session({secret: require('crypto-random-string')({length: 64, type: 'base64'}), resave: false,saveUninitialized: false}));
         server.use(passport.initialize());
         server.use(passport.session());
         server.use(methodOverride('_method'));
