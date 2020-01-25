@@ -23,7 +23,7 @@ module.exports = function(server, db, qiwiApi) {
                     themeCode: 'Sergei-YaS7mIY0CQe'
                 },
                 email: req.body.email,
-                successUrl: `https://polar-peak-95205.herokuapp.com/success?bill_id=${billId}&item_id=${ids.join('and')}&payment=qiwi`
+                successUrl: `${process.env.HOSTNAME_URI}/success?bill_id=${billId}&item_id=${ids.join('and')}&payment=qiwi`
             }
             qiwiApi.createBill(billId, fields).then((data) => {
                 res.send(data);
