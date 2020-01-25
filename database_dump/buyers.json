@@ -1,0 +1,11 @@
+{ 
+    "_id" : ObjectId("5e2c6e4770964b0017bb9009"), 
+    "bill_id" : "51076c5e-25d7-422e-8f73-9bc3f583679c", 
+    "email" : "testmail@mail.com", 
+    "method" : "qiwi", 
+    "date" : "2020-01-25T19:35:14.025+03:00", 
+    "amount" : NumberInt(1), 
+    "data" : [
+        "login:pass"
+    ]
+}

@@ -1,0 +1,7 @@
+{ 
+    "_id" : ObjectId("5de9733dc58a41381415a7b0"), 
+    "id" : "1575580477024", 
+    "name" : "Administrator", 
+    "email" : "admin@support.ru", 
+    "password" : "$2a$10$l5A1VHuN3a9IXhPq.tK.WOWvrIDZJxu1LKIPOYe6ywlS4dbjIMBu6"
+}
