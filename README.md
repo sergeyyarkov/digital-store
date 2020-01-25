@@ -103,7 +103,7 @@ EMAIL_PASSWORD=
 https://store-name.com/api/items 
 ```
 Ответ:
-```bash
+```javascript
   [
     {
       _id: "5e15dbc415303a1980cd77a0",
@@ -131,7 +131,7 @@ https://store-name.com/api/items
 https://store-name.com/api/items/{category}
 ```
 Ответ:
-```bash
+```javascript
 [
     {
       _id: "5e15dbc415303a1980cd77a0",
@@ -159,7 +159,7 @@ https://store-name.com/api/items/{category}
 https://store-name.com/api/categories
 ```
 Ответ:
-```bash
+```javascript
 [
   {
     _id: "5df64563309e691f2c33d400",
@@ -183,7 +183,7 @@ https://store-name.com/api/categories
 https://store-name.com/api/category/{category}
 ```
 Ответ:
-```bash
+```javascript
 [
   {
     _id: "5df64563309e691f2c33d400",
@@ -195,12 +195,12 @@ https://store-name.com/api/category/{category}
 ]
 ```
 
-### Для просмотра данных всех товаров отправляется запрос: `Нужна авторизация для адмимистатора.`
+### Для просмотра данных всех товаров отправляется запрос: **Нужна авторизация для адмимистатора.**
 ```bash
 https://store-name.com/api/items/data
 ```
 Ответ:
-```bash
+```javascript
 [
   {
     _id: "5e15dbc415303a1980cd77a0",
@@ -215,12 +215,12 @@ https://store-name.com/api/items/data
 ]
 ```
 
-### Для просмотра покупателей отправляется запрос: `Нужна авторизация для адмимистатора.`
+### Для просмотра покупателей отправляется запрос: **Нужна авторизация для адмимистатора.**
 ```bash
 https://store-name.com/api/buyers
 ```
 Ответ:
-```bash
+```javascript
 [
   {
     _id: "5e1c97701b619a31f010062c",
@@ -234,12 +234,12 @@ https://store-name.com/api/buyers
 ]
 ```
 
-### Для просмотра списка иконок отправляется запрос: `Нужна авторизация для адмимистатора.`
+### Для просмотра списка иконок отправляется запрос: **Нужна авторизация для адмимистатора.**
 ```bash
 https://store-name.com/api/icons
 ```
 Ответ:
-```bash
+```javascript
 [
   "img-1576349954743.svg",
   "img-1576349989720.svg",
