@@ -80,7 +80,11 @@ module.exports = function(server, db) {
     server.get('/api/buyers', checkAuthenticated, async (req, res) => {
         try {
             const buyers = await db.collection('buyers').find({}).toArray();
-            res.json(buyers);
+            if (buyers.length > 0) {
+                res.json(buyers);  
+            } else res.send({
+                error: 'Покупателей в магазине пока что нет.'
+            });
         } catch {
             res.status(500).render('main/404');
         }
