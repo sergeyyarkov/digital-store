@@ -56,7 +56,7 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
     })
     .catch((error) => {
         server.get('*', (req, res) => {
-            res.send('Ошибка соединения с БД.');
+            res.send('Произошла ошибка при запуске. Используйте команду "pm2 log" для того чтобы узнать ошибку.');
             console.log(error);
         });
     })
