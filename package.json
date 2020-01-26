@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node config/server.js",
-    "build": "webpack --mode production",
-    "wp-server": "webpack-dev-server --mode development"
+    "start": "node config/server.js"
   },
   "repository": {
     "type": "git",
