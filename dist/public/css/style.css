@@ -778,7 +778,6 @@ footer.main-footer {
 }
 .table-buyers, .table-items {
     max-height: 385px;
-    overflow-y: hidden;
 }
 #items .card-content {
     min-height: 519px;
