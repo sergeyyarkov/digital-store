@@ -5,88 +5,131 @@ export class PaginationComponent extends Component {
         super(id);
         this.loader = loader;
     }
+    
+    /**
+     * 
+     * @param {number} length - кол-во товаров в магазине
+     * @param {object} body - куда вставляем данные о первой странице
+     * @param {function} request - функция async запроса
+     */
 
-    // вставляем кнопки со страницами и назначаем ивент
-    initialize(pages, insertTo, request) {
-        this.insertButtons(pages);
-        this.$pages = Array.from(this.$el.querySelectorAll('li'));
-        this.$el.onclick = (e) => this.buttonHandler(e, insertTo, request);
-        this.moveTo(1, insertTo, request); // показываем первую страницу
-        this.$el.querySelector('li').nextElementSibling.classList.add('active'); 
+    initialize(length, body, request) {
+        // рендерим кнопку с первой страницой как независимую от других кнопок
+        this.$el.insertAdjacentHTML('afterbegin', '<li><a href="#" data-move="1">1</a></li><li><span style="position: relative;top: 4px;padding: 4px;">...</span></li>');
+        
+        // рендерим сами кнопки и кнопки вперед - назад
+        this.renderBtns(length);
+        this.renderArrows();
+
+        // показ первой страницы
+        this.move(1, body, request);
+
+        // назначаем ивент на кнопки
+        this.$el.onclick = (e) => this.buttonHandler(e, body, request);
     }
 
-    removeActive() {
-        this.$pages.forEach(li => li.classList.remove('active'));
+    // страницу назад - вперед
+    renderArrows() {
+        const leftArrowHTML = '<li><a class="disabled" href="#" data-type="prev"><i class="material-icons">chevron_left</i></a></li>',
+            rightArrowHTML = '<li><a class="disabled" href="#" data-type="next"><i class="material-icons">chevron_right</i></a></li>';
+
+        this.$el.insertAdjacentHTML('afterbegin', leftArrowHTML);
+        this.$el.insertAdjacentHTML('beforeend', rightArrowHTML); 
     }
 
-    setActive(li, value) {
-        li.forEach(li => {const page = parseInt(li.querySelector('a').dataset.move);page === value ? li.classList.add('active') : false;});
+    renderBtns(length) {
+        let count = Math.ceil(length / 5),
+            btnsHTML = '';
+
+        // проверяем - если товаров > 21, рендерим максимум до пяти кнопок
+        length > 21 ? count = 5 : count;
+
+        this.count = Math.ceil(length / 5);
+        for (let i = 2; i <= count; i++) {
+            btnsHTML += `<li><a href="#" data-move="${i}">${i}</a></li>`;
+        }
+
+        this.$el.insertAdjacentHTML('beforeend', btnsHTML);
     }
 
-    buttonHandler(e, insertTo, request) {
+    async move(page, body, request) {
+        this.loader.show();
+        const $btns = Array.from(this.$el.querySelectorAll('li a'));
+
+        if (page === +$btns[$btns.length - 2].dataset.move && page < this.count) {
+            const numbers = $btns.filter(btn => btn.dataset.move);
+            
+            for (let i = 1; i < numbers.length; i++) {
+                let newIndex = numbers[i].textContent;
+                ++newIndex;
+                numbers[i].setAttribute('data-move', newIndex);
+                numbers[i].textContent = newIndex;
+            }
+        }
+
+        if (page === +$btns[2].dataset.move && page > 2) {
+            const numbers = $btns.filter(btn => btn.dataset.move);
+            
+            for (let i = 1; i < numbers.length; i++) {
+                let newIndex = numbers[i].textContent;
+                --newIndex;
+                numbers[i].setAttribute('data-move', newIndex);
+                numbers[i].textContent = newIndex;
+            }
+        }
+
+        if (page <= this.count) {
+            // красим кнопки
+            const numbers = $btns.filter(btn => btn.dataset.move);
+                numbers.forEach(btn => btn.parentNode.classList.remove('active'));
+                numbers.forEach(btn => {
+                if (page === +btn.dataset.move) {
+                    btn.parentNode.classList.add('active');
+                }
+            });
+          const response = await request(page);
+            body.innerHTML = '';
+            if (response != '') {
+                this.$el.setAttribute('data-page', page);
+                body.insertAdjacentHTML('afterbegin', response);
+            } else body.innerHTML = 'Данных нету.';
+        }
+        this.loader.hide();  
+    }
+
+    buttonHandler(e, body, request) {
         e.preventDefault();
         if (e.target.dataset.move) {
             const page = parseInt(e.target.dataset.move),
                 target = e.target.parentNode;
 
-            this.removeActive();
-            target.classList.add('active');
-            this.moveTo(page, insertTo, request);
+            this.move(page, body, request);
         } else if (e.target.tagName.toLowerCase() === 'i') {
-            const moveType = e.target.parentNode.dataset.type,
+            const type = e.target.parentNode.dataset.type,
                 page = parseInt(this.$el.dataset.page);
 
-            moveType === 'prev' ? this.movePrev(page, this.$pages, insertTo, request) : this.moveNext(page, this.$pages, insertTo, request);
+            switch (type) {
+                case 'next':
+                    this.next(page, body, request);
+                    break;
+                case 'prev':
+                    this.prev(page, body, request);
+                default:
+                    break;
+            }
         }
     }
 
-    movePrev(page, li, insertTo, request) {
-        if (page === 1) return 0; else {
-            --page;
-            this.removeActive();
-            this.setActive(li, page);
-            this.moveTo(page, insertTo, request);
-        }
+    next(page, body, request) {
+        this.move(++page, body, request);
     }
 
-    // выполняем запрос на сервер и выводим на данные
-    async moveTo(page, insertTo, request) {
-        this.loader.show();
-        const response = await request(page);
-        insertTo.innerHTML = '';
-        if (response != '') {
-            this.$el.setAttribute('data-page', page);
-            insertTo.insertAdjacentHTML('afterbegin', response); 
+    prev(page, body, request) {
+        --page;
+        if (page < 1) {
+            return 0;
         } else {
-            insertTo.innerHTML = 'Данных нету.';
+            this.move(page, body, request); 
         }
-        this.loader.hide(); 
-    }
-
-    moveNext(page, li, insertTo, request) {
-        const length = this.$pages.length - 2;
-        if (page === length) return 0; else {
-            ++page;
-            this.removeActive();
-            this.setActive(li, page);
-            this.moveTo(page, insertTo, request); 
-        }
-    }
-
-    insertButtons(pages) {
-        const count = Math.ceil(pages / 5);
-        let html = '';
-
-        // назад
-        html += '<li><a class="disabled" href="#" data-type="prev"><i class="material-icons">chevron_left</i></a></li>';
-        
-        // все страницы
-        for (let i = 1; i <= count; i++) {
-            html += `<li><a href="#" data-move="${i}">${i}</a></li>`;
-        }
-
-        // вперед
-        html += '<li><a class="disabled" href="#" data-type="next"><i class="material-icons">chevron_right</i></a></li>';
-        this.$el.insertAdjacentHTML('afterbegin', html);
     }
 }
