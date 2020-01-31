@@ -3,13 +3,15 @@ module.exports = {
     name: 'server',
     script: 'config/server.js',
     autorestart: true,
-    watch: false,
+    watch: true,
+    instances: 'max',
+    exec_mode: 'cluster',    
     env: {
       NODE_ENV: 'development'
     },
     env_production: {
       NODE_ENV: 'production',
-      DATABASE_URI: '',
+      DATABASE_URI: 'mongodb://127.0.0.1:27017',
       DATABASE_NAME: '',
       EMAIL_LOGIN: '',
       EMAIL_PASSWORD: '',
