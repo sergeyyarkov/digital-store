@@ -78,7 +78,7 @@
 В данном примере на удаленном сервере будет использоваться связка `Ubuntu 18.04, Nginx, MongoDB, PM2, NodeJS` + `SSL Lets Encrypt`
 
 - Переходим на сайт [RUVDS.COM](https://ruvds.com/pr4435) и приобретаем VPS услугу.
-- Подключаемся к серверу по SSH и обновляем пакеты `apt-get update`.
+- Подключаемся к серверу по SSH и следуем далее описаным шагам.
 - Устанавливаем NodeJS:
 
 ```bash
@@ -99,7 +99,161 @@ git clone https://github.com/sergeyyarkov/digital-store.git -b production
 cd digital-store/
 ```
 - Устанавливаем зависимости для интернет-магазина `npm install`.
--
+- Устанавливаем MongoDB:
+
+```bash
+apt install -y mongodb
+
+systemctl status mongodb <--- проверяем состояние службы, должно быть active (running)
+```
+Теперь нужно дать доступ для подключения к БД именно с вашего компьютера, это нам понадобится для импортирования дампа БД:
+ip адресс берете с сайта 2ip
+
+```bash
+ufw enable
+
+ufw allow from ваш_ip_адресс_компьютера/32 to any port 27017   
+```
+- Далее открываем конфигурационный файл MongoDB: `nano /etc/mongodb.conf`:
+Добавляем IP-адрес вашего сервера в значение bindIP:
+
+```bash
+logappend=true
+
+bind_ip = 127.0.0.1,your_server_ip
+#port = 27017
+```
+
+- Сохраните файл, закройте редактор и перезапустите MongoDB: `systemctl restart mongodb`:
+- Теперь доступ к БД есть только у вашего компьютера, далее скачиваем [Studio 3T](https://studio3t.com/) и создаем новое соединение, ip адресс указываем вашего сервера.
+- После подключения, создаем новую БД и называем её как хотим.
+- Кликаем по вашей созданной БД и вверху нажимаем `Import`, после выбираем все JSON файлы, которые хранятся в папке `/database_dump`.
+- Если все 6 коллекций успешно импортировались, то идем дальше.
+- Устанавливаем менеджер процессов PM2 `npm install -g pm2`.
+- Редактируем файл с переменными в файле ecosystem.config.js и устанавливаем свои значения `nano ecosystem.config.js`.
+- Далее запускаем наше приложение:
+
+```bash
+pm2 start ecosystem.config.js --env production <--- стартуем наше приложение
+
+pm2 status <--- как узнать статус запущенных процессов
+
+pm2 save <--- сохраняем процесс
+
+pm2 startup ubuntu <--- автоматически запускаем наше приложение в случае рестарта сервера
+```
+
+- Настраиваем файрволл:
+
+```bash
+ufw allow ssh
+
+ufw allow http
+
+ufw allow https
+```
+
+- Далее устанавливаем веб-сервер nginx `apt install nginx`, после редактируем конфигурационный файл:
+
+```bash
+server_name yourdomain.com www.yourdomain.com;
+
+    location / {
+        proxy_pass http://localhost:3000; #порт запущенного приложения
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+```
+
+- Обязательно настройте gzip сжатие, ваш сайт будет работать быстрее:
+
+```bash
+server {
+  gzip on;
+  gzip_disable "msie6";
+  gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript;
+}
+```
+
+- Так же желательно избавиться от дубля страницы www:
+
+```bash
+if ($host = 'www.example.com') {
+  return 301 https://example.com$request_uri;
+}
+```
+
+- После настройки проверьте ваш конфигурационный файл на ошибки `nginx -t`, если ошибок нет, то перезапускаем сервис nginx `service nginx restart`.
+- на сайте RUDVS добавьте свой домен и привяжите его к своему серверу, настройте DNS записи у регистратора. Через какое то время ваш магазин будет доступен по домену.
+- Далее настройте SSL сертификат: 
+
+```bash
+add-apt-repository ppa:certbot/certbot
+
+apt-get update
+
+apt-get install python-certbot-nginx
+
+certbot --nginx -d yourdomain.com -d www.yourdomain.com <--- в процессе установки выбираем цифру 2
+```
+
+- Ваш конфигурационный файл должен выглядеть примерно так:
+
+```bash
+server {
+
+  gzip on;
+  gzip_disable "msie6";
+  gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript;
+  
+	root /var/www/html;
+
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name yourdomain.ru www.yourdomain.ru;
+
+	location / {
+		  proxy_pass http://localhost:3000;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection 'upgrade';
+      proxy_set_header Host $host;
+      proxy_cache_bypass $http_upgrade;
+	}
+
+  if ($host = 'www.yourdomain.ru') {
+      return 301 https://yourdomain.ru$request_uri;
+  }
+
+  listen [::]:443 ssl ipv6only=on; # managed by Certbot
+  listen 443 ssl; # managed by Certbot
+  ssl_certificate /etc/letsencrypt/live/yourdomain.ru/fullchain.pem; # managed by Certbot
+  ssl_certificate_key /etc/letsencrypt/live/yourdomain.ru/privkey.pem; # managed by Certbot
+  include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+  ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+server {
+  if ($host = www.yourdomain.ru) {
+    return 301 https://$host$request_uri;
+  } # managed by Certbot
+
+
+  if ($host = yourdomain.ru) {
+    return 301 https://$host$request_uri;
+  } # managed by Certbot
+
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	server_name yourdomain.ru www.yourdomain.ru;
+    return 404; # managed by Certbot
+}
+
+```
 
 ### Настройка платежной системы:
 В скрипте на данный момент доступна система оплаты через сервис QIWI, чтобы настроить оплату в вашем магазине следуйте следующим шагам:
