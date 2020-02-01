@@ -28,7 +28,7 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
         });
     
         // Config
-        server.use(cors())
+        server.use(cors());
         server.use(express.static(path.join(__dirname, '../dist/public')));
         server.use(multer({storage: storage}).single('img'));
         server.use(express.urlencoded({ extended: false }));
