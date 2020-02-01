@@ -1,5 +1,5 @@
 const ObjectID = require('mongodb').ObjectID;
-const nodemailer = require('../nodemailer.config');
+const nodemailer = require('../config/nodemailer.config');
 
 module.exports = function (server, db) {
     server.get('/', async (req, res) => {

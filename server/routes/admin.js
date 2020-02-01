@@ -1,7 +1,5 @@
-const bcrypt = require('bcryptjs');
 const passport = require('passport');
-
-const initializePassport = require('../passport.config');
+const initializePassport = require('../config/passport.config');
 
 function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) return res.redirect('/control-panel');
