@@ -153,7 +153,7 @@ ufw allow http
 ufw allow https
 ```
 
-- Далее устанавливаем веб-сервер nginx `apt install nginx`, после редактируем конфигурационный файл:
+- Далее устанавливаем веб-сервер nginx `apt install nginx`, после редактируем конфигурационный файл `nano /etc/nginx/sites-available/default`:
 
 ```bash
 server_name yourdomain.com www.yourdomain.com;
