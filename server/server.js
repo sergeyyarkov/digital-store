@@ -34,7 +34,7 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
         server.use(express.urlencoded({ extended: false }));
         server.use(express.json());
         server.use(flash());
-        server.use(session({secret: require('crypto-random-string')({length: 64, type: 'base64'}), resave: false,saveUninitialized: false}));
+        server.use(session({secret: require('crypto-random-string')({length: 64, type: 'base64'}), resave: true,saveUninitialized: false}));
         server.use(passport.initialize());
         server.use(passport.session());
         server.use(methodOverride('_method'));
