@@ -23,13 +23,13 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
         const storage = multer.diskStorage({
             destination: 'dist/public/img/service-icons',
             filename: function(req, file, cb) {
-                cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+                cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
             }
         });
     
         // Config
         server.use(cors());
-        server.use(express.static(path.join(__dirname, '../dist/public')));
+        server.use(express.static(`${__dirname}/../dist/public`));
         server.use(multer({storage: storage}).single('img'));
         server.use(express.urlencoded({ extended: false }));
         server.use(express.json());
@@ -39,7 +39,7 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
         server.use(passport.session());
         server.use(methodOverride('_method'));
         server.set('view engine', 'pug');
-        server.set('views', path.join(__dirname, '../dist/views'));
+        server.set('views', `${__dirname}/../dist/views`);
 
         // Routes
         require('./routes/main')(server, db); // маршруты сайта
@@ -60,9 +60,4 @@ MongoClient.connect(db_config.url, {useNewUrlParser: true, useUnifiedTopology: t
             console.log(error);
         });
     })
-    .finally(() =>  {
-        const port = process.env.PORT || 3000;
-        server.listen(port, () => {
-            console.log('App is running...');
-        });
-    });
+    .finally(server.listen(process.env.PORT || 3000, console.log('App is running...')));
