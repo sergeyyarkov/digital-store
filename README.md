@@ -256,7 +256,7 @@ server {
 
 ```
 
-### Выгрузка скрипта на бесплтаный хостинг от Heroku:
+### Выгрузка скрипта на бесплатный хостинг от Heroku:
 - Регистрируемся на сайте [Heroku](https://signup.heroku.com/login).
 - Устанавливаем heroku-cli `https://devcenter.heroku.com/articles/heroku-cli`.
 - Проверьте установку, написав в консоле `heroku --help` если всё выводит, идем дальше.
