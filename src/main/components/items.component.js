@@ -101,7 +101,7 @@ function renderObj(obj, context, target) {
             target.classList.add('orange');
             target.querySelector('i').innerHTML = 'close';
             insertCount('counter', context.cart);
-            context.notification.notificate('Товар был успешно добавлен в корзину.', '#26A69A');     
+            window.M.toast({html: 'Товар был успешно добавлен в корзину.'})  
         } else {
             context.cart.splice(index, 1);
             localStorage.setItem('cart', JSON.stringify(context.cart)); 
@@ -115,6 +115,6 @@ function renderObj(obj, context, target) {
       target.classList.add('orange');
       target.querySelector('i').innerHTML = 'close';
       insertCount('counter', context.cart);
-      context.notification.notificate('Товар был успешно добавлен в корзину.', '#26A69A');   
+      window.M.toast({html: 'Товар был успешно добавлен в корзину.'})
     }
 };

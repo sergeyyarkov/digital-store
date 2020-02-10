@@ -21,13 +21,13 @@ export class OrdersComponent extends Component {
                     
                     switch (request.data.status) {
                         case 'OK':
-                            this.notification.notificate(`Данные были успешно высланы на почту "${email}".`, '#26A69A', 3500);
+                            window.M.toast({html: `Данные были успешно высланы на почту "${email}".`})
                             break;
                         case 'NF':
-                            this.notification.notificate(`Покупатель с почтой "${email}" не был найден.`, '#f44336', 3500);
+                            window.M.toast({html: `Покупатель с почтой "${email}" не был найден.`})
                             break;
                         case 'ERR':
-                            this.notification.notificate(`Произошла ошибка, попробуйте повторить запрос позже.`, '#f44336', 3500);
+                            window.M.toast({html: `Произошла ошибка, попробуйте повторить запрос позже.`})
                             break;
                         default:
                             break;
@@ -35,7 +35,7 @@ export class OrdersComponent extends Component {
                     this.loader.hide();
                     setTimeout(() => valid = true, 10000);
                 } else {
-                    this.notification.notificate(`Подождите еще нескольно секунд прежде чем сделать запрос...`, '#f44336', 3500);
+                    window.M.toast({html: `Подождите еще нескольно секунд прежде чем сделать запрос...`})
                 }
             };
         }
