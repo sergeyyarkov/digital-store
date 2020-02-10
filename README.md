@@ -266,7 +266,7 @@ server {
 - Переходим на сайт heroku, идем в свое созданное приложение и открываем вкладку `Settings -> Config Vars` кнопка `Reveal Config Vars` и настраиваем [переменные среды](#Переменные-среды).
 - Создаем папку с любым названием, открываем её и клонируем проект с github: `git clone https://github.com/sergeyyarkov/digital-store.git -b production .`
 - Сменим ветку на master: `git checkout -b master`
-- Удаляем файл ecosystem.congif.js (в случае с heroku он не нужен т.к переменные мы храним у heroku)
+- Удаляем файл ecosystem.config.js (в случае с heroku он не нужен т.к переменные мы храним у heroku)
 - Добавляем удаленный репозиторий `heroku git:remote -a название вашего приложения`.
 - Деплой: 
 ```bash
