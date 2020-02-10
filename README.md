@@ -262,7 +262,7 @@ server {
 - Проверьте установку, написав в консоле `heroku --help` если всё выводит, идем дальше.
 - Залогиньтесь: `heroku login`.
 - Создайте новый проект Herkou: `heroku create`.
-- Создайте кластер на сайте [www.mongodb.com](https://www.mongodb.com/) и импортируйте туда дамп структуры БД, которые находится в корне приложения `/database_dump`. При подключении к БД выберите метод `Connect Your Application`
+- Создайте кластер на сайте [www.mongodb.com](https://www.mongodb.com/) и импортируйте туда дамп структуры БД, который находится в корне приложения `/database_dump`. При подключении к БД выберите метод `Connect Your Application`
 - Переходим на сайт heroku, идем в свое созданное приложение и открываем вкладку `Settings -> Config Vars` кнопка `Reveal Config Vars` и настраиваем [переменные среды](#Переменные-среды).
 - Создаем папку с любым названием, открываем её и клонируем проект с github: `git clone https://github.com/sergeyyarkov/digital-store.git -b production .`
 - Сменим ветку на master: `git checkout -b master`
