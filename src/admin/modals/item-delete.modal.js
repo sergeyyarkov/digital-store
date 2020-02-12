@@ -1,4 +1,5 @@
 import { Modal } from "../core/modal";
+import { apiService } from "../services/api.service";
 import axios from "axios";
 
 export class ItemDeleteModal extends Modal {
@@ -19,10 +20,16 @@ export class ItemDeleteModal extends Modal {
         this.$button = this.$el.querySelector('.delete-item');
     }
 
-    openHandler(e) {
-        const data = JSON.parse(e.target.parentNode.parentNode.dataset.info);
-        this.$content.innerHTML = `Вы действительно хотите удалить товар "${data.title}"? Находящиеся в нем аккаунты будут удалены.`;
-        this.$button.onclick = this.deleteHandler.bind(this, data.id);
+    async openHandler(e) {
+        try {
+            const id = e.target.parentNode.parentNode.dataset.id,
+            item = await apiService.getItemById(id);
+
+            this.$content.innerHTML = `Вы действительно хотите удалить товар "${item.title}"? Находящиеся в нем аккаунты будут удалены.`;
+            this.$button.onclick = this.deleteHandler.bind(this, item._id);
+        } catch (error) {
+            alert('Произошла ошибка, попробуйте обновить страницу.')
+        }
     }
 
     async deleteHandler(id) {

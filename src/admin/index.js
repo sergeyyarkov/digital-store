@@ -25,7 +25,7 @@ const content = new ContentComponent('content');
 const administrator = new AdministratorComponent('administrator');
 
 // Modals
-const itemEdit = new ItemEditModal('editItemModal', 'edit', 'editItemClose');
+const itemEdit = new ItemEditModal('editItemModal', 'edit', 'editItemClose', {loader});
 const itemDelete = new ItemDeleteModal('deleteItemModal', 'edit', 'deleteItemClose');
 const categoryEdit = new CategoryEditModal('editCategoryModal', 'editCategory_select', 'editCategoryClose');
 const billData = new BillDataModal('billDataModal', 'dashboard', 'billDataClose');

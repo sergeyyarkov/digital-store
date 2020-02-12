@@ -56,6 +56,24 @@ class ApiService {
         }
     }
 
+    async getItemById(id) {
+        try {
+            const request = `${this.url}/api/items/id/${id}`;
+            return useRequest(request);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async getDataById(id) {
+        try {
+            const request = `${this.url}/api/items/data/${id}`;
+            return useRequest(request);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async getItemsOne(category, sorting) {
         try {
             if (sorting) {

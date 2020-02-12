@@ -57,6 +57,15 @@ module.exports = function(server, db) {
         }   
     });
 
+    server.get('/api/items/id/:id', async (req, res) => {
+        try {
+            const item = await db.collection('items').findOne({_id: ObjectID(req.params.id)})
+            res.json(item)
+        } catch {
+            res.status(500).render('main/404');
+        }
+    });
+
     server.get('/api/items/page/:page', async (req, res) => {
         try {
             const page = parseInt(req.params.page),
@@ -76,6 +85,15 @@ module.exports = function(server, db) {
             res.status(500).render('main/404');
         }
     });
+
+    server.get('/api/items/data/:id', checkAuthenticated, async (req, res) => {
+        try {
+            const data = await db.collection('info').findOne({_id: ObjectID(req.params.id)});
+            res.json(data)
+        } catch {
+            res.status(500).render('main/404');
+        }
+    })
 
     server.get('/api/buyers', checkAuthenticated, async (req, res) => {
         try {

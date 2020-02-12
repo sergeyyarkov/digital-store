@@ -3,8 +3,9 @@ import { apiService } from "../services/api.service";
 import { renderCategories } from "../templates/categories.template";
 
 export class ItemEditModal extends Modal {
-    constructor(id, open, close) {
+    constructor(id, open, close, {loader}) {
         super(id, open, close);
+        this.loader = loader
     }
 
     show(e) {
@@ -25,19 +26,28 @@ export class ItemEditModal extends Modal {
     }
 
     async openHandler(e) {
-          const data = JSON.parse(e.target.parentNode.parentNode.dataset.info),
-            categories = await apiService.getCategories();
+        try {
+            this.loader.show();
+            const id = e.target.parentNode.parentNode.dataset.id,
+                item = await apiService.getItemById(id),
+                data = await apiService.getDataById(id),
+                categories = await apiService.getCategories();
+            item.data = data.data
 
-            this.$category.innerHTML = `<option value='{"title": "${data.category}"}' selected>Оставить прежнюю</option>`;
-            this.$id.value = data.id;
-            this.$title.value = data.title;
-            this.$price.value = data.price;
-            this.$description.value = data.description;
+            this.$category.innerHTML = `<option value='{"title": "${item.category}"}' selected>Оставить прежнюю</option>`;
+            this.$id.value = item._id;
+            this.$title.value = item.title;
+            this.$price.value = item.price;
+            this.$description.value = item.description;
             this.$category.insertAdjacentHTML('beforeend', renderCategories(categories));
-            this.$data.value = data.data;
+            this.$data.value = item.data;
             M.FormSelect.init(this.$category);
             M.textareaAutoResize(this.$description);
             M.textareaAutoResize(this.$data);
-            M.updateTextFields();  
+            M.updateTextFields();
+            this.loader.hide();
+        } catch (error) {
+            alert('Произошла ошибка, обновите страницу')
+        }
     }
 }
