@@ -2,6 +2,16 @@ include ./assets/head.pug
 body.has-fixed-sidenav
     include ./assets/templates/header.pug
     main.admin-main
+        #loader.loader-fullscreen.hide
+            .loader-fullscreen__wrap
+                .preloader-wrapper.big.active
+                    .spinner-layer.spinner-green-only
+                        .circle-clipper.left
+                            .circle
+                        .gap-patch
+                            .circle
+                        .circle-clipper.right
+                            .circle
         .container
             .row
                 .col.s12
@@ -45,9 +55,7 @@ body.has-fixed-sidenav
                                             th Сумма
                                             th Информация о покупке
                                     .divider
-                                    tbody
-                                        #loader.progress
-                                            .indeterminate     
+                                    tbody    
                         ul#pagination.pagination.center(data-page="1")
     include ./assets/templates/modals/bill_data.pug                
     include ./assets/templates/footer.pug

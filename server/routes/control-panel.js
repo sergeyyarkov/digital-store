@@ -177,8 +177,7 @@ module.exports = function (server, db) {
     });
     server.post('/control-panel/categories/delete', checkAuthenticated, (req, res) => {
         try {
-            const data = JSON.parse(req.body.category);
-            db.collection('categories').deleteOne({"_id": ObjectID(data.id)});
+            db.collection('categories').deleteOne({"_id": ObjectID(req.body.category)});
             res.redirect('/control-panel/categories');
         } catch {
             res.status(500).render('main/404');
@@ -221,15 +220,16 @@ module.exports = function (server, db) {
     });
 
     // товары
-    server.post('/control-panel/items/create', checkAuthenticated, (req, res) => {
+    server.post('/control-panel/items/create', checkAuthenticated, async (req, res) => {
         try {
+            const category = await db.collection('categories').findOne({_id: ObjectID(req.body.category)})
             // документ с информацией товара для отдачи клиенту
             const item = {
                 _id: new ObjectID(),
                 title: req.body.title,
                 count: req.body.data.split(',').length,
                 price: parseFloat(req.body.price),
-                category: JSON.parse(req.body.category).title,
+                category: category.title,
                 description: req.body.description,
                 date: new Date()
             }
@@ -257,17 +257,18 @@ module.exports = function (server, db) {
             res.render('main/404');
         }
     });
-    server.post('/control-panel/items/update', checkAuthenticated, (req, res) => {
+    server.post('/control-panel/items/update', checkAuthenticated, async (req, res) => {
         try {
+            const category = await db.collection('categories').findOne({_id: ObjectID(req.body.category)})
             const data = {
                 id: req.body.id,
                 title: req.body.title,
                 price: parseFloat(req.body.price),
                 description: req.body.description,
-                category: JSON.parse(req.body.category),
+                category,
                 info: req.body.data.split(',')
             }
-            db.collection('items').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, price: data.price, description: data.description, category: data.category.title}});
+            db.collection('items').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, price: data.price, description: data.description, category: category.title}});
             db.collection('info').updateOne({"_id": ObjectID(data.id)}, {$set: {title: data.title, data: data.info}});
             res.redirect('/control-panel/items');
         } catch {

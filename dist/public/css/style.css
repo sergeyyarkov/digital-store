@@ -89,7 +89,7 @@ hr {
     height: 100%;
     width: 100%;
     top: 0;
-    z-index: 999;
+    z-index: 99999999;
     left: 0;
     bottom: 0;
     right: 0;
@@ -160,6 +160,14 @@ hr {
 }
 #roster {
     min-height: 300px;
+}
+
+div#rosterButtons {
+    display: flex;
+}
+
+button#addItem {
+    margin-left: 5px;
 }
 
 
@@ -503,6 +511,12 @@ footer.main-footer .container {
     border-radius: 3px;
 }
 
+.items-list__name {
+    max-width: 525px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
 .items-list__name,
 .items-list__info {
     display: flex;
@@ -781,6 +795,7 @@ footer.main-footer {
 }
 #items .card-content {
     min-height: 519px;
+    overflow-y: scroll;
 }
 footer.admin-footer{
     background-color: #fff;

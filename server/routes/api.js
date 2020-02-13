@@ -57,6 +57,15 @@ module.exports = function(server, db) {
         }   
     });
 
+    server.get('/api/items/id/:id', async (req, res) => {
+        try {
+            const item = await db.collection('items').findOne({_id: ObjectID(req.params.id)})
+            res.json(item)
+        } catch {
+            res.status(500).render('main/404');
+        }
+    });
+
     server.get('/api/items/page/:page', async (req, res) => {
         try {
             const page = parseInt(req.params.page),
@@ -77,6 +86,15 @@ module.exports = function(server, db) {
         }
     });
 
+    server.get('/api/items/data/:id', checkAuthenticated, async (req, res) => {
+        try {
+            const data = await db.collection('info').findOne({_id: ObjectID(req.params.id)});
+            res.json(data)
+        } catch {
+            res.status(500).render('main/404');
+        }
+    })
+
     server.get('/api/buyers', checkAuthenticated, async (req, res) => {
         try {
             const buyers = await db.collection('buyers').find({}).toArray();
@@ -92,7 +110,7 @@ module.exports = function(server, db) {
 
     server.get('/api/buyers/:bill_id', checkAuthenticated, async (req, res) => {
         try {
-            const buyers = await db.collection('buyers').find({bill_id: req.params.bill_id}).toArray();
+            const buyers = await db.collection('buyers').findOne({bill_id: req.params.bill_id});
             res.json(buyers);
         } catch {
             res.status(500).render('main/404');
@@ -160,6 +178,15 @@ module.exports = function(server, db) {
             res.status(500).render('main/404');
         }
     });
+
+    server.get('/api/category/id/:id', async (req, res) => {
+        try {
+            const category = await db.collection('categories').findOne({_id: ObjectID(req.params.id)});
+            res.json(category)
+        } catch {
+            res.status(500).render('main/404');
+        }
+    })
 
     server.get('/api/icons', checkAuthenticated, (req, res) => {
         try {
