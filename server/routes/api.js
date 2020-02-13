@@ -179,6 +179,15 @@ module.exports = function(server, db) {
         }
     });
 
+    server.get('/api/category/id/:id', async (req, res) => {
+        try {
+            const category = await db.collection('categories').findOne({_id: ObjectID(req.params.id)});
+            res.json(category)
+        } catch {
+            res.status(500).render('main/404');
+        }
+    })
+
     server.get('/api/icons', checkAuthenticated, (req, res) => {
         try {
             const icons = fs.readdirSync('dist/public/img/service-icons');

@@ -3,8 +3,9 @@ import { apiService } from "../services/api.service";
 import { renderIcons } from "../templates/icons.template";
 
 export class CategoryEditModal extends Modal {
-    constructor(id, open, close) {
+    constructor(id, open, close, {loader}) {
         super(id, open, close);
+        this.loader = loader;
     }
 
     // перепишем метод для перевода ивента open в событие onchange
@@ -27,19 +28,25 @@ export class CategoryEditModal extends Modal {
     }
     
     async openHandler(e) {
-        const data = JSON.parse(e.target.value),
-            icons = await apiService.getIcons();
-            
-        this.$img.innerHTML = `<option value='${data.img}' selected>Оставить прежнюю</option>`;
-        this.$id.value = data.id;
-        this.$originalTitle.value = data.title[0].toUpperCase() + data.title.slice(1);
-        this.$title.value = data.title[0].toUpperCase() + data.title.slice(1);
-        this.$type.value = data.type;
-        this.$format.value = data.format;
-        this.$img.insertAdjacentHTML('beforeend', renderIcons(icons));
-        M.FormSelect.init(this.$img);
-        M.textareaAutoResize(this.$type);
-        M.updateTextFields();
+        try {
+            this.loader.show();
+            const icons = await apiService.getIcons(),
+                category = await apiService.getCategoryById(e.target.value)
+                
+            this.$img.innerHTML = `<option value='${category.img}' selected>Оставить прежнюю</option>`;
+            this.$id.value = category._id;
+            this.$originalTitle.value = category.title[0].toUpperCase() + category.title.slice(1);
+            this.$title.value = category.title[0].toUpperCase() + category.title.slice(1);
+            this.$type.value = category.type;
+            this.$format.value = category.format;
+            this.$img.insertAdjacentHTML('beforeend', renderIcons(icons));
+            M.FormSelect.init(this.$img);
+            M.textareaAutoResize(this.$type);
+            M.updateTextFields();
+            this.loader.hide();
+        } catch (error) {
+            alert('Произошла ошибка, обновите страницу')
+        }
     }
 
     async updateCategory(e) {

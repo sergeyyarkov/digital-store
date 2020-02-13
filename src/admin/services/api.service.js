@@ -13,6 +13,15 @@ class ApiService {
             console.error(err);
         }
     }
+    
+    async getCategoryById(id) {
+        try {
+            const request = `${this.url}/api/category/id/${id}`;
+            return useRequest(request);
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     async getCategories() {
         try {
