@@ -110,7 +110,7 @@ module.exports = function(server, db) {
 
     server.get('/api/buyers/:bill_id', checkAuthenticated, async (req, res) => {
         try {
-            const buyers = await db.collection('buyers').find({bill_id: req.params.bill_id}).toArray();
+            const buyers = await db.collection('buyers').findOne({bill_id: req.params.bill_id});
             res.json(buyers);
         } catch {
             res.status(500).render('main/404');

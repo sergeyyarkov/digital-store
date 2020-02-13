@@ -106,6 +106,15 @@ class ApiService {
         }
     }
 
+    async getBuyerById(id) {
+        try {
+            const request = `${this.url}/api/buyers/${id}`;
+            return useRequest(request);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async getBuyersOffset(page) {
         try {
             const request = `${this.url}/api/buyers/page/${page}`;

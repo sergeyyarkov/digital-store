@@ -1,8 +1,10 @@
 import { Modal } from "../core/modal";
+import { apiService } from "../services/api.service";
 
 export class BillDataModal extends Modal {
-    constructor(id, open, close) {
+    constructor(id, open, close, {loader}) {
         super(id, open, close);
+        this.loader = loader
     }
 
     show(e) {
@@ -22,16 +24,23 @@ export class BillDataModal extends Modal {
         this.$data = this.$el.querySelector('#data');
     }
 
-    openHandler(e) {
-        const data = JSON.parse(e.target.parentNode.parentNode.dataset.info);
-        this.$bill_id.value = data.bill_id;
-        this.$email.value = data.email;
-        this.$method.value = data.method;
-        this.$date.value = data.date;
-        this.$amount.value = data.amount;
-        this.$data.textContent = data.data.split(',').join('\n');
+    async openHandler(e) {
+        try {
+            this.loader.show();
+            const buyer = await apiService.getBuyerById(e.target.parentNode.parentNode.dataset.id)
 
-        M.textareaAutoResize(this.$data);
-        M.updateTextFields();
+            this.$bill_id.value = buyer.bill_id;
+            this.$email.value = buyer.email;
+            this.$method.value = buyer.method[0].toUpperCase() + buyer.method.slice(1);
+            this.$date.value = buyer.date;
+            this.$amount.value = buyer.amount;
+            this.$data.textContent = buyer.data.join('\n');
+
+            M.textareaAutoResize(this.$data);
+            M.updateTextFields();
+            this.loader.hide();
+        } catch (error) {
+            alert('Произошла ошибка, обновите страницу')
+        }
     }
 }

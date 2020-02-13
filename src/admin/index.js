@@ -28,7 +28,7 @@ const administrator = new AdministratorComponent('administrator');
 const itemEdit = new ItemEditModal('editItemModal', 'edit', 'editItemClose', {loader});
 const itemDelete = new ItemDeleteModal('deleteItemModal', 'edit', 'deleteItemClose');
 const categoryEdit = new CategoryEditModal('editCategoryModal', 'editCategory_select', 'editCategoryClose');
-const billData = new BillDataModal('billDataModal', 'dashboard', 'billDataClose');
+const billData = new BillDataModal('billDataModal', 'dashboard', 'billDataClose', {loader});
 
 const materialize = new MaterializeConfig();
 console.log('Control-Panel v1.0.0');
