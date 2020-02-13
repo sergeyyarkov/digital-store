@@ -31,10 +31,11 @@ export class ItemEditModal extends Modal {
             const id = e.target.parentNode.parentNode.dataset.id,
                 item = await apiService.getItemById(id),
                 data = await apiService.getDataById(id),
-                categories = await apiService.getCategories();
+                categories = await apiService.getCategories(),
+                category = await apiService.getCategory(item.category);
             item.data = data.data
 
-            this.$category.innerHTML = `<option value='{"title": "${item.category}"}' selected>Оставить прежнюю</option>`;
+            this.$category.innerHTML = `<option value='${category[0]._id}' selected>Оставить прежнюю</option>`;
             this.$id.value = item._id;
             this.$title.value = item.title;
             this.$price.value = item.price;
