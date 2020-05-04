@@ -1,0 +1,47 @@
+version: '3'
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - MONGO_INITDB_DATABASE=digital_store
+    ports:
+      - '27017'
+    restart: always
+    volumes:
+      - ./data/backup:/backup
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+  nodejs:
+    container_name: nodejs
+    restart: always
+    build: .
+    ports:
+      - '3000'
+    environment:
+      - DATABASE_NAME=digital_store
+      - DATABASE_URI=mongodb://root:secret@mongodb:27017
+      - EMAIL_LOGIN=
+      - EMAIL_PASSWORD=
+      - HOSTNAME_URI=
+      - QIWI_SECRET_KEY=
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./data/nginx:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
