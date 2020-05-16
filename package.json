@@ -1,6 +1,6 @@
 {
   "name": "digital-store",
-  "version": "1.1.1",
+  "version": "1.0.0",
   "description": "",
   "main": "server/server.js",
   "scripts": {
@@ -27,6 +27,7 @@
     "express-flash": "0.0.2",
     "express-session": "^1.17.0",
     "log4js": "^6.1.0",
+    "marked": "^1.1.0",
     "method-override": "^3.0.0",
     "mongodb": "^3.3.4",
     "multer": "^1.4.2",

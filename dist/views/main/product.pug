@@ -39,15 +39,15 @@ main.main-section
                 .product-right__title
                   span Описание:
                   hr
-                  p #{description}
+                  != description
                 .product-right__content
                   h2 Тип аккаунтов  #{category}
-                  p #{type}
+                  != type
                   h2 Формат аккаунтов #{category}
-                  p #{format}
+                  != format
                   hr
                   h3 Рекомендации к покупке аккаунтов.
-                  p #{store.recommendations}
+                  != store.recommendations
                       
                   h3 Отзывы о товаре
                 #disqus_thread
