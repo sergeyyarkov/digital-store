@@ -16,7 +16,7 @@ main.main-section
             .information-title
               h2.small-title Важная информация:
             .information-text
-              p(style="white-space: pre-wrap;") #{store.info}
+              != store.info
             .information-close
               button#information-close.waves-effect.btn.red Закрыть
       // Information Block END
@@ -95,7 +95,7 @@ main.main-section
                 .items-info__title.block-title
                   i.material-icons info
                   h3.med-title Информация
-                p(style="white-space: pre-wrap;") #{store.infoBottom}
+                != store.infoBottom
       // Items Block END
 
 //- Footer Template
